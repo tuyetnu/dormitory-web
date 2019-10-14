@@ -16,6 +16,15 @@ import { RegisterComponent } from './views/register/register.component';
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatStepperModule,
+  MatInputModule,
+} from '@angular/material';
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -27,6 +36,7 @@ import {
   AppHeaderModule,
   AppFooterModule,
   AppSidebarModule,
+
 } from '@coreui/angular';
 
 // Import routing module
@@ -36,6 +46,8 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { ArrageComponent } from './views/student/arrage/arrage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 let config = new AuthServiceConfig([
   {
@@ -61,7 +73,12 @@ export function provideConfig() {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatToolbarModule, MatButtonModule, MatSidenavModule,
+    MatIconModule, MatListModule, MatStepperModule,
+    MatInputModule,
   ],
   declarations: [
     AppComponent,
@@ -69,7 +86,8 @@ export function provideConfig() {
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ArrageComponent
   ],
   providers: [{
     provide: AuthServiceConfig,
