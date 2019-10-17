@@ -51,7 +51,10 @@ import { ArrageComponent } from './views/student/arrage/arrage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {NgxPaginationModule} from 'ngx-pagination'; 
+import {NgxPaginationModule} from 'ngx-pagination';
+import { SetRequestDateComponent } from './views/request/set-request-date/set-request-date.component'; 
+import {AngularDateTimePickerModule} from 'angular2-datetimepicker';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -83,7 +86,9 @@ export function provideConfig() {
     MatIconModule, MatListModule, MatStepperModule,
     MatInputModule,
     NgbModule,
-    NgxPaginationModule 
+    NgxPaginationModule,
+    AngularDateTimePickerModule, 
+    AngularMultiSelectModule
   ],
   declarations: [
     AppComponent,
@@ -94,6 +99,7 @@ export function provideConfig() {
     RegisterComponent,
     ArrageComponent,
     StudentManagermentComponent,
+    SetRequestDateComponent,
   ],
   providers: [{
     provide: AuthServiceConfig,
