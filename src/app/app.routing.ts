@@ -9,6 +9,7 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { ArrageComponent } from './views/student/arrage/arrage.component';
+import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
 
 export const routes: Routes = [
   {
@@ -57,6 +58,10 @@ export const routes: Routes = [
       {
         path: 'arrange',
         component: ArrageComponent
+      },
+      {
+        path: 'student-managerment',
+        component: StudentManagermentComponent
       },
       {
         path: 'buttons',

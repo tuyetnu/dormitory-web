@@ -48,6 +48,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ArrageComponent } from './views/student/arrage/arrage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 let config = new AuthServiceConfig([
   {
@@ -79,6 +81,7 @@ export function provideConfig() {
     MatToolbarModule, MatButtonModule, MatSidenavModule,
     MatIconModule, MatListModule, MatStepperModule,
     MatInputModule,
+    NgbModule
   ],
   declarations: [
     AppComponent,
@@ -87,7 +90,8 @@ export function provideConfig() {
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ArrageComponent
+    ArrageComponent,
+    StudentManagermentComponent
   ],
   providers: [{
     provide: AuthServiceConfig,

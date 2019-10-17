@@ -31,27 +31,60 @@ export interface NavData {
 
 export const navItems: NavData[] = [
   {
-    name: 'Dashboard',
+    name: 'Xem thống kê',
     url: '/dashboard',
     icon: 'icon-speedometer',
   },
   {
-    name: 'Sinh viên',
-    url: '/',
+    name: 'Quản lí sinh viên',
+    url: '/student-managerment',
     icon: 'icon-puzzle',
     children: [
       {
-        name: 'Xếp phòng từ danh sách',
-        url: '/arrange',
-        icon: 'icon-puzzle'
+        name: 'Danh sách sinh viên',
+        url: '/student-managerment',
+        icon: 'icon-cursor'
       },
       {
-        name: 'Quản lí sinh viên',
-        url: '/base/carousels',
-        icon: 'icon-puzzle'
-      },
-    ]
+        name: 'Xếp phòng',
+        url: '/buttons/dropdowns',
+        icon: 'icon-cursor'
+      }
+      ]
   },
+  {
+    name: 'Quản lí danh sách yêu cầu',
+    url: '/student-managerment',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'Đặt ngày nhận yêu cầu',
+        url: '/buttons/buttons',
+        icon: 'icon-cursor'
+      },
+          {
+            name: 'Yêu cầu đặt phòng',
+            url: '/buttons/buttons',
+            icon: 'icon-cursor'
+          },
+          {
+            name: 'Yêu cầu chuyển phòng',
+            url: '/buttons/dropdowns',
+            icon: 'icon-cursor'
+          },
+          {
+            name: 'Yêu cầu gia hạn hợp đồng',
+            url: '/buttons/brand-buttons',
+            icon: 'icon-cursor'
+          },
+          {
+            name: 'Yêu cầu huỷ hợp đồng',
+            url: '/buttons/brand-buttons',
+            icon: 'icon-cursor'
+          }
+        ]
+  },
+  
   {
     name: 'Quản lí phòng',
     url: '/theme/typography',
@@ -67,6 +100,12 @@ export const navItems: NavData[] = [
     url: '/base',
     icon: 'icon-puzzle',
   },
+  {
+    name: 'Quản lí thiết bị',
+    url: '/base',
+    icon: 'icon-puzzle',
+  },
+  
   // {
   //   name: 'Buttons',
   //   url: '/buttons',
