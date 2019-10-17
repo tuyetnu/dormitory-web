@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-arrage',
@@ -7,25 +7,19 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./arrage.component.scss']
 })
 export class ArrageComponent implements OnInit {
-
-  isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  arrangeClick = false;
-
-  constructor(private _formBuilder: FormBuilder) {}
+  collection = [];
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+    for (let i = 1; i <= 100; i++) {
+      this.collection.push(`item ${i}`);
+    }
   }
 
-  arrangeRoom(): void {
-    this.arrangeClick = true
+  open(content) {
+    this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+
+    });
   }
 
 }

@@ -16,6 +16,7 @@ import { RegisterComponent } from './views/register/register.component';
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
+import * as $ from 'jquery';
 import {
   MatToolbarModule,
   MatButtonModule,
@@ -50,7 +51,7 @@ import { ArrageComponent } from './views/student/arrage/arrage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {NgxPaginationModule} from 'ngx-pagination'; 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -81,7 +82,8 @@ export function provideConfig() {
     MatToolbarModule, MatButtonModule, MatSidenavModule,
     MatIconModule, MatListModule, MatStepperModule,
     MatInputModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule 
   ],
   declarations: [
     AppComponent,
@@ -91,7 +93,7 @@ export function provideConfig() {
     LoginComponent,
     RegisterComponent,
     ArrageComponent,
-    StudentManagermentComponent
+    StudentManagermentComponent,
   ],
   providers: [{
     provide: AuthServiceConfig,

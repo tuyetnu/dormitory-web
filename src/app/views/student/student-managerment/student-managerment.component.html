@@ -5,34 +5,18 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-2">
-                                <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="open(import)">Import danh sách</button>
-                                <div class="clearfix"></div>
-                            </div>
-
                             <div class="col-md-4">
                                 <form class="navbar-form">
                                     <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Search..." id="searchValue">
-                                        <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        <input type="text" value="" class="form-control" placeholder="Search..."
+                                            id="searchValue">
+                                        <button mat-raised-button type="submit"
+                                            class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
                                             <i class="material-icons">search</i>
                                             <div class="ripple-container"></div>
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="styled-select blue semi-square col-md-2" style="margin-top: 10px; margin-left: 10px">
-                                <!-- <select (change)="filterStore($event)">
-                                    <option *ngFor="let store of stores" value="{{store.id}}" id="storeId">
-                                        {{store.name}}</option>
-                                </select> -->
-                            </div>
-                            <div class="styled-select blue semi-square col-md-2" style="margin-top: 10px; margin-left: 10px">
-                                <!-- <select (change)="filterCate($event)">
-                                    <option value="">All Category</option>
-                                    <option *ngFor="let category of categories" value="{{category.id}}" id="categoryId">
-                                        {{category.name}}</option>
-                                </select> -->
                             </div>
                         </div>
                     </div>
@@ -41,43 +25,35 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Danh sách đã xếp phòng</h4>
+                        <h4 class="card-title ">Tổng số sinh viên trong kí túc xá: 200</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table" style="text-align: center">
                                 <thead class=" text-primary">
+                                    <th>Mã số sinh viên</th>
                                     <th>Tên</th>
-                                    <th>Giới tính</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Địa chỉ</th>  
-                                    <th>Ngày sinh</th>
-                                    <th>CMND</th>
-                                    <th>Năm nhập học</th>
-                                    <th>Khoá</th>
-                                    <th>Email</th>
-                                    <th>Phòng</th>
-
+                                    <th>Ngày hết hạn hợp đồng</th>
+                                    <th>Trạng thái thanh toán phí</th>
+                                    <th>Trạng thái hợp đồng</th>
+                                    <th>Thao tác
+                                    <th>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr *ngFor="let food of foods">
-                                        <td>{{food.id}}</td>
-                                        <td>{{food.name}}</td>
-                                        <td>{{food.price}}</td>
-                                        <td>{{food.activated}}</td>
-                                        <td>{{food.store.name}}</td>
-                                        <td>{{food.category.name}}</td>
-                                        <td><img src="{{food.imageUrl}}" height="100px" width="100px" /></td>
-                                        <td>{{food.status}}</td>
-                                        <td>
-                                            <button mat-raised-button class="btn btn-danger" (click)="EditFood(food.id)">Edit</button>
-                                        </td>
-                                    </tr> -->
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>SE62525</td>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>1/11/2019</td>
+                                        <td>Đã thanh toán</td>
+                                        <td>Đang ở</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                                tiết</button></td>
+                                    </tr>
 
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <a class="prenext round" (click)="changePage(-1)">&#8249;</a>Trang số {{page+1}} trong {{totalPage}} trang<a class="prenext round" (click)="changePage(1)">&#8250;</a>
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -88,43 +64,133 @@
     </div>
 </div>
 
-<ng-template #import let-modal>
+<ng-template #detail let-modal>
     <div class="modal-header">
-        <h4 class="modal-title modal-header" id="modal-basic-title">Import danh sách sinh viên</h4>
+        <h4>Chi tiết sinh viên</h4>
     </div>
-    <div class="modal-body modal-basic-title col-md-12 row no-padding-no-margin">
-            <div class="card-body" style="height: 400px">
-                    <mat-horizontal-stepper linear #stepper>
-                        <mat-step [stepControl]="firstFormGroup">
-                          <form [formGroup]="firstFormGroup" style="margin-top: 40px;">
-                            <ng-template matStepLabel>Import danh sách sinh viên</ng-template>
-                            <input type="file" class="form-control-file" formControlName="firstCtrl" required>
-                              <button mat-button matStepperNext class="btn-default">Tiếp</button>
-                          </form>
-                        </mat-step>
-                        <mat-step [stepControl]="secondFormGroup">
-                          <form [formGroup]="secondFormGroup" style="text-align: center; margin-top: 40px;">
-                            <ng-template matStepLabel>Click "Xếp phòng"</ng-template>
-                            <button type="button" class="btn btn-primary" formControlName="secondCtrl" (click)="arrangeRoom()">Xếp phòng</button>
-                            <div>
-                              <button mat-button matStepperPrevious>Back</button>
-                              <button mat-button matStepperNext [hidden]="!arrangeClick">Next</button>
-                            </div>
-                          </form>
-                        </mat-step>
-                        <mat-step>
-                          <ng-template matStepLabel>Lấy danh sách đã xếp phòng</ng-template>
-                          You are now done.
-                          <div>
-                            <!-- <button mat-button matStepperPrevious>Back</button> -->
-                            <button mat-button>Finish</button>
-                          </div>
-                        </mat-step>
-                      </mat-horizontal-stepper>
-                      
-              </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card">Create</button>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(1)">
+                    <h4 class="card-title ">Thông tin sinh viên</h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[1]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Mã số sinh viên</th>
+                                <th>Ngày vào KTX</th>
+                                <th>Ngày hết hợp đồng</th>
+                                <th>Trạng thái thanh toán phí</th>
+                                <th>Điểm rèn luyện</th>
+                                <th>Phòng
+                                <th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>SE62525</td>
+                                    <td>1/11/2018</td>
+                                    <td>1/11/2019</td>
+                                    <td>Đã thanh toán</td>
+                                    <td>100</td>
+                                    <td>201A</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(2)">
+                    <h4 class="card-title ">Lịch sử thanh toán</h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[2]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Phí chỗ ở</th>
+                                <th>Phí điện nước</th>
+                                <th>Ngày thanh toán</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(3)">
+                    <h4 class="card-title ">Lịch sử chuyển phòng</h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[3]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Phòng cũ</th>
+                                <th>Phòng mới</th>
+                                <th>Ngày chuyển phòng</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>201A</td>
+                                    <td>220A</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(4)">
+                    <h4 class="card-title ">Lịch sử trừ điểm</h4>
+                </div>
+                <div class="card-body" [hidden] = "!showList[4]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Lỗi vi phạm</th>
+                                <th>Số điểm trừ</th>
+                                <th>Ngày trừ điểm</th>
+                                <th>Nhân viên trừ điểm</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>

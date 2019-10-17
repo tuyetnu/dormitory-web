@@ -47,7 +47,7 @@ export const navItems: NavData[] = [
       },
       {
         name: 'Xếp phòng',
-        url: '/buttons/dropdowns',
+        url: '/arrange',
         icon: 'icon-cursor'
       }
       ]

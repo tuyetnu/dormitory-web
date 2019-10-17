@@ -1,36 +1,103 @@
-<div class="animated fadeIn">
-    <div class="card">
-      <div class="card-header">
-        Headings
-      </div>
-      <div class="card-body" style="height: 400px">
-        <mat-horizontal-stepper linear #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-              <form [formGroup]="firstFormGroup" style="margin-top: 40px;">
-                <ng-template matStepLabel>Import danh sách sinh viên</ng-template>
-                <input type="file" class="form-control-file" formControlName="firstCtrl" required>
-                  <button mat-button matStepperNext class="btn-default">Tiếp</button>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-              <form [formGroup]="secondFormGroup" style="text-align: center; margin-top: 40px;">
-                <ng-template matStepLabel>Click "Xếp phòng"</ng-template>
-                <button type="button" class="btn btn-primary" formControlName="secondCtrl" (click)="arrangeRoom()">Xếp phòng</button>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext [hidden]="!arrangeClick">Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Lấy danh sách đã xếp phòng</ng-template>
-              You are now done.
-              <div>
-                <!-- <button mat-button matStepperPrevious>Back</button> -->
-                <button mat-button>Finish</button>
+<div class="main-content" style="margin-top: 10px">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-2">
+                              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="open(import)">Import danh sách</button>
+                              <div class="clearfix"></div>
+                          </div>
+
+                          <div class="col-md-4">
+                              <form class="navbar-form">
+                                  <div class="input-group no-border">
+                                      <input type="text" value="" class="form-control" placeholder="Search..." id="searchValue">
+                                      <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                          <i class="material-icons">search</i>
+                                          <div class="ripple-container"></div>
+                                      </button>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="styled-select blue semi-square col-md-2" style="margin-top: 10px; margin-left: 10px">
+                              <!-- <select (change)="filterStore($event)">
+                                  <option *ngFor="let store of stores" value="{{store.id}}" id="storeId">
+                                      {{store.name}}</option>
+                              </select> -->
+                          </div>
+                          <div class="styled-select blue semi-square col-md-2" style="margin-top: 10px; margin-left: 10px">
+                              <!-- <select (change)="filterCate($event)">
+                                  <option value="">All Category</option>
+                                  <option *ngFor="let category of categories" value="{{category.id}}" id="categoryId">
+                                      {{category.name}}</option>
+                              </select> -->
+                          </div>
+                      </div>
+                  </div>
               </div>
-            </mat-step>
-          </mat-horizontal-stepper>
+          </div>
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Danh sách đã xếp phòng</h4>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table" style="text-align: center">
+                              <thead class=" text-primary">
+                                  <th>Tên</th>
+                                  <th>Giới tính</th>
+                                  <th>Số điện thoại</th>
+                                  <th>Địa chỉ</th>  
+                                  <th>Ngày sinh</th>
+                                  <th>CMND</th>
+                                  <th>Năm nhập học</th>
+                                  <th>Khoá</th>
+                                  <th>Email</th>
+                                  <th>Phòng</th>
+
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Nam</td>
+                                    <td>0964482740</td>
+                                    <td>HCM</td>
+                                    <td>1/11/1997</td>   
+                                    <td>215432589</td> 
+                                    <td>2017</td>
+                                    <td>13B</td>
+                                    <td>namnttse62525@fpt.edu.vn</td>
+                                    <td>201A</td>
+                                </tr>
+
+                              </tbody>
+                          </table>
+                          <div class="paging">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                       </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<ng-template #import let-modal>
+  <div class="modal-header">
+      <h4>Import danh sách sinh viên</h4>
+  </div>
+  <div class="modal-body modal-basic-title col-md-12 row">
+          
+      &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file" name="myFile">&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-secondary">Import</button>
           
   </div>
-  
+  <div class="modal-footer">
+      <button type="button" class="btn btn-success save shadow-card">Xếp phòng</button>
+  </div>
+</ng-template>
