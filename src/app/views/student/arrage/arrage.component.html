@@ -1,0 +1,36 @@
+<div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header">
+        Headings
+      </div>
+      <div class="card-body" style="height: 400px">
+        <mat-horizontal-stepper linear #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup" style="margin-top: 40px;">
+                <ng-template matStepLabel>Import danh sách sinh viên</ng-template>
+                <input type="file" class="form-control-file" formControlName="firstCtrl" required>
+                  <button mat-button matStepperNext class="btn-default">Tiếp</button>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup" style="text-align: center; margin-top: 40px;">
+                <ng-template matStepLabel>Click "Xếp phòng"</ng-template>
+                <button type="button" class="btn btn-primary" formControlName="secondCtrl" (click)="arrangeRoom()">Xếp phòng</button>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext [hidden]="!arrangeClick">Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Lấy danh sách đã xếp phòng</ng-template>
+              You are now done.
+              <div>
+                <!-- <button mat-button matStepperPrevious>Back</button> -->
+                <button mat-button>Finish</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+          
+  </div>
+  
