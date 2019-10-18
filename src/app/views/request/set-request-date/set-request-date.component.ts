@@ -32,9 +32,23 @@ export class SetRequestDateComponent implements OnInit {
     selectAllText: 'Tất cả',
     classes: "form-control form-group",
     labelKey: "name",
-    maxHeight: 240,
+    maxHeight: 300,
     showCheckbox: true,
   };
+  dropdownList = [
+    { "id": 1, "name": "Tất cả" },
+    { "id": 5, "name": "Đặt phòng" },
+    { "id": 2, "name": "Chuyển phòng" },
+    { "id": 3, "name": "Gia hạn hợp đồng" },
+    { "id": 4, "name": "Huỷ họp đồng" },
+  ];
+  onItemSelect(item: any) { }
+
+  onSelectAll(item: any) { }
+
+  onDeSelectAll(item: any) { }
+
+  OnItemDeSelect(item: any) { }
   ngOnInit() {
   }
 

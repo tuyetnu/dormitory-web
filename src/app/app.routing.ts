@@ -11,6 +11,12 @@ import { RegisterComponent } from './views/register/register.component';
 import { ArrageComponent } from './views/student/arrage/arrage.component';
 import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
 import { SetRequestDateComponent } from './views/request/set-request-date/set-request-date.component';
+import { RoomBookingRequestComponent } from './views/request/room-booking-request/room-booking-request.component';
+import { RoomTransferRequestComponent } from './views/request/room-transfer-request/room-transfer-request.component';
+import { RenewContractRequestComponent } from './views/request/renew-contract-request/renew-contract-request.component';
+import { CancleContracRequestComponent } from './views/request/cancle-contrac-request/cancle-contrac-request.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { RoomManagementComponent } from './views/room/room-management/room-management.component';
 
 export const routes: Routes = [
   {
@@ -53,8 +59,8 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+        path: 'dashboard',
+        component: DashboardComponent
       },
       {
         path: 'arrange',
@@ -69,24 +75,24 @@ export const routes: Routes = [
         component: SetRequestDateComponent
       },
       {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
+        path: 'room-booking-request',
+        component: RoomBookingRequestComponent
       },
       {
-        path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
+        path: 'room-transfer-request',
+        component: RoomTransferRequestComponent
       },
       {
-        path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+        path: 'renew-contract-request',
+        component: RenewContractRequestComponent
       },
       {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
+        path: 'cancle-contract-request',
+        component: CancleContracRequestComponent
       },
       {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
+        path: 'room-management',
+        component: RoomManagementComponent
       },
       {
         path: 'theme',

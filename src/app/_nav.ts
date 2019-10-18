@@ -64,22 +64,22 @@ export const navItems: NavData[] = [
       },
           {
             name: 'Yêu cầu đặt phòng',
-            url: '/buttons/buttons',
+            url: '/room-booking-request',
             icon: 'icon-cursor'
           },
           {
             name: 'Yêu cầu chuyển phòng',
-            url: '/buttons/dropdowns',
+            url: '/room-transfer-request',
             icon: 'icon-cursor'
           },
           {
             name: 'Yêu cầu gia hạn hợp đồng',
-            url: '/buttons/brand-buttons',
+            url: '/renew-contract-request',
             icon: 'icon-cursor'
           },
           {
             name: 'Yêu cầu huỷ hợp đồng',
-            url: '/buttons/brand-buttons',
+            url: '/cancle-contract-request',
             icon: 'icon-cursor'
           }
         ]
@@ -87,7 +87,7 @@ export const navItems: NavData[] = [
   
   {
     name: 'Quản lí phòng',
-    url: '/theme/typography',
+    url: '/room-management',
     icon: 'icon-pencil'
   },
   {

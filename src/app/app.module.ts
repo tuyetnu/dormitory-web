@@ -55,6 +55,12 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { SetRequestDateComponent } from './views/request/set-request-date/set-request-date.component'; 
 import {AngularDateTimePickerModule} from 'angular2-datetimepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { RoomBookingRequestComponent } from './views/request/room-booking-request/room-booking-request.component';
+import { RoomTransferRequestComponent } from './views/request/room-transfer-request/room-transfer-request.component';
+import { RenewContractRequestComponent } from './views/request/renew-contract-request/renew-contract-request.component';
+import { CancleContracRequestComponent } from './views/request/cancle-contrac-request/cancle-contrac-request.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { RoomManagementComponent } from './views/room/room-management/room-management.component';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -100,6 +106,12 @@ export function provideConfig() {
     ArrageComponent,
     StudentManagermentComponent,
     SetRequestDateComponent,
+    RoomBookingRequestComponent,
+    RoomTransferRequestComponent,
+    RenewContractRequestComponent,
+    CancleContracRequestComponent,
+    DashboardComponent,
+    RoomManagementComponent
   ],
   providers: [{
     provide: AuthServiceConfig,

@@ -1,0 +1,195 @@
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form class="navbar-form">
+                                    <div class="input-group no-border">
+                                        <input type="text" value="" class="form-control" placeholder="Search..."
+                                            id="searchValue">
+                                        <button mat-raised-button type="submit"
+                                            class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Tổng số yêu cầu đặt phòng: 200</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align: center">
+                                <thead class=" text-primary">
+                                    <th>Mã số sinh viên</th>
+                                    <th>Tên</th>
+                                    <th>Loại phòng</th>
+                                    <th>Số tháng muốn ở</th>
+                                    <th>Thao tác</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>SE62525</td>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>Phòng thường</td>
+                                        <td>12 tháng</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                                tiết</button></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="paging">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #detail let-modal>
+    <div class="modal-header">
+        <h4>Chi tiết yêu cầu đặt phòng</h4>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(0)">
+                    <h4 class="card-title">Thông tin yêu cầu đặt phòng
+                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
+                    </h4>
+
+                </div>
+                <div class="card-body" [hidden]="!showList[0]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Mã số sinh viên</th>
+                                <th>Tên</th>
+                                <th>Loại phòng</th>
+                                <th>Số tháng muốn ở</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SE62525</td>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Phòng thường</td>
+                                    <td>12 tháng</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(1)">
+                    <h4 class="card-title ">Thông tin chi tiết sinh viên
+                        <i class="fa fa-caret-down" style="font-size:48px; float: right;"></i>
+                    </h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[1]">
+                    <div class="table-responsive">
+                        <div class="col-md-12">
+                            <table style="font-size: 18px;">
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td class="width-20"></td>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                </tr>
+                                <tr>
+                                    <td>MSSV:</td>
+                                    <td class="width-20"></td>
+                                    <td>SE62525</td>
+                                </tr>
+                                <tr>
+                                    <td>Giới tính:</td>
+                                    <td class="width-20"></td>
+                                    <td>Nam</td>
+                                </tr>
+                                <tr>
+                                    <td>SĐT:</td>
+                                    <td class="width-20"></td>
+                                    <td>0964482740</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày sinh:</td>
+                                    <td class="width-20"></td>
+                                    <td>20/10/2000</td>
+                                </tr>
+                                <tr>
+                                    <td>Địa chỉ:</td>
+                                    <td class="width-20"></td>
+                                    <td>HCM</td>
+                                </tr>
+                                <tr>
+                                    <td>CMND:</td>
+                                    <td class="width-20"></td>
+                                    <td>215432589</td>
+                                </tr>
+                                <tr>
+                                    <td>Khoá:</td>
+                                    <td class="width-20"></td>
+                                    <td>12B</td>
+                                </tr>
+                                <tr>
+                                    <td>Đối tượng ưu tiên:</td>
+                                    <td class="width-20"></td>
+                                    <td>Loại 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí dự kiến:</td>
+                                    <td class="width-20"></td>
+                                    <td>800.000 vnđ</td>
+                                </tr>
+
+                            </table>
+                            <hr>
+                            <table style="font-size: 18px;">
+                                <thead>
+                                    <tr style="width: 100%">
+                                        <th class="width-33">Hình CMND:</th>
+                                        <th class="width-33">Hình thẻ sinh viên:</th>
+                                        <th class="width-33">Hình đối tượng ưu tiên:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image"></td>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image"></td>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6" style="float: left">
+        <div class="col-md-2"></div>
+        <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card">Từ chối</button>
+    </div>
+</ng-template>
