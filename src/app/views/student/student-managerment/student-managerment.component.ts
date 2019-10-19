@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class StudentManagermentComponent implements OnInit {
   collection = [];
-  showList = [false, false, false, false];
+  showList = [true, false, false, false];
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -17,7 +17,7 @@ export class StudentManagermentComponent implements OnInit {
     }
   }
   open(content) {
-    this.showList.fill(false);
+    this.showList = [true, false, false, false];
     this.modalService.open(content, { size: 'xl', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });
   }
@@ -26,5 +26,11 @@ export class StudentManagermentComponent implements OnInit {
     var tmp = this.showList[index];
     this.showList.fill(false);
     this.showList[index] = !tmp;
+    $(".fa").removeClass("fa-caret-down").removeClass("fa-caret-right");
+    $(".fa").addClass("fa-caret-right");
+    if(this.showList[index] == true){
+      $(".fa").eq(index).removeClass("fa-caret-right");
+      $(".fa").eq(index).addClass("fa-caret-down");
+    }
   }
 }

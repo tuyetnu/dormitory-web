@@ -8,6 +8,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class RoomManagementComponent implements OnInit {
   collection = [];
   showList = [false, false];
+  theCheckbox1 = false;
+  theCheckbox2 = false;
+  theCheckbox3 = false;
+  theCheckbox4 = false;
+  theCheckbox5 = false;
+  marked = true;
   constructor(private modalService: NgbModal) { }
   dropdownList = [
     { "id": 1, "name": "Bình thường" },
@@ -48,4 +54,7 @@ export class RoomManagementComponent implements OnInit {
     this.showList.fill(false);
     this.showList[index] = !tmp;
   }
+  toggleVisibility(e){
+    this.marked= e.target.checked;
+  }    
 }

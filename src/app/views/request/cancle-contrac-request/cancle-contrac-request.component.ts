@@ -16,7 +16,7 @@ export class CancleContracRequestComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'xl', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
 
     });
   }

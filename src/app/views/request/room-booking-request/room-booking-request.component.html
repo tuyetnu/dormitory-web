@@ -76,25 +76,30 @@
                 </div>
                 <div class="card-body" [hidden]="!showList[0]">
                     <div class="table-responsive">
-                        <table class="table" style="text-align: center">
-                            <thead class=" text-primary">
-                                <th>Mã số sinh viên</th>
-                                <th>Tên</th>
-                                <th>Loại phòng</th>
-                                <th>Số tháng muốn ở</th>
-                            </thead>
-                            <tbody>
+                        <table style="font-size: 18px;">
                                 <tr>
-                                    <td>SE62525</td>
+                                    <td>Tên:</td>
+                                    <td class="width-20"></td>
                                     <td>Nguyễn Hoàng Nam</td>
-                                    <td>Phòng thường</td>
-                                    <td>12 tháng</td>
-
                                 </tr>
-
-                            </tbody>
-                        </table>
+                                <tr>
+                                    <td>MSSV:</td>
+                                    <td class="width-20"></td>
+                                    <td>SE62525</td>
+                                </tr>
+                                <tr>
+                                    <td>Loại phòng:</td>
+                                    <td class="width-20"></td>
+                                    <td>Loại thường</td>
+                                </tr>
+                                <tr>
+                                    <td>Số tháng muốn ở:</td>
+                                    <td class="width-20"></td>
+                                    <td>12 tháng</td>
+                                </tr>
+                            </table>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -163,9 +168,10 @@
 
                             </table>
                             <hr>
-                            <table style="font-size: 18px;">
+                            <!-- <table style="font-size: 18px;">
                                 <thead>
                                     <tr style="width: 100%">
+                                        <th style="width: 10%"></th>
                                         <th class="width-33">Hình CMND:</th>
                                         <th class="width-33">Hình thẻ sinh viên:</th>
                                         <th class="width-33">Hình đối tượng ưu tiên:</th>
@@ -173,13 +179,35 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image"></td>
-                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image"></td>
-                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image"></td>
+                                        <th style="width: 10%"></th>
+                                        <td class="width-33 zoom"><img src="assets/img/no-image-icon.jpeg"
+                                                alt="No image"></td>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image">
+                                        </td>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image">
+                                        </td>
                                     </tr>
                                 </tbody>
-                            </table>
-
+                            </table> -->
+                            <div style="margin-bottom:25px">
+                                    <div style="display:block;"
+                                         [style.width]="width">
+                                      <slideshow #slideshow
+                                                 [imageUrls]="imageUrls"
+                                                 [height]="height"
+                                                 [minHeight]="minHeight"
+                                                 [arrowSize]="arrowSize"
+                                                 [showArrows]="showArrows" 
+                                                 [backgroundSize]="backgroundSize"
+                                                 [backgroundPosition]="backgroundPosition" 
+                                                 [showDots]="showDots"
+                                                 [dotColor]="dotColor"
+                                                 [showCaptions]="showCaptions"
+                                                 [captionColor]="captionColor"
+                                                 [captionBackground]="captionBackground">
+                                      </slideshow>
+                                    </div>
+                                  </div>
                         </div>
                     </div>
                 </div>
@@ -187,7 +215,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6" style="float: left">
+        <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6"
+            style="float: left">
         <div class="col-md-2"></div>
         <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
         <button type="button" class="btn btn-danger save shadow-card">Từ chối</button>

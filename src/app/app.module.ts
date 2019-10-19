@@ -61,6 +61,7 @@ import { RenewContractRequestComponent } from './views/request/renew-contract-re
 import { CancleContracRequestComponent } from './views/request/cancle-contrac-request/cancle-contrac-request.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/room/room-management/room-management.component';
+import {SlideshowModule} from 'ng-simple-slideshow';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -73,6 +74,7 @@ export function provideConfig() {
 }
 @NgModule({
   imports: [
+    SlideshowModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
