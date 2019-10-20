@@ -3,45 +3,19 @@
       <div class="row">
           <div class="col-md-12">
               <div class="card">
-                  <div class="card-body">
-                      <div class="row">
-                          <div class="col-md-2">
-                              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="open(import)">Import danh sách</button>
-                              <div class="clearfix"></div>
-                          </div>
-
-                          <div class="col-md-4">
-                              <form class="navbar-form">
-                                  <div class="input-group no-border">
-                                      <input type="text" value="" class="form-control" placeholder="Search..." id="searchValue">
-                                      <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                          <i class="material-icons">search</i>
-                                          <div class="ripple-container"></div>
-                                      </button>
-                                  </div>
-                              </form>
-                          </div>
-                          <div class="styled-select blue semi-square col-md-2" style="margin-top: 10px; margin-left: 10px">
-                              <!-- <select (change)="filterStore($event)">
-                                  <option *ngFor="let store of stores" value="{{store.id}}" id="storeId">
-                                      {{store.name}}</option>
-                              </select> -->
-                          </div>
-                          <div class="styled-select blue semi-square col-md-2" style="margin-top: 10px; margin-left: 10px">
-                              <!-- <select (change)="filterCate($event)">
-                                  <option value="">All Category</option>
-                                  <option *ngFor="let category of categories" value="{{category.id}}" id="categoryId">
-                                      {{category.name}}</option>
-                              </select> -->
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-12">
-              <div class="card">
                   <div class="card-header card-header-danger">
-                      <h5>Danh sách đã xếp phòng</h5>
+                      <h6><b>Danh sách đã xếp phòng</b>
+                            <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="open(import)">Import danh sách</button>
+                            <form class="navbar-form col-md-4" style="float: right;">
+                                    <div class="input-group no-border">
+                                        <input type="text" value="" class="form-control" placeholder="Search..." id="searchValue">
+                                        <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </form>
+                      </h6>
                   </div>
                   <div class="card-body">
                       <div class="table-responsive">

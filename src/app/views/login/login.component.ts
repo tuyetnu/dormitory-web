@@ -7,24 +7,18 @@ import { SocialUser } from "angularx-social-login";
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css']
 })
-export class LoginComponent { 
+export class LoginComponent {
   private user: SocialUser;
   private loggedIn: boolean;
- 
   constructor(private authService: AuthService ) { }
- 
   signInWithGoogle(): void {
     if (this.user != null) {
       this.signOut();
-    }
-    
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
- 
   signOut(): void {
     this.authService.signOut();
   }
-  
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;

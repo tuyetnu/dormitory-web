@@ -3,29 +3,21 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <form class="navbar-form">
-                                    <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Search..."
-                                            id="searchValue">
-                                        <button mat-raised-button type="submit"
-                                            class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                            <i class="material-icons">search</i>
-                                            <div class="ripple-container"></div>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5>Tổng số sinh viên trong kí túc xá: 200</h5>
+                        <h6>Tổng SV trong KTX: <b>200</b>
+                                <form class="navbar-form col-md-4" style="float: right;">
+                                        <div class="input-group no-border">
+                                            <input type="text" value="" class="form-control" placeholder="Search..."
+                                                id="searchValue">
+                                            <button mat-raised-button type="submit"
+                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                                <i class="material-icons">search</i>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                        </div>
+                                    </form>
+                        </h6>
+                        
                     </div>
                     <div class="card-body">
                         <div>
@@ -64,19 +56,19 @@
 
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <h4>Chi tiết sinh viên</h4>
+        <h4><b>Chi tiết sinh viên</b></h4>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(0)">
-                    <h4 class="card-title ">Thông tin sinh viên
-                        <i class="fa fa-caret-down" style="font-size:48px; float: right;"></i>
-                    </h4>
+                    <h5>Thông tin sinh viên
+                        <i class="fa fa-caret-down" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
                 <div class="card-body" [hidden]="!showList[0]">
                     <div class="table-responsive">
-                        <table style="font-size: 18px;">
+                        <table style="font-size: 16px;">
                             <tr>
                                 <td>Tên:</td>
                                 <td class="width-20"></td>
@@ -121,9 +113,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(1)">
-                    <h4 class="card-title ">Lịch sử thanh toán
-                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
-                    </h4>
+                    <h5>Lịch sử thanh toán
+                        <i class="fa fa-caret-right" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
                 <div class="card-body" [hidden]="!showList[1]">
                     <div class="table-responsive">
@@ -163,9 +155,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(2)">
-                    <h4 class="card-title ">Lịch sử chuyển phòng
-                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
-                    </h4>
+                    <h5>Lịch sử chuyển phòng
+                        <i class="fa fa-caret-right" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
                 <div class="card-body" [hidden]="!showList[2]">
                     <div class="table-responsive">
@@ -199,9 +191,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(3)">
-                    <h4 class="card-title ">Lịch sử trừ điểm
-                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
-                    </h4>
+                    <h5>Lịch sử trừ điểm
+                        <i class="fa fa-caret-right" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
                 <div class="card-body" [hidden]="!showList[3]">
                     <div class="table-responsive">
