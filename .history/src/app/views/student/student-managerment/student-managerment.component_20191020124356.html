@@ -1,0 +1,246 @@
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form class="navbar-form">
+                                    <div class="input-group no-border">
+                                        <input type="text" value="" class="form-control" placeholder="Search..."
+                                            id="searchValue">
+                                        <button mat-raised-button type="submit"
+                                            class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div>
+                        <h6>Tổng số sinh viên trong kí túc xá: 200</h6>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-hover" style="text-align: center;">
+                                <thead class="thead-dark">
+                                    <th>Tên</th>
+                                    <th>MSSV</th>
+                                    <th>Trạng thái thanh toán</th>
+                                    <th>Ngày hết hạn HĐ</th>
+                                    <th>Trạng thái HĐ</th>
+                                    <th>Thao tác</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>SE62525</td>
+                                        <td>Đã thanh toán</td>
+                                        <td>1/11/2019</td>
+                                        <td>Đang ở</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="paging">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #detail let-modal>
+    <div class="modal-header">
+        <h4>Chi tiết sinh viên</h4>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(0)">
+                    <h4 class="card-title ">Thông tin sinh viên
+                        <i class="fa fa-caret-down" style="font-size:48px; float: right;"></i>
+                    </h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[0]">
+                    <div class="table-responsive">
+                        <table style="font-size: 18px;">
+                            <tr>
+                                <td>Tên:</td>
+                                <td class="width-20"></td>
+                                <td>Nguyễn Hoàng Nam</td>
+                            </tr>
+                            <tr>
+                                <td>MSSV:</td>
+                                <td class="width-20"></td>
+                                <td>SE62525</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày vào KTX:</td>
+                                <td class="width-20"></td>
+                                <td>05/12/2018</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày hết hợp đồng:</td>
+                                <td class="width-20"></td>
+                                <td>05/12/2019</td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái thanh toán phí:</td>
+                                <td class="width-20"></td>
+                                <td style="color: green">Đã thanh toán</td>
+                            </tr>
+                            <tr>
+                                <td>Điểm rèn luyện:</td>
+                                <td class="width-20"></td>
+                                <td>90</td>
+                            </tr>
+                            <tr>
+                                <td>Phòng:</td>
+                                <td class="width-20"></td>
+                                <td>201A</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(1)">
+                    <h4 class="card-title ">Lịch sử thanh toán
+                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
+                    </h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[1]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Phí chỗ ở</th>
+                                <th>Phí điện nước</th>
+                                <th>Ngày thanh toán</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(2)">
+                    <h4 class="card-title ">Lịch sử chuyển phòng
+                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
+                    </h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[2]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Phòng cũ</th>
+                                <th>Phòng mới</th>
+                                <th>Ngày chuyển phòng</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>201A</td>
+                                    <td>220A</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>201A</td>
+                                    <td>220A</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(3)">
+                    <h4 class="card-title ">Lịch sử trừ điểm
+                        <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
+                    </h4>
+                </div>
+                <div class="card-body" [hidden]="!showList[3]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Lỗi vi phạm</th>
+                                <th>Số điểm trừ</th>
+                                <th>Ngày trừ điểm</th>
+                                <th>Nhân viên trừ điểm</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

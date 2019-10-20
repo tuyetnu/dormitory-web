@@ -58,7 +58,7 @@ export const navItems: NavData[] = [
     icon: 'icon-puzzle',
     children: [
       {
-        name: 'Đặt ngày',
+        name: 'Đặt ngày đóng hệ thống',
         url: '/setDate',
         icon: 'icon-cursor'
       },

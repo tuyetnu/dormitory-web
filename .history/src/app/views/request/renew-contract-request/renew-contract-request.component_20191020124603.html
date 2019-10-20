@@ -25,24 +25,23 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5>Tổng số yêu cầu chuyển phòng: 200</h5>
+                        <h5>Tổng số yêu cầu gia hạn hợp đồng: 200</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-dark">
+                            <table class="table" style="text-align: center">
+                                <thead class=" text-primary">       
                                     <th>Tên</th>
                                     <th>Mã số sinh viên</th>
-                                    <th>Loại phòng muốn chuyển sang</th>
+                                    <th>Phòng đang ở</th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">  
                                         <td>Nguyễn Hoàng Nam</td>
                                         <td>SE62525</td>
-                                        <td>Phòng thường</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
-                                                tiết</button></td>
+                                        <td>209A</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
                                     </tr>
 
                                 </tbody>
@@ -61,52 +60,48 @@
 
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <h4>Chi tiết yêu cầu chuyển phòng</h4>
+        <h4>Chi tiết yêu cầu gia hạn hợp đồng</h4>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h4 class="card-title ">Thông tin yêu cầu chuyển phòng</h4>
+                    <h4 class="card-title ">Thông tin yêu cầu gia hạn hợp đồng</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table style="font-size: 18px;">
-                            <tr>
-                                <td>Tên:</td>
-                                <td style="width: 20%"></td>
-                                <td>Nguyễn Hoàng Nam</td>
-                            </tr>
-                            <tr>
-                                <td>MSSV:</td>
-                                <td style="width: 20%"></td>
-                                <td>SE62525</td>
-                            </tr>
-                            <tr>
-                                <td>Lí do</td>
-                                <td style="width: 20%"></td>
-                                <td>Cần chuyển loại phòng</td>
-                            </tr>
-                        </table>
-                        <hr>
-                        <table style="font-size: 18px;">
-                            <tr>
-                                <th>Phòng đang ở</th>
-                                <th style="width: 20%"></th>
-                                <th>Phòng chuyển sang</th>
-                            </tr>
-                            <tr>
-                                <td>Số phòng: 201A</td>
-                                <td style="width: 20%"></td>
-                                <td>Số phòng: 209A</td>
-                            </tr>
-                            <tr>
-                                <td>Loại phòng: Thường</td>
-                                <td style="width: 20%"></td>
-                                <td>Loại phòng: Dịch vụ</td>
-                            </tr>
-                        </table>
-
+                                <tr>
+                                    <td>Tên:</td>
+                                    <td class="width-20"></td>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                </tr>
+                                <tr>
+                                    <td>MSSV:</td>
+                                    <td class="width-20"></td>
+                                    <td>SE62525</td>
+                                </tr>
+                                <tr>
+                                    <td>Phòng đang ở:</td>
+                                    <td class="width-20"></td>
+                                    <td>201A</td>
+                                </tr>
+                                <tr>
+                                    <td>Loại phòng đang ở:</td>
+                                    <td class="width-20"></td>
+                                    <td>Phòng thường</td>
+                                </tr>
+                                <tr>
+                                    <td>Số tháng muốn gia hạn:</td>
+                                    <td class="width-20"></td>
+                                    <td>12 tháng</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí dự kiến:</td>
+                                    <td class="width-20"></td>
+                                    <td>800.000 vnđ</td>
+                                </tr>
+                            </table>
                     </div>
                 </div>
             </div>
