@@ -4,18 +4,19 @@
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h6><b>Danh sách đã xếp phòng</b>
-                            <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="open(import)">Import danh sách</button>
+                      <h5><b>Danh sách đã xếp phòng</b>
+                            <button mat-raised-button type="button" class="btn btn-outline-secondary btn-sm pull-right text-color" (click)="open(import)"><b><i class="fa fa-paperclip fa-2x" aria-hidden="true"></i></b>&nbsp;&nbsp; DSSV</button>
+                            <button mat-raised-button type="button" class="btn btn-outline-secondary btn-sm pull-right button-download text-color" (click)="download()"><i class="fa fa-download fa-2x" aria-hidden="true"></i> Excel Mẫu</button>
                             <form class="navbar-form col-md-4" style="float: right;">
                                     <div class="input-group no-border">
                                         <input type="text" value="" class="form-control" placeholder="Search..." id="searchValue">
-                                        <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        <button mat-raised-button type="button" class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
                                             <i class="material-icons">search</i>
                                             <div class="ripple-container"></div>
                                         </button>
                                     </div>
                                 </form>
-                      </h6>
+                      </h5>
                   </div>
                   <div class="card-body">
                       <div class="table-responsive">
@@ -67,7 +68,7 @@
   </div>
   <div class="modal-body modal-basic-title col-md-12 row">
           
-      &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file" name="myFile">&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="myFile">&nbsp;&nbsp;&nbsp;
               <button type="button" class="btn btn-secondary">Import</button>
           
   </div>

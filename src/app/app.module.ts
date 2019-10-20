@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,8 +15,8 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import * as $ from 'jquery';
 import {
   MatToolbarModule,
@@ -62,13 +63,14 @@ import { CancleContracRequestComponent } from './views/request/cancle-contrac-re
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/room/room-management/room-management.component';
 import {SlideshowModule} from 'ng-simple-slideshow';
-let config = new AuthServiceConfig([
+import { LogoutComponent } from './views/logout/logout.component';
+const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("617553831115-9gu00bnls8ovuie9djvtvc5it444pst1.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider('617553831115-9gu00bnls8ovuie9djvtvc5it444pst1.apps.googleusercontent.com')
   }
 ]);
- 
+
 export function provideConfig() {
   return config;
 }
@@ -95,8 +97,9 @@ export function provideConfig() {
     MatInputModule,
     NgbModule,
     NgxPaginationModule,
-    AngularDateTimePickerModule, 
-    AngularMultiSelectModule
+    AngularDateTimePickerModule,
+    AngularMultiSelectModule,
+    HttpClientModule
   ],
   declarations: [
     AppComponent,
@@ -113,7 +116,8 @@ export function provideConfig() {
     RenewContractRequestComponent,
     CancleContracRequestComponent,
     DashboardComponent,
-    RoomManagementComponent
+    RoomManagementComponent,
+    LogoutComponent
   ],
   providers: [{
     provide: AuthServiceConfig,

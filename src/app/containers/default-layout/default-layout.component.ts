@@ -1,6 +1,7 @@
 import { Component, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { navItems } from '../../_nav';
+import { AuthService } from 'angularx-social-login';
 
 
 @Component({
@@ -12,8 +13,9 @@ export class DefaultLayoutComponent implements OnDestroy {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement;
+  public photoUrl;
   constructor(@Inject(DOCUMENT) _document?: any) {
-
+    this.photoUrl = sessionStorage.getItem('photoUrl');
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = _document.body.classList.contains('sidebar-minimized');
     });

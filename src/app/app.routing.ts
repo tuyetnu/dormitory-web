@@ -1,3 +1,4 @@
+import { LogoutComponent } from './views/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -43,6 +44,10 @@ export const routes: Routes = [
     data: {
       title: 'Login Page'
     }
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
   },
   {
     path: 'register',

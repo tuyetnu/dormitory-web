@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-arrage',
@@ -8,7 +8,7 @@ import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ArrageComponent implements OnInit {
   collection = [];
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
     for (let i = 1; i <= 100; i++) {
@@ -20,6 +20,15 @@ export class ArrageComponent implements OnInit {
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
 
     });
+  }
+
+  download() {
+    const link = document.createElement('a');
+    link.setAttribute('type', 'hidden');
+    link.href = 'assets/file/dssv.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
 }
