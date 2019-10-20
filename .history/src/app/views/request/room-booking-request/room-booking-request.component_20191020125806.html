@@ -63,15 +63,15 @@
 
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <h4><b>Chi tiết yêu cầu đặt phòng</b></h4>
+        <h4>Chi tiết yêu cầu đặt phòng</h4>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(0)">
-                    <h5>Thông tin yêu cầu đặt phòng
+                    <h4 class="card-title">Thông tin yêu cầu đặt phòng
                         <i class="fa fa-caret-right" style="font-size:48px; float: right;"></i>
-                    </h5>
+                    </h4>
 
                 </div>
                 <div class="card-body" [hidden]="!showList[0]">
@@ -107,9 +107,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(1)">
-                    <h5>Thông tin chi tiết sinh viên
+                    <h4 class="card-title ">Thông tin chi tiết sinh viên
                         <i class="fa fa-caret-down" style="font-size:48px; float: right;"></i>
-                    </h5>
+                    </h4>
                 </div>
                 <div class="card-body" [hidden]="!showList[1]">
                     <div class="table-responsive">
@@ -168,6 +168,27 @@
 
                             </table>
                             <hr>
+                            <!-- <table style="font-size: 18px;">
+                                <thead>
+                                    <tr style="width: 100%">
+                                        <th style="width: 10%"></th>
+                                        <th class="width-33">Hình CMND:</th>
+                                        <th class="width-33">Hình thẻ sinh viên:</th>
+                                        <th class="width-33">Hình đối tượng ưu tiên:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 10%"></th>
+                                        <td class="width-33 zoom"><img src="assets/img/no-image-icon.jpeg"
+                                                alt="No image"></td>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image">
+                                        </td>
+                                        <td class="width-33"><img src="assets/img/no-image-icon.jpeg" alt="No image">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
                             <div style="margin-bottom:25px">
                                     <div style="display:block;"
                                          [style.width]="width">
