@@ -25,28 +25,27 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Tổng số sinh viên trong kí túc xá: 200</h4>
+                        <h5>Tổng số sinh viên trong kí túc xá: 200</h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table" style="text-align: center">
-                                <thead class=" text-primary">
-                                    <th>Mã số sinh viên</th>
+                        <div>
+                            <table class="table table-hover" style="text-align: center;">
+                                <thead class="thead-dark ">
                                     <th>Tên</th>
-                                    <th>Ngày hết hạn hợp đồng</th>
-                                    <th>Trạng thái thanh toán phí</th>
-                                    <th>Trạng thái hợp đồng</th>
+                                    <th>MSSV</th>
+                                    <th>Trạng thái thanh toán</th>
+                                    <th>Ngày hết hạn HĐ</th>
+                                    <th>Trạng thái HĐ</th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>SE62525</td>
                                         <td>Nguyễn Hoàng Nam</td>
-                                        <td>1/11/2019</td>
+                                        <td>SE62525</td>
                                         <td>Đã thanh toán</td>
+                                        <td>1/11/2019</td>
                                         <td>Đang ở</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
-                                                tiết</button></td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
                                     </tr>
 
                                 </tbody>

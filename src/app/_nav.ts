@@ -53,7 +53,7 @@ export const navItems: NavData[] = [
       ]
   },
   {
-    name: 'Quản lí danh sách yêu cầu',
+    name: 'Danh sách yêu cầu',
     url: '/student-managerment',
     icon: 'icon-puzzle',
     children: [
@@ -73,7 +73,7 @@ export const navItems: NavData[] = [
             icon: 'icon-cursor'
           },
           {
-            name: 'Yêu cầu gia hạn hợp đồng',
+            name: 'Yêu cầu gia hạn HĐ',
             url: '/renew-contract-request',
             icon: 'icon-cursor'
           },
@@ -84,7 +84,6 @@ export const navItems: NavData[] = [
           }
         ]
   },
-  
   {
     name: 'Quản lí phòng',
     url: '/room-management',
@@ -105,7 +104,6 @@ export const navItems: NavData[] = [
     url: '/base',
     icon: 'icon-puzzle',
   },
-  
   // {
   //   name: 'Buttons',
   //   url: '/buttons',
