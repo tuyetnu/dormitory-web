@@ -1,0 +1,145 @@
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h5><b>Danh sách nhân sự</b>
+                            <div class="col-md-2" style="float: right;">
+                                <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                    (click)="openCreate(create)">Thêm nhân sự</button>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="col-md-4" style="float: right;">
+                                <form class="navbar-form">
+                                    <div class="input-group no-border">
+                                        <input type="text" value="" class="form-control" placeholder="Search..."
+                                            id="searchValue">
+                                        <button mat-raised-button type="submit"
+                                            class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="text-align: center">
+                                <thead class="thead-dark">
+                                    <th>Tên</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Quê quán</th>
+                                    <th>Số điện thoại</th>
+                                    <th>CMND</th>
+                                    <th>Ảnh hồ sơ</th>
+                                    <th>Thao tác</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>Nguyễn Văn A</td>
+                                        <td>08/12/1995</td>
+                                        <td>HCM</td>
+                                        <td>0987754627</td>
+                                        <td>0987754627</td>
+                                        <td><img src="./assets/img/avatar/1.jpg"/></td>
+                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
+                                            Sửa</button>
+                                            &nbsp;
+                                        <button type="button" class="btn btn-danger">
+                                            Xoá</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="paging">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #create let-modal>
+    <div class="modal-header">
+        <h4>Thêm nhân sự</h4>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Tên: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12 ">
+            <label for="exampleFormControlSelect1">Ngày sinh: </label>
+            <angular2-date-picker id="datetimepicker" [(ngModel)]="startdate"
+            [settings]="settings1">
+        </angular2-date-picker>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Quê quán: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Số điện thoại: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">CMND: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12">
+                <label>Ảnh hồ sơ: </label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="file" id="inputExcel" accept=".img" name="myFile">
+
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+    </div>
+</ng-template>
+<ng-template #update let-modal>
+    <div class="modal-header">
+        <h4>Sửa nhân sự</h4>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Tên: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12 ">
+            <label for="exampleFormControlSelect1">Ngày sinh: </label>
+            <angular2-date-picker id="datetimepicker" [(ngModel)]="startdate"
+            [settings]="settings1">
+        </angular2-date-picker>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Quê quán: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Số điện thoại: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">CMND: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12">
+                <label>Ảnh hồ sơ: </label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="file" id="inputExcel" accept=".img" name="myFile">
+
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+    </div>
+</ng-template>
