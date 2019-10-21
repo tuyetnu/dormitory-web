@@ -48,6 +48,11 @@ export class RoomManagementComponent implements OnInit {
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });
   }
+  openCreate(content) {
+    this.showList = [true, false, false];
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    });
+  }
 
   show(index) {
     const tmp = this.showList[index];

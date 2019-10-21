@@ -58,6 +58,9 @@ export class ArrageComponent implements OnInit {
       dataString = dataString.replace(/CMND/g, 'IdentityNumber');
       dataString = dataString.replace(/Năm nhập học/g, 'YearStart');
       dataString = dataString.replace(/Khoá/g, 'Term');
+      dataString = dataString.replace(/Số tháng muốn ở/g, 'Month');
+      dataString = dataString.replace(/Độ ưu tiên/g, 'Priority');
+      dataString = dataString.replace(/Loại phòng/g, 'RoomType');
       console.log(dataString);
     };
     reader.readAsBinaryString(file);
