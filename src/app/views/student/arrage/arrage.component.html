@@ -68,8 +68,8 @@
   </div>
   <div class="modal-body modal-basic-title col-md-12 row">
           
-      &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="myFile">&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-secondary">Import</button>
+      &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file" id="inputExcel" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="myFile">&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-secondary" (click)="importFileExcel()">Import</button>
           
   </div>
   <div class="modal-footer">

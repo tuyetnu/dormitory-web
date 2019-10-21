@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-arrage',
@@ -29,6 +30,37 @@ export class ArrageComponent implements OnInit {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  importFileExcel(): void {
+    let workBook = null;
+    let jsonData = null;
+    const reader = new FileReader();
+    const file = $('#inputExcel').prop('files')[0];
+    console.log(file);
+    reader.onload = (event) => {
+      const data = reader.result;
+      workBook = XLSX.read(data, { type: 'binary' });
+      jsonData = workBook.SheetNames.reduce((initial, name) => {
+        const sheet = workBook.Sheets[name];
+        initial[name] = XLSX.utils.sheet_to_json(sheet);
+        return initial;
+      }, {});
+      jsonData = jsonData.Sheet1;
+      jsonData.forEach(elm => delete elm.STT);
+      let dataString = JSON.stringify(jsonData);
+      dataString = dataString.replace(/Họ và tên/g, 'Fullname');
+      dataString = dataString.replace(/MSSV/g, 'StudentCode');
+      dataString = dataString.replace(/Giới tính/g, 'Gender');
+      dataString = dataString.replace(/Số điện thoại/g, 'PhoneNumber');
+      dataString = dataString.replace(/Địa chỉ/g, 'Address');
+      dataString = dataString.replace(/Ngày sinh/g, 'Birthday');
+      dataString = dataString.replace(/CMND/g, 'IdentityNumber');
+      dataString = dataString.replace(/Năm nhập học/g, 'YearStart');
+      dataString = dataString.replace(/Khoá/g, 'Term');
+      console.log(dataString);
+    };
+    reader.readAsBinaryString(file);
   }
 
 }
