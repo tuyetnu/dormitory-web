@@ -52,6 +52,8 @@ export class ArrageComponent implements OnInit {
       dataString = dataString.replace(/Họ và tên/g, 'Fullname');
       dataString = dataString.replace(/MSSV/g, 'StudentCode');
       dataString = dataString.replace(/Giới tính/g, 'Gender');
+      dataString = dataString.replace(/Nam/g, 'TRUE');
+      dataString = dataString.replace(/Nữ/g, 'FALSE');
       dataString = dataString.replace(/Số điện thoại/g, 'PhoneNumber');
       dataString = dataString.replace(/Địa chỉ/g, 'Address');
       dataString = dataString.replace(/Ngày sinh/g, 'Birthday');

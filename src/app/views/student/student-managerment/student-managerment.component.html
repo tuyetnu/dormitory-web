@@ -5,19 +5,19 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Tổng SV trong KTX: 200</b>
-                                <form class="navbar-form col-md-4" style="float: right;">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control" placeholder="Search..."
-                                                id="searchValue">
-                                            <button mat-raised-button type="submit"
-                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                                <i class="material-icons">search</i>
-                                                <div class="ripple-container"></div>
-                                            </button>
-                                        </div>
-                                    </form>
+                            <form class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Search..."
+                                        id="searchValue">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </form>
                         </h5>
-                        
+
                     </div>
                     <div class="card-body">
                         <div>
@@ -37,7 +37,10 @@
                                         <td>Đã thanh toán</td>
                                         <td>1/11/2019</td>
                                         <td>Đang ở</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                        <td><button type="button" class="btn btn-secondary" (click)="open(detail)">Chi
+                                                tiết</button>
+                                            &nbsp;<button type="button" class="btn btn-danger">
+                                                Xoá</button></td>
                                     </tr>
 
                                 </tbody>

@@ -90,8 +90,8 @@ export const navItems: NavData[] = [
     icon: 'icon-pencil'
   },
   {
-    name: 'Quản lí nhân viên',
-    url: '/base',
+    name: 'Quản lí nhân sự',
+    url: '/staff-management',
     icon: 'icon-puzzle',
   },
   {

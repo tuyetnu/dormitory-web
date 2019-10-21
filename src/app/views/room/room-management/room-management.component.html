@@ -44,9 +44,12 @@
                                         <td>10</td>
                                         <td><button type="button" class="btn btn-secondary" (click)="open(detail)">Chi
                                                 tiết</button>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <button type="button" class="btn btn-secondary" (click)="open(update)">Chỉnh
-                                                sửa</button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-success" (click)="openCreate(update)">
+                                                Sửa</button>
+                                                &nbsp;
+                                            <button type="button" class="btn btn-danger">
+                                                Xoá</button>
                                         </td>
                                     </tr>
 
@@ -66,6 +69,41 @@
 <ng-template #create let-modal>
     <div class="modal-header">
         <h4>Thêm phòng</h4>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Tên phòng: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12 ">
+            <label for="exampleFormControlSelect1">Loại phòng</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>Loại thường</option>
+                <option>Loại dịch vụ</option>
+            </select>
+        </div>
+        <div class="form-group col-md-12">
+                <label>Trang thiết bị</label>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                    <ul id="check-list-box" class="list-group checked-list-box">
+                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Gường<input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Bàn  <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ quần áo <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox4"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Quạt <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ lạnh <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Điều hoà <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                    </ul>
+                </div>
+                <pre id="display-json"></pre>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+    </div>
+</ng-template>
+<ng-template #update let-modal>
+    <div class="modal-header">
+        <h4>Chỉnh sửa phòng</h4>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="form-group col-md-12">
