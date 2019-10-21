@@ -46,14 +46,14 @@ export class RoomBookingRequestComponent implements OnInit {
     });
   }
   show(index) {
-    var tmp = this.showList[index];
+    const tmp = this.showList[index];
     this.showList.fill(false);
     this.showList[index] = !tmp;
-    $(".fa").removeClass("fa-caret-down").removeClass("fa-caret-right");
-    $(".fa").addClass("fa-caret-right");
-    if (this.showList[index] == true) {
-      $(".fa").eq(index).removeClass("fa-caret-right");
-      $(".fa").eq(index).addClass("fa-caret-down");
+    $('.detail').removeClass('fa-caret-down').removeClass('fa-caret-right');
+    $('.detail').addClass('fa-caret-right');
+    if (this.showList[index] === true) {
+      $('.detail').eq(index).removeClass('fa-caret-right');
+      $('.detail').eq(index).addClass('fa-caret-down');
     }
   }
 

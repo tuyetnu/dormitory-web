@@ -7,7 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RoomManagementComponent implements OnInit {
   collection = [];
-  showList = [false, false];
+  showList = [true, false, false];
   theCheckbox1 = false;
   theCheckbox2 = false;
   theCheckbox3 = false;
@@ -16,25 +16,25 @@ export class RoomManagementComponent implements OnInit {
   marked = true;
   constructor(private modalService: NgbModal) { }
   dropdownList = [
-    { "id": 1, "name": "Bình thường" },
-    { "id": 5, "name": "Đặt biệt" },
+    { 'id': 1, 'name': 'Bình thường' },
+    { 'id': 5, 'name': 'Đặt biệt' },
   ];
   dropdownList2 = [
-    { "id": 1, "name": "6 sinh viên" },
-    { "id": 5, "name": "8 sinh viên" },
+    { 'id': 1, 'name': '6 sinh viên' },
+    { 'id': 5, 'name': '8 sinh viên' },
   ];
   selectedItems = [];
   dropdownSetting1 = {
-    text: "Chọn loại phòng",
-    classes: "form-control form-group",
-    labelKey: "name",
+    text: 'Chọn loại phòng',
+    classes: 'form-control form-group',
+    labelKey: 'name',
     maxHeight: 240,
     showCheckbox: true,
   };
   dropdownSetting2 = {
-    text: "Chọn số sinh viên",
-    classes: "form-control form-group",
-    labelKey: "name",
+    text: 'Chọn số sinh viên',
+    classes: 'form-control form-group',
+    labelKey: 'name',
     maxHeight: 240,
     showCheckbox: true,
   };
@@ -44,17 +44,24 @@ export class RoomManagementComponent implements OnInit {
     }
   }
   open(content) {
-    this.showList.fill(false);
+    this.showList = [true, false, false];
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });
   }
 
   show(index) {
-    var tmp = this.showList[index];
+    const tmp = this.showList[index];
     this.showList.fill(false);
     this.showList[index] = !tmp;
+    $('.detail').removeClass('fa-caret-down');
+    $('.detail').removeClass('fa-caret-right');
+    $('.detail').addClass('fa-caret-right');
+    if (this.showList[index] === true) {
+      $('.detail').eq(index).removeClass('fa-caret-right');
+      $('.detail').eq(index).addClass('fa-caret-down');
+    }
   }
-  toggleVisibility(e){
-    this.marked= e.target.checked;
-  }    
+  toggleVisibility(e) {
+    this.marked = e.target.checked;
+  }
 }
