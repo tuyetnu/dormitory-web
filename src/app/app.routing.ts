@@ -19,6 +19,7 @@ import { CancleContracRequestComponent } from './views/request/cancle-contrac-re
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/room/room-management/room-management.component';
 import { StaffComponent } from './views/staff/staff.component';
+import { UpdateFeeComponent } from './views/update-fee/update-fee.component';
 
 export const routes: Routes = [
   {
@@ -105,8 +106,8 @@ export const routes: Routes = [
         component: StaffComponent
       },
       {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
+        path: 'update-fee',
+        component: UpdateFeeComponent
       }
     ]
   },

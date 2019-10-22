@@ -95,8 +95,8 @@ export const navItems: NavData[] = [
     icon: 'icon-puzzle',
   },
   {
-    name: 'Quản lí phí',
-    url: '/base',
+    name: 'Cập nhật phí',
+    url: '/update-fee',
     icon: 'icon-puzzle',
   },
   {
