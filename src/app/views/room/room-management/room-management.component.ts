@@ -69,4 +69,6 @@ export class RoomManagementComponent implements OnInit {
   toggleVisibility(e) {
     this.marked = e.target.checked;
   }
+
+
 }

@@ -1,0 +1,40 @@
+<div class="main-content" style="margin-top: 10px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="height: 350px;">
+                    <div class="card-header card-header-danger">
+                        <div class="form-group col-md-4" style="float: left;">
+                            <label for="exampleFormControlSelect1"><b>Chọn loại phí cần cập nhật:</b></label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Phí chỗ ở</option>
+                                <option>Phí điện</option>
+                                <option>Phí nước</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body" style="margin-left: 25%; font-size: 14px;">
+                        <div class="form-group col-md-7">
+                            <label for="exampleFormControlInput1">Phí chỗ ở loại 1: (vnđ) </label>
+                            <input type="number" class="form-control" value="800000"/>
+                        </div>
+                        <div class="form-group col-md-7">
+                            <label for="exampleFormControlInput2">Phí chỗ ở loại 2: (vnđ) </label>
+                            <input type="number" class="form-control" value="1000000"/>
+                        </div>
+                        <div class="form-group col-md-7" [hidden]= "true">
+                            <label for="exampleFormControlInput2">Phí điện: (vnđ) </label>
+                            <input type="number" class="form-control" value="1000000"/>
+                        </div>
+                        <div class="form-group col-md-7" [hidden]= "true">
+                            <label for="exampleFormControlInput2">Phí nước: (vnđ) </label>
+                            <input type="number" class="form-control" value="1000000"/>
+                        </div>
+                    </div>
+                <div class="card-footer">
+                    <button type="button" class="btn-lg btn-success save shadow-card float-right">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
