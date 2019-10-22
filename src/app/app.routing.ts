@@ -1,3 +1,6 @@
+import { EquipmentReportComponent } from './views/staff/equipment-report/equipment-report.component';
+import { StudentComponent } from './views/staff/student/student.component';
+import { EquipmentComponent } from './views/admin/equipment/equipment.component';
 import { LogoutComponent } from './views/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,17 +12,19 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import { ArrageComponent } from './views/student/arrage/arrage.component';
-import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
-import { SetRequestDateComponent } from './views/request/set-request-date/set-request-date.component';
-import { RoomBookingRequestComponent } from './views/request/room-booking-request/room-booking-request.component';
-import { RoomTransferRequestComponent } from './views/request/room-transfer-request/room-transfer-request.component';
-import { RenewContractRequestComponent } from './views/request/renew-contract-request/renew-contract-request.component';
-import { CancleContracRequestComponent } from './views/request/cancle-contrac-request/cancle-contrac-request.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { RoomManagementComponent } from './views/room/room-management/room-management.component';
-import { StaffComponent } from './views/staff/staff.component';
-import { UpdateFeeComponent } from './views/update-fee/update-fee.component';
+import { ArrageComponent } from './views/admin/student/arrage/arrage.component';
+import { StudentManagermentComponent } from './views/admin/student/student-managerment/student-managerment.component';
+import { SetRequestDateComponent } from './views/staff/request/set-request-date/set-request-date.component';
+import { RoomBookingRequestComponent } from './views/staff/request/room-booking-request/room-booking-request.component';
+import { RoomTransferRequestComponent } from './views/staff/request/room-transfer-request/room-transfer-request.component';
+import { RenewContractRequestComponent } from './views/staff/request/renew-contract-request/renew-contract-request.component';
+import { CancleContracRequestComponent } from './views/staff/request/cancle-contrac-request/cancle-contrac-request.component';
+import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
+import { RoomManagementComponent } from './views/admin/room/room-management/room-management.component';
+import { StaffComponent } from './views/admin/staff/staff.component';
+import { UpdateFeeComponent } from './views/admin/update-fee/update-fee.component';
+import { IssueTicketComponent } from './views/staff/issue-ticket/issue-ticket.component';
+import { CreateNewComponent } from './views/admin/create-new/create-new.component';
 
 export const routes: Routes = [
   {
@@ -108,7 +113,27 @@ export const routes: Routes = [
       {
         path: 'update-fee',
         component: UpdateFeeComponent
-      }
+      },
+      {
+        path: 'equipment-management',
+        component: EquipmentComponent
+      },
+      {
+        path: 'student-managerment-staff',
+        component: StudentComponent
+      },
+      {
+        path: 'equipment-report',
+        component: EquipmentReportComponent
+      },
+      {
+        path: 'issue-ticket',
+        component: IssueTicketComponent
+      },
+      {
+        path: 'create-news',
+        component: CreateNewComponent
+      },
     ]
   },
   { path: '**', component: P404Component }

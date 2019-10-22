@@ -48,25 +48,29 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { ArrageComponent } from './views/student/arrage/arrage.component';
+import { ArrageComponent } from './views/admin/student/arrage/arrage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StudentManagermentComponent } from './views/student/student-managerment/student-managerment.component';
+import { StudentManagermentComponent } from './views/admin/student/student-managerment/student-managerment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { SetRequestDateComponent } from './views/request/set-request-date/set-request-date.component'; 
+import { SetRequestDateComponent } from './views/staff/request/set-request-date/set-request-date.component'; 
 import {AngularDateTimePickerModule} from 'angular2-datetimepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
-import { RoomBookingRequestComponent } from './views/request/room-booking-request/room-booking-request.component';
-import { RoomTransferRequestComponent } from './views/request/room-transfer-request/room-transfer-request.component';
-import { RenewContractRequestComponent } from './views/request/renew-contract-request/renew-contract-request.component';
-import { CancleContracRequestComponent } from './views/request/cancle-contrac-request/cancle-contrac-request.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { RoomManagementComponent } from './views/room/room-management/room-management.component';
+import { RoomBookingRequestComponent } from './views/staff/request/room-booking-request/room-booking-request.component';
+import { RoomTransferRequestComponent } from './views/staff/request/room-transfer-request/room-transfer-request.component';
+import { RenewContractRequestComponent } from './views/staff/request/renew-contract-request/renew-contract-request.component';
+import { CancleContracRequestComponent } from './views/staff/request/cancle-contrac-request/cancle-contrac-request.component';
+import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
+import { RoomManagementComponent } from './views/admin/room/room-management/room-management.component';
 import {SlideshowModule} from 'ng-simple-slideshow';
 import { LogoutComponent } from './views/logout/logout.component';
-import { StaffComponent } from './views/staff/staff.component';
-import { UpdateFeeComponent } from './views/update-fee/update-fee.component';
-import { EquipmentComponent } from './views/equipment/equipment.component';
+import { StaffComponent } from './views/admin/staff/staff.component';
+import { UpdateFeeComponent } from './views/admin/update-fee/update-fee.component';
+import { EquipmentComponent } from './views/admin/equipment/equipment.component';
+import { StudentComponent } from './views/staff/student/student.component';
+import { EquipmentReportComponent } from './views/staff/equipment-report/equipment-report.component';
+import { IssueTicketComponent } from './views/staff/issue-ticket/issue-ticket.component';
+import { CreateNewComponent } from './views/admin/create-new/create-new.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -123,7 +127,11 @@ export function provideConfig() {
     LogoutComponent,
     StaffComponent,
     UpdateFeeComponent,
-    EquipmentComponent
+    EquipmentComponent,
+    StudentComponent,
+    EquipmentReportComponent,
+    IssueTicketComponent,
+    CreateNewComponent
   ],
   providers: [{
     provide: AuthServiceConfig,

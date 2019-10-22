@@ -37,7 +37,6 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Quản lí sinh viên',
-    url: '/student-managerment',
     icon: 'icon-puzzle',
     children: [
       {
@@ -54,7 +53,6 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Danh sách yêu cầu',
-    url: '/student-managerment',
     icon: 'icon-puzzle',
     children: [
       {
@@ -101,7 +99,27 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Quản lí thiết bị',
-    url: '/base',
+    url: '/equipment-management',
+    icon: 'icon-puzzle',
+  },
+  {
+    name: 'Tạo thông báo',
+    url: '/create-news',
+    icon: 'icon-puzzle',
+  },
+  {
+    name: 'Quản lí sinh viên (staff)',
+    url: '/student-managerment-staff',
+    icon: 'icon-puzzle',
+  },
+  {
+    name: 'Báo cáo về TTB (staff)',
+    url: '/equipment-report',
+    icon: 'icon-puzzle',
+  },
+  {
+    name: 'Danh sách khiếu nại(staff)',
+    url: '/issue-ticket',
     icon: 'icon-puzzle',
   },
   // {

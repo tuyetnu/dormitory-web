@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IImage } from '../../../module/IImage';
+import { IImage } from '../../../../module/IImage';
 @Component({
   selector: 'app-room-booking-request',
   templateUrl: './room-booking-request.component.html',

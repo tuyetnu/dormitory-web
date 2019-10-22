@@ -1,0 +1,90 @@
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h5><b>Tổng số báo cáo về trang thiết bị: 200</b>
+                                <form class="navbar-form col-md-4" style="float: right;">
+                                        <div class="input-group no-border">
+                                            <input type="text" value="" class="form-control" placeholder="Search..."
+                                                id="searchValue">
+                                            <button mat-raised-button type="submit"
+                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                                <i class="material-icons">search</i>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                        </div>
+                                    </form>
+                        </h5>
+                        
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="text-align: center">
+                                <thead class="thead-dark">       
+                                    <th>ID</th>
+                                    <th>Tên phòng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">  
+                                        <td>1</td>
+                                        <td>201A</td>
+                                        <td style="color: red;">Chưa xử lí</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="paging">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #detail let-modal>
+    <div class="modal-header">
+        <h5><b>Chi tiết báo cáo trang thiết bị</b></h5>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table style="font-size: 18px;">
+                                <tr>
+                                    <td>Thiết bị:</td>
+                                    <td class="width-20"></td>
+                                    <td>Gường tầng</td>
+                                </tr>
+                                <tr>
+                                    <td>Sinh viên chịu trách nhiệm:</td>
+                                    <td class="width-20"></td>
+                                    <td>Nguyễn Văn A</td>
+                                </tr>
+                                <tr>
+                                    <td>Ghi chú:</td>
+                                    <td class="width-20"></td>
+                                    <td>201A</td>
+                                </tr>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6"
+            style="float: left">
+        <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
+    </div>
+</ng-template>
