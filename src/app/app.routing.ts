@@ -18,6 +18,7 @@ import { RenewContractRequestComponent } from './views/request/renew-contract-re
 import { CancleContracRequestComponent } from './views/request/cancle-contrac-request/cancle-contrac-request.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/room/room-management/room-management.component';
+import { StaffComponent } from './views/staff/staff.component';
 
 export const routes: Routes = [
   {
@@ -100,8 +101,8 @@ export const routes: Routes = [
         component: RoomManagementComponent
       },
       {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
+        path: 'staff-management',
+        component: StaffComponent
       },
       {
         path: 'widgets',

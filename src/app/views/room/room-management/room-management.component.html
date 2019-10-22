@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
+                    <div class="card-header card-header-danger">
+                        <h5><b>Danh sách phòng</b>
+                            <div class="col-md-2" style="float: right;">
                                 <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                    (click)="open(create)">Thêm phòng</button>
+                                    (click)="openCreate(create)">Thêm phòng</button>
                                 <div class="clearfix"></div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="float: right;">
                                 <form class="navbar-form">
                                     <div class="input-group no-border">
                                         <input type="text" value="" class="form-control" placeholder="Search..."
@@ -24,29 +24,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="styled-select blue semi-square col-md-2"
-                                style="margin-top: 10px; margin-left: 10px">
-                                <!-- <select (change)="filterStore($event)">
-                                    <option *ngFor="let store of stores" value="{{store.id}}" id="storeId">
-                                        {{store.name}}</option>
-                                </select> -->
-                            </div>
-                            <div class="styled-select blue semi-square col-md-2"
-                                style="margin-top: 10px; margin-left: 10px">
-                                <!-- <select (change)="filterCate($event)">
-                                    <option value="">All Category</option>
-                                    <option *ngFor="let category of categories" value="{{category.id}}" id="categoryId">
-                                        {{category.name}}</option>
-                                </select> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h5>Danh sách phòng</h5>
+                        </h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -54,8 +32,7 @@
                                 <thead class="thead-dark">
                                     <th>Tên phòng</th>
                                     <th>Số lượng sinh viên đang ở</th>
-                                    <th>Trạng thái thanh toán tiền phí tháng
-                                        này</th>
+                                    <th>Trạng thái thanh toán</th>
                                     <th>Số lượng trang thiết bị</th>
                                     <th>Thao tác</th>
                                 </thead>
@@ -67,9 +44,12 @@
                                         <td>10</td>
                                         <td><button type="button" class="btn btn-secondary" (click)="open(detail)">Chi
                                                 tiết</button>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <button type="button" class="btn btn-secondary" (click)="open(update)">Chỉnh
-                                                sửa</button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-success" (click)="openCreate(update)">
+                                                Sửa</button>
+                                                &nbsp;
+                                            <button type="button" class="btn btn-danger">
+                                                Xoá</button>
                                         </td>
                                     </tr>
 
@@ -121,17 +101,54 @@
         <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
     </div>
 </ng-template>
+<ng-template #update let-modal>
+    <div class="modal-header">
+        <h4>Chỉnh sửa phòng</h4>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="form-group col-md-12">
+            <label for="exampleFormControlInput1">Tên phòng: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        </div>
+        <div class="form-group col-md-12 ">
+            <label for="exampleFormControlSelect1">Loại phòng</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>Loại thường</option>
+                <option>Loại dịch vụ</option>
+            </select>
+        </div>
+        <div class="form-group col-md-12">
+                <label>Trang thiết bị</label>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                    <ul id="check-list-box" class="list-group checked-list-box">
+                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Gường<input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Bàn  <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ quần áo <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox4"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Quạt <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ lạnh <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Điều hoà <input type="text" class="form-control col-md-4" style="float:right"/></li>
+                    </ul>
+                </div>
+                <pre id="display-json"></pre>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+    </div>
+</ng-template>
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <h4>Chi tiết phòng: 209A</h4>
+        <h5><b>Chi tiết phòng: 209A</b></h5>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-danger" (click)="show(1)">
-                    <h4 class="card-title ">Danh sách sinh viên đang ở: 4 sinh viên</h4>
+                <div class="card-header card-header-danger" (click)="show(0)">
+                    <h5>Danh sách sinh viên đang ở: 4 sinh viên
+                        <i class="fa fa-caret-down detail" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
-                <div class="card-body" [hidden]="!showList[1]">
+                <div class="card-body" [hidden]="!showList[0]">
                     <div class="table-responsive">
                         <table class="table" style="text-align: center">
                             <thead class=" text-primary">
@@ -180,10 +197,12 @@
 
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-danger" (click)="show(2)">
-                    <h4 class="card-title ">Trạng thái thanh toán phí của từng sinh viên</h4>
+                <div class="card-header card-header-danger" (click)="show(1)">
+                    <h5>Trạng thái thanh toán phí của từng sinh viên
+                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
-                <div class="card-body" [hidden]="!showList[2]">
+                <div class="card-body" [hidden]="!showList[1]">
                     <div class="table-responsive">
                         <table class="table" style="text-align: center">
                             <thead class=" text-primary">
@@ -231,10 +250,12 @@
         </div>
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-danger" (click)="show(3)">
-                    <h4 class="card-title ">Danh sách trang thiết bị: 10 thiết bị</h4>
+                <div class="card-header card-header-danger" (click)="show(2)">
+                    <h5>Danh sách trang thiết bị: 10 thiết bị
+                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                    </h5>
                 </div>
-                <div class="card-body" [hidden]="!showList[3]">
+                <div class="card-body" [hidden]="!showList[2]">
                     <div class="table-responsive">
                         <table class="table" style="text-align: center">
                             <thead class=" text-primary">

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
-  selector: 'app-room-management',
-  templateUrl: './room-management.component.html',
-  styleUrls: ['./room-management.component.scss']
+  selector: 'app-staff',
+  templateUrl: './staff.component.html',
+  styleUrls: ['./staff.component.scss']
 })
-export class RoomManagementComponent implements OnInit {
+export class StaffComponent implements OnInit {
   collection = [];
   showList = [true, false, false];
   theCheckbox1 = false;
@@ -38,6 +38,16 @@ export class RoomManagementComponent implements OnInit {
     maxHeight: 240,
     showCheckbox: true,
   };
+  startdate: Date = new Date();
+
+  enddate: Date = new Date(this.startdate);
+  settings1 = {
+    bigBanner: true,
+    timePicker: true,
+    format: 'dd-MM-yyyy hh:mm a',
+    defaultOpen: false,
+    closeOnSelect: false,
+  };
   ngOnInit() {
     for (let i = 1; i <= 100; i++) {
       this.collection.push(`item ${i}`);
@@ -69,4 +79,5 @@ export class RoomManagementComponent implements OnInit {
   toggleVisibility(e) {
     this.marked = e.target.checked;
   }
+
 }

@@ -64,6 +64,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/room/room-management/room-management.component';
 import {SlideshowModule} from 'ng-simple-slideshow';
 import { LogoutComponent } from './views/logout/logout.component';
+import { StaffComponent } from './views/staff/staff.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -117,7 +118,8 @@ export function provideConfig() {
     CancleContracRequestComponent,
     DashboardComponent,
     RoomManagementComponent,
-    LogoutComponent
+    LogoutComponent,
+    StaffComponent
   ],
   providers: [{
     provide: AuthServiceConfig,
