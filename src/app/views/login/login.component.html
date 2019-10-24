@@ -1,57 +1,29 @@
-<!-- <div class="app-body">
-  <main class="main d-flex align-items-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <div class="card-group">
-            <div class="card p-4">
-              <div class="card-body">
-                <form>
-                  <h1>Login</h1>
-                  <p class="text-muted">Sign In to your account</p>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-user"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" autocomplete="username">
-                  </div>
-                  <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-lock"></i></span>
-                    </div>
-                    <input type="password" class="form-control" placeholder="Password" autocomplete="current-password">
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <button type="button" class="btn btn-primary px-4">Login</button>
-
-                      <button class="btn btn-danger px-4" (click)="signInWithGoogle()"> Login with google</button>
-                    </div>
-
-                    
-                    <div class="col-6 text-right">
-                      <button type="button" class="btn btn-link px-0">Forgot password?</button>
-                    </div>
-                  </div>
-                </form>
+<div class="login-block text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 login-sec">
+        <div class="login-form">
+          <h2 class="text-center">Đăng nhập</h2>
+          <div class="text-center social-btn">
+            <button (click)="signInWithGoogle()" class="btn btn-danger btn-block btn-login col-md-8"><i class="fa fa-google"></i> Sign in with
+              <b>Google</b></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 banner-sec">
+        <div>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg"
+                alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>Quản lí Ký Túc Xá</h2>
+                </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
     </div>
-  </main>
-</div> -->
-
-
-<div class="login-form">
-      <h2 class="text-center">Sign in</h2>		
-      <div class="text-center social-btn">
-          <!-- <a href="#" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
-          <a href="#" class="btn btn-info btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a> -->
-    <button (click)="signInWithGoogle()" class="btn btn-danger btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></button>
-      </div>
-</div>
-
-
+  </div>
