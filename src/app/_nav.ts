@@ -44,43 +44,7 @@ export const navItems: NavData[] = [
         url: '/student-managerment',
         icon: 'icon-cursor'
       },
-      {
-        name: 'Xếp phòng',
-        url: '/arrange',
-        icon: 'icon-cursor'
-      }
-      ]
-  },
-  {
-    name: 'Danh sách yêu cầu',
-    icon: 'icon-puzzle',
-    children: [
-      {
-        name: 'Đặt ngày',
-        url: '/setDate',
-        icon: 'icon-cursor'
-      },
-          {
-            name: 'Yêu cầu đặt phòng',
-            url: '/room-booking-request',
-            icon: 'icon-cursor'
-          },
-          {
-            name: 'Yêu cầu chuyển phòng',
-            url: '/room-transfer-request',
-            icon: 'icon-cursor'
-          },
-          {
-            name: 'Yêu cầu gia hạn HĐ',
-            url: '/renew-contract-request',
-            icon: 'icon-cursor'
-          },
-          {
-            name: 'Yêu cầu huỷ hợp đồng',
-            url: '/cancle-contract-request',
-            icon: 'icon-cursor'
-          }
-        ]
+    ]
   },
   {
     name: 'Quản lí phòng',
@@ -88,9 +52,19 @@ export const navItems: NavData[] = [
     icon: 'icon-pencil'
   },
   {
+    name: 'Danh sách đã duyệt',
+    url: '/approved-request',
+    icon: 'icon-pencil'
+  },
+  {
     name: 'Quản lí nhân sự',
     url: '/staff-management',
     icon: 'icon-puzzle',
+  },
+  {
+    name: 'Đặt ngày',
+    url: '/setDate',
+    icon: 'icon-cursor'
   },
   {
     name: 'Cập nhật phí',
@@ -113,12 +87,44 @@ export const navItems: NavData[] = [
     icon: 'icon-puzzle',
   },
   {
+    name: 'Danh sách yêu cầu',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'Thêm danh sách SV',
+        url: '/arrange',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Yêu cầu đặt phòng',
+        url: '/room-booking-request',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Yêu cầu chuyển phòng',
+        url: '/room-transfer-request',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Yêu cầu gia hạn HĐ',
+        url: '/renew-contract-request',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Yêu cầu huỷ hợp đồng',
+        url: '/cancle-contract-request',
+        icon: 'icon-cursor'
+      },
+
+    ]
+  },
+  {
     name: 'Báo cáo về TTB (staff)',
     url: '/equipment-report',
     icon: 'icon-puzzle',
   },
   {
-    name: 'Danh sách khiếu nại(staff)',
+    name: 'Danh sách khiếu nại (staff)',
     url: '/issue-ticket',
     icon: 'icon-puzzle',
   },
@@ -304,5 +310,5 @@ export const navItems: NavData[] = [
   //   url: '/base/tooltips',
   //   icon: 'icon-puzzle'
   // }
-  
+
 ];

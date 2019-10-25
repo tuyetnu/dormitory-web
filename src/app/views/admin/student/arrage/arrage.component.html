@@ -4,65 +4,27 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5><b>Danh sách đã xếp phòng</b>
-                            <button mat-raised-button type="button"
-                                class="btn btn-outline-secondary btn-sm pull-right text-color"
-                                (click)="open(import)"><b><i class="fa fa-paperclip fa-2x"
-                                    data-toggle="tooltip" data-placement="bottom" title="Import danh sách sinh viên"
-                                        aria-hidden="true"></i></b>&nbsp;&nbsp; DSSV
-                            </button>
+                        <h5><b>Thêm danh sách đăng kí từ trường</b>
                             <button mat-raised-button type="button"
                                 class="btn btn-outline-secondary btn-sm pull-right button-download text-color"
                                 (click)="download()"><i class="fa fa-download fa-2x" aria-hidden="true"></i> Excel
                                 Mẫu</button>
-                            <form class="navbar-form col-md-4" style="float: right;">
-                                <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Search..."
-                                        id="searchValue">
-                                    <button mat-raised-button type="button"
-                                        class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                        <i class="material-icons">search</i>
-                                        <div class="ripple-container"></div>
-                                    </button>
-                                </div>
-                            </form>
                         </h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-dark">
-                                    <th>Tên</th>
-                                    <th>Giới tính</th>
-                                    <th>SĐT</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Ngày sinh</th>
-                                    <th>CMND</th>
-                                    <th>Năm</th>
-                                    <th>Khoá</th>
-                                    <th>Email</th>
-                                    <th>Phòng</th>
+                        <div class="modal-header">
+                            <h5>Import danh sách sinh viên</h5>
+                        </div>
+                        <div class="modal-body modal-basic-title col-md-12 row">
 
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Nguyễn Hoàng Nam</td>
-                                        <td>Nam</td>
-                                        <td>0964482740</td>
-                                        <td>HCM</td>
-                                        <td>1/11/1997</td>
-                                        <td>215432589</td>
-                                        <td>2017</td>
-                                        <td>13B</td>
-                                        <td>namnttse62525@fpt.edu.vn</td>
-                                        <td>201A</td>
-                                    </tr>
+                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file"
+                                id="inputExcel"
+                                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                name="myFile">&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="importFileExcel()">Import</button>
 
-                                </tbody>
-                            </table>
-                            <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                            </div>
+                        </div>
+                        <div class="modal-footer">
                         </div>
                     </div>
                 </div>
@@ -71,19 +33,3 @@
         </div>
     </div>
 </div>
-
-<ng-template #import let-modal>
-  <div class="modal-header">
-      <h4>Import danh sách sinh viên</h4>
-  </div>
-  <div class="modal-body modal-basic-title col-md-12 row">
-          
-      &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file" id="inputExcel" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="myFile">&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-secondary" (click)="importFileExcel()">Import</button>
-          
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-success save shadow-card">Xếp phòng</button>
-  </div>
-</ng-template>
-

@@ -71,6 +71,7 @@ import { StudentComponent } from './views/staff/student/student.component';
 import { EquipmentReportComponent } from './views/staff/equipment-report/equipment-report.component';
 import { IssueTicketComponent } from './views/staff/issue-ticket/issue-ticket.component';
 import { CreateNewComponent } from './views/admin/create-new/create-new.component';
+import { ApprovedRequestComponent } from './views/admin/approved-request/approved-request.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -131,7 +132,8 @@ export function provideConfig() {
     StudentComponent,
     EquipmentReportComponent,
     IssueTicketComponent,
-    CreateNewComponent
+    CreateNewComponent,
+    ApprovedRequestComponent
   ],
   providers: [{
     provide: AuthServiceConfig,

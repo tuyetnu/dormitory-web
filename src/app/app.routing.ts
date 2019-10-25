@@ -1,3 +1,4 @@
+import { ApprovedRequestComponent } from './views/admin/approved-request/approved-request.component';
 import { EquipmentReportComponent } from './views/staff/equipment-report/equipment-report.component';
 import { StudentComponent } from './views/staff/student/student.component';
 import { EquipmentComponent } from './views/admin/equipment/equipment.component';
@@ -133,6 +134,10 @@ export const routes: Routes = [
       {
         path: 'create-news',
         component: CreateNewComponent
+      },
+      {
+        path: 'approved-request',
+        component: ApprovedRequestComponent
       },
     ]
   },

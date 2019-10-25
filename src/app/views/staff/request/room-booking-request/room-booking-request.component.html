@@ -5,36 +5,83 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Tổng số yêu cầu đặt phòng: 200</b>
-                                <form class="navbar-form col-md-4" style="float: right;">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control" placeholder="Search..."
-                                                id="searchValue">
-                                            <button mat-raised-button type="submit"
-                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                                <i class="material-icons">search</i>
-                                                <div class="ripple-container"></div>
-                                            </button>
-                                        </div>
-                                    </form>
+                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
+                                style="float: right;">
+                                <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
+                                <div ngbDropdownMenu>
+                                    <button class="dropdown-item">5</button>
+                                    <button class="dropdown-item">25</button>
+                                    <button class="dropdown-item">50</button>
+                                </div>
+                            </div>
+                            <div class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Tên hoặc MSSV"
+                                        id="searchValue">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </div>
                         </h5>
-                        
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover" style="text-align: center">
                                 <thead class="thead-dark">
-                                    <th>Mã số sinh viên</th>
                                     <th>Tên</th>
-                                    <th>Loại phòng</th>
-                                    <th>Số tháng muốn ở</th>
+                                    <th>MSSV</th>
+                                    <th>Loại phòng
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(true)">Thường</button>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(false)">Dịch vụ</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Tháng muốn ở
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(true)">4</button>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(false)">8</button>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(false)">12</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Ngày tạo
+                                            <i class="fa fa-fw fas fa-sort"></i>
+                                    </th>
+                                    <th>Trạng thái
+                                            <div ngbDropdown class="d-inline-block dropdown">
+                                                    <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                                    <div ngbDropdownMenu>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(true)">Chưa duyệt</button>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(false)">Đã huỷ</button>
+                                                    </div>
+                                                </div>
+                                    </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>SE62525</td>
                                         <td>Nguyễn Hoàng Nam</td>
+                                        <td>SE62525</td>
                                         <td>Phòng thường</td>
                                         <td>12 tháng</td>
+                                        <td>25/10/2019</td>
+                                        <td>Chưa duyệt</td>
                                         <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
                                                 tiết</button></td>
                                     </tr>
@@ -69,29 +116,29 @@
                 <div class="card-body" [hidden]="!showList[0]">
                     <div class="table-responsive">
                         <table style="font-size: 18px;">
-                                <tr>
-                                    <td>Tên:</td>
-                                    <td class="width-20"></td>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                </tr>
-                                <tr>
-                                    <td>MSSV:</td>
-                                    <td class="width-20"></td>
-                                    <td>SE62525</td>
-                                </tr>
-                                <tr>
-                                    <td>Loại phòng:</td>
-                                    <td class="width-20"></td>
-                                    <td>Loại thường</td>
-                                </tr>
-                                <tr>
-                                    <td>Số tháng muốn ở:</td>
-                                    <td class="width-20"></td>
-                                    <td>12 tháng</td>
-                                </tr>
-                            </table>
+                            <tr>
+                                <td>Tên:</td>
+                                <td class="width-20"></td>
+                                <td>Nguyễn Hoàng Nam</td>
+                            </tr>
+                            <tr>
+                                <td>MSSV:</td>
+                                <td class="width-20"></td>
+                                <td>SE62525</td>
+                            </tr>
+                            <tr>
+                                <td>Loại phòng:</td>
+                                <td class="width-20"></td>
+                                <td>Loại thường</td>
+                            </tr>
+                            <tr>
+                                <td>Số tháng muốn ở:</td>
+                                <td class="width-20"></td>
+                                <td>12 tháng</td>
+                            </tr>
+                        </table>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -161,24 +208,15 @@
                             </table>
                             <hr>
                             <div style="margin-bottom:25px">
-                                    <div style="display:block;"
-                                         [style.width]="width">
-                                      <slideshow #slideshow
-                                                 [imageUrls]="imageUrls"
-                                                 [height]="height"
-                                                 [minHeight]="minHeight"
-                                                 [arrowSize]="arrowSize"
-                                                 [showArrows]="showArrows" 
-                                                 [backgroundSize]="backgroundSize"
-                                                 [backgroundPosition]="backgroundPosition" 
-                                                 [showDots]="showDots"
-                                                 [dotColor]="dotColor"
-                                                 [showCaptions]="showCaptions"
-                                                 [captionColor]="captionColor"
-                                                 [captionBackground]="captionBackground">
-                                      </slideshow>
-                                    </div>
-                                  </div>
+                                <div style="display:block;" [style.width]="width">
+                                    <slideshow #slideshow [imageUrls]="imageUrls" [height]="height"
+                                        [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows"
+                                        [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition"
+                                        [showDots]="showDots" [dotColor]="dotColor" [showCaptions]="showCaptions"
+                                        [captionColor]="captionColor" [captionBackground]="captionBackground">
+                                    </slideshow>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
