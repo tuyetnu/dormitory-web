@@ -10,55 +10,61 @@
                                     (click)="openCreate(create)">Thêm phòng</button>
                                 <div class="clearfix"></div>
                             </div>
-
-                            <div class="col-md-4" style="float: right;">
-                                <form class="navbar-form">
-                                    <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Search..."
-                                            id="searchValue">
-                                        <button mat-raised-button type="submit"
-                                            class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                            <i class="material-icons">search</i>
-                                            <div class="ripple-container"></div>
-                                        </button>
-                                    </div>
-                                </form>
+                            <div class="form-group col-md-4" style="float: right;">
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>Khu A</option>
+                                    <option>Khu B</option>
+                                    <option>Khu C</option>
+                                </select>
                             </div>
                         </h5>
                     </div>
+                    <div>
+                            <span style="float: right; margin-right: 10px;">Phòng đầy</span><div class="ps bg-full col-md-1" style="float: right;"></div>
+                            <span style="float: right; margin-right: 10px;">Phòng trống</span> <div class="ps bg-empty col-md-1" style="float: right;"></div>
+                            <span style="float: right; margin-right: 10px;">Phòng chưa đầy</span> <div class="ps bg-normal col-md-1" style="float: right;"></div>
+                    </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-dark">
-                                    <th>Tên phòng</th>
-                                    <th>Số lượng sinh viên đang ở</th>
-                                    <th>Trạng thái thanh toán</th>
-                                    <th>Số lượng trang thiết bị</th>
-                                    <th>Thao tác</th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>209A</td>
-                                        <td>8</td>
-                                        <td>Đã thanh toán</td>
-                                        <td>10</td>
-                                        <td><button type="button" class="btn btn-secondary" (click)="open(detail)">Chi
-                                                tiết</button>
-                                            &nbsp;
-                                            <button type="button" class="btn btn-success" (click)="openCreate(update)">
-                                                Sửa</button>
-                                                &nbsp;
-                                            <button type="button" class="btn btn-danger">
-                                                Xoá</button>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    <div class="text-center">
+                        <h3>KHU NHÀ A</h3>
+                        <div *ngFor="let a of numbers">
+                            <div class="room bg-normal">
+                                <div class="room-name">A201</div>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color:yellow;"></i>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white;"></i>
+                                <br />
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
+                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: red"></i>
                             </div>
                         </div>
+                        <div *ngFor="let a of numbers">
+                            <div class="room bg-empty">
+                                <div class="room-name">A201</div>
+                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                <br />
+                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                            </div>
+                        </div>
+                        <div *ngFor="let a of numbers">
+                                <div class="room bg-full">
+                                    <div class="room-name">A201</div>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color:greenyellow;"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
+                                    <br />
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -73,7 +79,7 @@
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Tên phòng: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12 ">
             <label for="exampleFormControlSelect1">Loại phòng</label>
@@ -83,19 +89,37 @@
             </select>
         </div>
         <div class="form-group col-md-12">
-                <label>Trang thiết bị</label>
-                <div class="well" style="max-height: 300px;overflow: auto;">
-                    <ul id="check-list-box" class="list-group checked-list-box">
-                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Gường<input type="number" class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8"/></li>
-                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Bàn  <input type="number" class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8"/></li>
-                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ quần áo <input type="number" class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8"/></li>
-                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox4"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Quạt <input type="number" class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8"/></li>
-                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ lạnh <input type="number" class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8"/></li>
-                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Điều hoà <input type="number" class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8"/></li>
-                    </ul>
-                </div>
-                <pre id="display-json"></pre>
+            <label>Trang thiết bị</label>
+            <div class="well" style="max-height: 300px;overflow: auto;">
+                <ul id="check-list-box" class="list-group checked-list-box">
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Gường<input type="number"
+                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
+                    </li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Bàn <input type="number"
+                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
+                    </li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ quần áo <input type="number"
+                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
+                    </li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox4" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Quạt <input type="number"
+                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
+                    </li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ lạnh <input type="number"
+                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
+                    </li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Điều hoà <input type="number"
+                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
+                    </li>
+                </ul>
             </div>
+            <pre id="display-json"></pre>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
@@ -108,7 +132,7 @@
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Tên phòng: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12 ">
             <label for="exampleFormControlSelect1">Loại phòng</label>
@@ -118,19 +142,31 @@
             </select>
         </div>
         <div class="form-group col-md-12">
-                <label>Trang thiết bị</label>
-                <div class="well" style="max-height: 300px;overflow: auto;">
-                    <ul id="check-list-box" class="list-group checked-list-box">
-                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Gường<input type="text" class="form-control col-md-4" style="float:right"/></li>
-                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Bàn  <input type="text" class="form-control col-md-4" style="float:right"/></li>
-                      <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ quần áo <input type="text" class="form-control col-md-4" style="float:right"/></li>
-                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox4"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Quạt <input type="text" class="form-control col-md-4" style="float:right"/></li>
-                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Tủ lạnh <input type="text" class="form-control col-md-4" style="float:right"/></li>
-                      <li class="list-group-item"> <input type="checkbox"[(ngModel)]="theCheckbox5"  data-md-icheck (change)="toggleVisibility($event)"/> &nbsp;&nbsp;Điều hoà <input type="text" class="form-control col-md-4" style="float:right"/></li>
-                    </ul>
-                </div>
-                <pre id="display-json"></pre>
+            <label>Trang thiết bị</label>
+            <div class="well" style="max-height: 300px;overflow: auto;">
+                <ul id="check-list-box" class="list-group checked-list-box">
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Gường<input type="text"
+                            class="form-control col-md-4" style="float:right" /></li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Bàn <input type="text"
+                            class="form-control col-md-4" style="float:right" /></li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ quần áo <input type="text"
+                            class="form-control col-md-4" style="float:right" /></li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox4" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Quạt <input type="text"
+                            class="form-control col-md-4" style="float:right" /></li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ lạnh <input type="text"
+                            class="form-control col-md-4" style="float:right" /></li>
+                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
+                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Điều hoà <input type="text"
+                            class="form-control col-md-4" style="float:right" /></li>
+                </ul>
             </div>
+            <pre id="display-json"></pre>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>

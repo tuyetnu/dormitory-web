@@ -38,7 +38,9 @@ export class RoomManagementComponent implements OnInit {
     maxHeight: 240,
     showCheckbox: true,
   };
+  numbers;
   ngOnInit() {
+    this.numbers = Array(10).fill(1);
     for (let i = 1; i <= 100; i++) {
       this.collection.push(`item ${i}`);
     }
