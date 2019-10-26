@@ -49,6 +49,10 @@ export class EquipmentComponent implements OnInit {
     closeOnSelect: false,
   };
   ngOnInit() {
+    if (sessionStorage.getItem('addEquipment') != null) {
+      $('#btnAdd').click();
+      sessionStorage.removeItem('addEquipment');
+    }
     for (let i = 1; i <= 100; i++) {
       this.collection.push(`item ${i}`);
     }

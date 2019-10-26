@@ -1,1 +1,262 @@
-<p>room-miss-equipment works!</p>
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h5><b>Danh sách phòng còn thiếu thiết bị</b>
+                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
+                                style="float: right;">
+                                <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
+                                <div ngbDropdownMenu>
+                                    <button class="dropdown-item">5</button>
+                                    <button class="dropdown-item">25</button>
+                                    <button class="dropdown-item">50</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="float: right;">
+                                <button mat-raised-button type="button" class="btn btn-info pull-right"
+                                    (click)="addEquipment()">Thêm TB</button>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Tên phòng"
+                                        id="searchValue">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon">
+                                        <i class="material-icons">search</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <h5>Thiết bị chưa sử dụng: </h5>
+                            <div *ngFor="let equipment of equipments" class="col-md-3" style="float: left;">
+                                {{equipment.equipmentTypeName}} còn {{equipment.quality}}</div>
+                        </div>
+                        <div>
+                            <table class="table table-hover" style="text-align: center;">
+                                <thead class="thead-dark ">
+                                    <th>Phòng</th>
+                                    <th>Loại TB thiếu
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(true)">Gường</button>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(false)">Tủ</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Số lượng thiếu</th>
+                                    <th>Thao tác</th>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let missEquipment of missEquipments | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{missEquipment.roomName}}</td>
+                                        <td>{{missEquipment.equipmentType}}</td>
+                                        <td>{{missEquipment.quality}}</td>
+                                        <td><button type="button" class="btn btn-secondary">Xếp TB</button>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="paging">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #detail let-modal>
+    <div class="modal-header">
+        <h5><b>Chi tiết sinh viên</b></h5>
+    </div>
+    <div class="modal-body modal-basic-title col-md-12 row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(0)">
+                    <h5>Thông tin sinh viên
+                        <i class="fa fa-caret-down detail" style="font-size:30px; float: right;"></i>
+                    </h5>
+                </div>
+                <div class="card-body" [hidden]="!showList[0]">
+                    <div class="table-responsive">
+                        <table style="font-size: 16px;">
+                            <tr>
+                                <td>Tên:</td>
+                                <td class="width-20"></td>
+                                <td>Nguyễn Hoàng Nam</td>
+                            </tr>
+                            <tr>
+                                <td>MSSV:</td>
+                                <td class="width-20"></td>
+                                <td>SE62525</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày vào KTX:</td>
+                                <td class="width-20"></td>
+                                <td>05/12/2018</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày hết hợp đồng:</td>
+                                <td class="width-20"></td>
+                                <td>05/12/2019</td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái thanh toán phí:</td>
+                                <td class="width-20"></td>
+                                <td style="color: green">Đã thanh toán</td>
+                            </tr>
+                            <tr>
+                                <td>Điểm rèn luyện:</td>
+                                <td class="width-20"></td>
+                                <td>90</td>
+                            </tr>
+                            <tr>
+                                <td>Phòng:</td>
+                                <td class="width-20"></td>
+                                <td>201A</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(1)">
+                    <h5>Lịch sử thanh toán
+                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                    </h5>
+                </div>
+                <div class="card-body" [hidden]="!showList[1]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Phí chỗ ở</th>
+                                <th>Phí điện nước</th>
+                                <th>Ngày thanh toán</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>800.000 vnd</td>
+                                    <td>200.000 vnđ</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(2)">
+                    <h5>Lịch sử chuyển phòng
+                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                    </h5>
+                </div>
+                <div class="card-body" [hidden]="!showList[2]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Phòng cũ</th>
+                                <th>Phòng mới</th>
+                                <th>Ngày chuyển phòng</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>201A</td>
+                                    <td>220A</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>201A</td>
+                                    <td>220A</td>
+                                    <td>1/10/2019</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger" (click)="show(3)">
+                    <h5>Lịch sử trừ điểm
+                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                    </h5>
+                </div>
+                <div class="card-body" [hidden]="!showList[3]">
+                    <div class="table-responsive">
+                        <table class="table" style="text-align: center">
+                            <thead class=" text-primary">
+                                <th>Tên</th>
+                                <th>Lỗi vi phạm</th>
+                                <th>Số điểm trừ</th>
+                                <th>Ngày trừ điểm</th>
+                                <th>Nhân viên trừ điểm</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+                                <tr>
+                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>Vi phạm kĩ luật</td>
+                                    <td>5</td>
+                                    <td>1/10/2019</td>
+                                    <td>Hoàng Thuỳ</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

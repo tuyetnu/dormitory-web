@@ -36,15 +36,13 @@ export class BuildingManagementComponent implements OnInit {
   next() {
     if (this.index === 1) {
       for (let i = 1; i <= this.building.numberFloor; i++) {
-        // const rooms = new Array(this.building.numberFloor);
-        const rooms = []
+        const rooms = [];
         for (let j = 1; j <= this.building.numberRoomOnFloor; j++) {
           const name = this.building.name + i + (j < 10 ? '0' + j : j);
           const room = {
             name,
             type: false
           };
-          // rooms[j] = room;
           rooms.push(room);
         }
         const tmp = {
