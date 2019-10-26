@@ -5,11 +5,11 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Danh sách phòng</b>
-                            <div class="col-md-2" style="float: right;">
+                            <!-- <div class="col-md-2" style="float: right;">
                                 <button mat-raised-button type="submit" class="btn btn-info pull-right"
                                     (click)="openCreate(create)">Thêm phòng</button>
                                 <div class="clearfix"></div>
-                            </div>
+                            </div> -->
                             <div class="form-group col-md-4" style="float: right;">
                                 <select class="form-control" id="exampleFormControlSelect1">
                                     <option>Khu A</option>
@@ -19,39 +19,46 @@
                             </div>
                         </h5>
                     </div>
-                    <div>
-                            <span style="float: right; margin-right: 10px;">Phòng đầy</span><div class="ps bg-full col-md-1" style="float: right;"></div>
-                            <span style="float: right; margin-right: 10px;">Phòng trống</span> <div class="ps bg-empty col-md-1" style="float: right;"></div>
-                            <span style="float: right; margin-right: 10px;">Phòng chưa đầy</span> <div class="ps bg-normal col-md-1" style="float: right;"></div>
+                    <div style="margin-top: 10px;">
+                        <span style="float: right; margin-right: 10px;">Phòng đầy</span>
+                        <div class="ps bg-full col-md-1" style="float: right;"></div>
+                        <span style="float: right; margin-right: 10px;">Phòng trống</span>
+                        <div class="ps bg-empty col-md-1" style="float: right;"></div>
+                        <span style="float: right; margin-right: 10px;">Phòng chưa đầy</span>
+                        <div class="ps bg-normal col-md-1" style="float: right;"></div>
                     </div>
                     <div class="card-body">
-                    <div class="text-center">
-                        <h3>KHU NHÀ A</h3>
-                        <div *ngFor="let a of numbers">
-                            <div class="room bg-normal">
-                                <div class="room-name">A201</div>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color:yellow;"></i>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white;"></i>
-                                <br />
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
-                                <i class="fa fa-male fa-2x" aria-hidden="true" style="color: red"></i>
+                        <div class="text-center">
+                            <h3>KHU NHÀ A</h3>
+                            <div *ngFor="let a of numbers">
+                                <div class="room bg-normal">
+                                    <div class="room-name" (click)="open(detail)" data-toggle="tooltip" title="Xem chi tiết">A201</div>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"
+                                        data-toggle="tooltip" title="Đang ở"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color:yellow;"
+                                    data-toggle="tooltip" title="Đang chờ"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white;"
+                                    data-toggle="tooltip" title="Trống"></i>
+                                    <br />
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: red"
+                                    data-toggle="tooltip" title="Đang hỏng"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div *ngFor="let a of numbers">
-                            <div class="room bg-empty">
-                                <div class="room-name">A201</div>
-                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
-                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
-                                <br />
-                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
-                                <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                            <div *ngFor="let a of numbers">
+                                <div class="room bg-empty">
+                                    <div class="room-name">A201</div>
+                                    <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                    <br />
+                                    <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div *ngFor="let a of numbers">
+                            <div *ngFor="let a of numbers">
                                 <div class="room bg-full">
                                     <div class="room-name">A201</div>
                                     <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
@@ -65,267 +72,215 @@
                                     <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #update let-modal>
+        <div class="modal-header">
+            <h4>Chỉnh sửa phòng</h4>
+        </div>
+        <div class="modal-body modal-basic-title col-md-12 row">
+            <div class="form-group col-md-12">
+                <label for="exampleFormControlInput1">Tên phòng: </label>
+                <input type="text" class="form-control" disabled=true />
+            </div>
+            <div class="form-group col-md-12 ">
+                <label for="exampleFormControlSelect1">Loại phòng</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>Loại thường</option>
+                    <option>Loại dịch vụ</option>
+                </select>
+            </div>
+            <div class="form-group col-md-12">
+                <label>Trang thiết bị</label>
+                <div class="well" style="max-height: 300px;overflow: auto;">
+                    <ul id="check-list-box" class="list-group checked-list-box">
+                        <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1" data-md-icheck
+                                (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Gường<input type="text"
+                                class="form-control col-md-4" style="float:right" /></li>
+                        <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2" data-md-icheck
+                                (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Bàn <input type="text"
+                                class="form-control col-md-4" style="float:right" /></li>
+                        <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3" data-md-icheck
+                                (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ quần áo <input type="text"
+                                class="form-control col-md-4" style="float:right" /></li>
+                        <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox4" data-md-icheck
+                                (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Quạt <input type="text"
+                                class="form-control col-md-4" style="float:right" /></li>
+                        <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
+                                (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ lạnh <input type="text"
+                                class="form-control col-md-4" style="float:right" /></li>
+                        <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
+                                (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Điều hoà <input type="text"
+                                class="form-control col-md-4" style="float:right" /></li>
+                    </ul>
+                </div>
+                <pre id="display-json"></pre>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+        </div>
+    </ng-template>
+    <ng-template #detail let-modal>
+        <div class="modal-header">
+            <h5><b>Chi tiết phòng: 209A</b></h5>
+        </div>
+        <div class="modal-body modal-basic-title col-md-12 row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger" (click)="show(0)">
+                        <h5>Danh sách sinh viên đang ở: 4 sinh viên
+                            <i class="fa fa-caret-down detail" style="font-size:30px; float: right;"></i>
+                        </h5>
+                    </div>
+                    <div class="card-body" [hidden]="!showList[0]">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align: center">
+                                <thead class=" text-primary">
+                                    <th>Tên</th>
+                                    <th>Mã số sinh viên</th>
+                                    <th>Ngày vào KTX</th>
+                                    <th>Ngày hết hợp đồng</th>
+                                    <th>Điểm rèn luyện</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>SE62525</td>
+                                        <td>1/11/2018</td>
+                                        <td>1/11/2019</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>SE62525</td>
+                                        <td>1/11/2018</td>
+                                        <td>1/11/2019</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>SE62525</td>
+                                        <td>1/11/2018</td>
+                                        <td>1/11/2019</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>SE62525</td>
+                                        <td>1/11/2018</td>
+                                        <td>1/11/2019</td>
+                                        <td>100</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-    </div>
-</div>
-<ng-template #create let-modal>
-    <div class="modal-header">
-        <h4>Thêm phòng</h4>
-    </div>
-    <div class="modal-body modal-basic-title col-md-12 row">
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Tên phòng: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" />
-        </div>
-        <div class="form-group col-md-12 ">
-            <label for="exampleFormControlSelect1">Loại phòng</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>Loại thường</option>
-                <option>Loại dịch vụ</option>
-            </select>
-        </div>
-        <div class="form-group col-md-12">
-            <label>Trang thiết bị</label>
-            <div class="well" style="max-height: 300px;overflow: auto;">
-                <ul id="check-list-box" class="list-group checked-list-box">
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Gường<input type="number"
-                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
-                    </li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Bàn <input type="number"
-                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
-                    </li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ quần áo <input type="number"
-                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
-                    </li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox4" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Quạt <input type="number"
-                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
-                    </li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ lạnh <input type="number"
-                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
-                    </li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Điều hoà <input type="number"
-                            class="form-control col-md-4" style="float:right" id="quantity" value="4" min="0" max="8" />
-                    </li>
-                </ul>
-            </div>
-            <pre id="display-json"></pre>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
-    </div>
-</ng-template>
-<ng-template #update let-modal>
-    <div class="modal-header">
-        <h4>Chỉnh sửa phòng</h4>
-    </div>
-    <div class="modal-body modal-basic-title col-md-12 row">
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Tên phòng: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" />
-        </div>
-        <div class="form-group col-md-12 ">
-            <label for="exampleFormControlSelect1">Loại phòng</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>Loại thường</option>
-                <option>Loại dịch vụ</option>
-            </select>
-        </div>
-        <div class="form-group col-md-12">
-            <label>Trang thiết bị</label>
-            <div class="well" style="max-height: 300px;overflow: auto;">
-                <ul id="check-list-box" class="list-group checked-list-box">
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox1" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Gường<input type="text"
-                            class="form-control col-md-4" style="float:right" /></li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox2" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Bàn <input type="text"
-                            class="form-control col-md-4" style="float:right" /></li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox3" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ quần áo <input type="text"
-                            class="form-control col-md-4" style="float:right" /></li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox4" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Quạt <input type="text"
-                            class="form-control col-md-4" style="float:right" /></li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Tủ lạnh <input type="text"
-                            class="form-control col-md-4" style="float:right" /></li>
-                    <li class="list-group-item"> <input type="checkbox" [(ngModel)]="theCheckbox5" data-md-icheck
-                            (change)="toggleVisibility($event)" /> &nbsp;&nbsp;Điều hoà <input type="text"
-                            class="form-control col-md-4" style="float:right" /></li>
-                </ul>
-            </div>
-            <pre id="display-json"></pre>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
-    </div>
-</ng-template>
-<ng-template #detail let-modal>
-    <div class="modal-header">
-        <h5><b>Chi tiết phòng: 209A</b></h5>
-    </div>
-    <div class="modal-body modal-basic-title col-md-12 row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-danger" (click)="show(0)">
-                    <h5>Danh sách sinh viên đang ở: 4 sinh viên
-                        <i class="fa fa-caret-down detail" style="font-size:30px; float: right;"></i>
-                    </h5>
-                </div>
-                <div class="card-body" [hidden]="!showList[0]">
-                    <div class="table-responsive">
-                        <table class="table" style="text-align: center">
-                            <thead class=" text-primary">
-                                <th>Tên</th>
-                                <th>Mã số sinh viên</th>
-                                <th>Ngày vào KTX</th>
-                                <th>Ngày hết hợp đồng</th>
-                                <th>Điểm rèn luyện</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>SE62525</td>
-                                    <td>1/11/2018</td>
-                                    <td>1/11/2019</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>SE62525</td>
-                                    <td>1/11/2018</td>
-                                    <td>1/11/2019</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>SE62525</td>
-                                    <td>1/11/2018</td>
-                                    <td>1/11/2019</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>SE62525</td>
-                                    <td>1/11/2018</td>
-                                    <td>1/11/2019</td>
-                                    <td>100</td>
-                                </tr>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger" (click)="show(1)">
+                        <h5>Trạng thái thanh toán phí của từng sinh viên
+                            <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                        </h5>
+                    </div>
+                    <div class="card-body" [hidden]="!showList[1]">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align: center">
+                                <thead class=" text-primary">
+                                    <th>Tên</th>
+                                    <th>Phí chỗ ở</th>
+                                    <th>Phí điện nước</th>
+                                    <th>Trạng thái thanh toán</th>
+                                    <th>Ngày thanh toán</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>800.000 vnd</td>
+                                        <td>200.000 vnđ</td>
+                                        <td style="color: green">Đã thanh toán</td>
+                                        <td>1/10/2019</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>800.000 vnd</td>
+                                        <td>200.000 vnđ</td>
+                                        <td style="color: green">Đã thanh toán</td>
+                                        <td>1/10/2019</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>800.000 vnd</td>
+                                        <td>200.000 vnđ</td>
+                                        <td style="color: green">Đã thanh toán</td>
+                                        <td>1/10/2019</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nguyễn Hoàng Nam</td>
+                                        <td>800.000 vnd</td>
+                                        <td>200.000 vnđ</td>
+                                        <td style="color: green">Đã thanh toán</td>
+                                        <td>1/10/2019</td>
+                                    </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger" (click)="show(2)">
+                        <h5>Danh sách trang thiết bị: 10 thiết bị
+                            <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                        </h5>
+                    </div>
+                    <div class="card-body" [hidden]="!showList[2]">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align: center">
+                                <thead class=" text-primary">
+                                    <th>Tên</th>
+                                    <th>Giá</th>
+                                    <th>Trạng thái</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Gường 1</td>
+                                        <td>400.000 vnđ</td>
+                                        <td style="color: green">Đang sử dụng</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gường 2</td>
+                                        <td>400.000 vnđ</td>
+                                        <td style="color: green">Đang sử dụng</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gường 3</td>
+                                        <td>400.000 vnđ</td>
+                                        <td style="color: green">Đang sử dụng</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gường 4</td>
+                                        <td>400.000 vnđ</td>
+                                        <td style="color: red">Hư hỏng</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-danger" (click)="show(1)">
-                    <h5>Trạng thái thanh toán phí của từng sinh viên
-                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
-                    </h5>
-                </div>
-                <div class="card-body" [hidden]="!showList[1]">
-                    <div class="table-responsive">
-                        <table class="table" style="text-align: center">
-                            <thead class=" text-primary">
-                                <th>Tên</th>
-                                <th>Phí chỗ ở</th>
-                                <th>Phí điện nước</th>
-                                <th>Trạng thái thanh toán</th>
-                                <th>Ngày thanh toán</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>800.000 vnd</td>
-                                    <td>200.000 vnđ</td>
-                                    <td style="color: green">Đã thanh toán</td>
-                                    <td>1/10/2019</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>800.000 vnd</td>
-                                    <td>200.000 vnđ</td>
-                                    <td style="color: green">Đã thanh toán</td>
-                                    <td>1/10/2019</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>800.000 vnd</td>
-                                    <td>200.000 vnđ</td>
-                                    <td style="color: green">Đã thanh toán</td>
-                                    <td>1/10/2019</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                    <td>800.000 vnd</td>
-                                    <td>200.000 vnđ</td>
-                                    <td style="color: green">Đã thanh toán</td>
-                                    <td>1/10/2019</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-danger" (click)="show(2)">
-                    <h5>Danh sách trang thiết bị: 10 thiết bị
-                        <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
-                    </h5>
-                </div>
-                <div class="card-body" [hidden]="!showList[2]">
-                    <div class="table-responsive">
-                        <table class="table" style="text-align: center">
-                            <thead class=" text-primary">
-                                <th>Tên</th>
-                                <th>Giá</th>
-                                <th>Trạng thái</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Gường 1</td>
-                                    <td>400.000 vnđ</td>
-                                    <td style="color: green">Đang sử dụng</td>
-                                </tr>
-                                <tr>
-                                    <td>Gường 2</td>
-                                    <td>400.000 vnđ</td>
-                                    <td style="color: green">Đang sử dụng</td>
-                                </tr>
-                                <tr>
-                                    <td>Gường 3</td>
-                                    <td>400.000 vnđ</td>
-                                    <td style="color: green">Đang sử dụng</td>
-                                </tr>
-                                <tr>
-                                    <td>Gường 4</td>
-                                    <td>400.000 vnđ</td>
-                                    <td style="color: red">Hư hỏng</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
+    </ng-template>

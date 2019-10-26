@@ -72,6 +72,8 @@ import { EquipmentReportComponent } from './views/staff/equipment-report/equipme
 import { IssueTicketComponent } from './views/staff/issue-ticket/issue-ticket.component';
 import { CreateNewComponent } from './views/admin/create-new/create-new.component';
 import { ApprovedRequestComponent } from './views/admin/approved-request/approved-request.component';
+import { BuildingManagementComponent } from './views/admin/building-management/building-management.component';
+import { RoomMissEquipmentComponent } from './views/admin/room-miss-equipment/room-miss-equipment.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -133,7 +135,9 @@ export function provideConfig() {
     EquipmentReportComponent,
     IssueTicketComponent,
     CreateNewComponent,
-    ApprovedRequestComponent
+    ApprovedRequestComponent,
+    BuildingManagementComponent,
+    RoomMissEquipmentComponent
   ],
   providers: [{
     provide: AuthServiceConfig,

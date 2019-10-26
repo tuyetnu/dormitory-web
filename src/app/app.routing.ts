@@ -1,3 +1,5 @@
+import { RoomMissEquipmentComponent } from './views/admin/room-miss-equipment/room-miss-equipment.component';
+import { BuildingManagementComponent } from './views/admin/building-management/building-management.component';
 import { ApprovedRequestComponent } from './views/admin/approved-request/approved-request.component';
 import { EquipmentReportComponent } from './views/staff/equipment-report/equipment-report.component';
 import { StudentComponent } from './views/staff/student/student.component';
@@ -138,6 +140,14 @@ export const routes: Routes = [
       {
         path: 'approved-request',
         component: ApprovedRequestComponent
+      },
+      {
+        path: 'buiding-management',
+        component: BuildingManagementComponent
+      },
+      {
+        path: 'room-miss-equipment',
+        component: RoomMissEquipmentComponent
       },
     ]
   },

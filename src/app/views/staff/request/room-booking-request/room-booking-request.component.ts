@@ -11,11 +11,11 @@ export class RoomBookingRequestComponent implements OnInit {
   showList = [false, true];
   constructor(private modalService: NgbModal) { }
   imageUrls: (string | IImage)[] = [
-    { url: 'https://cdn.vox-cdn.com/uploads/chorus_image/image/56748793/dbohn_170625_1801_0018.0.0.jpg',
+    { url: '/assets/img/CMND.jpg',
      caption: 'Hình chứng minh nhân dân', href: '#config' },
-    { url: 'https://cdn.vox-cdn.com/uploads/chorus_asset/file/9278671/jbareham_170917_2000_0124.jpg', 
+    { url: '/assets/img/theSV.png',
     caption: 'Hình thẻ sinh viên', href: '#config' },
-    { url: 'https://cdn.vox-cdn.com/uploads/chorus_image/image/56789263/akrales_170919_1976_0104.0.jpg', 
+    { url: '/assets/img/hoNgheo.jpg',
     caption: 'Hình đối tượng ưu tiên', href: 'https://www.apple.com/' },
   ];
   height: string = '400px';

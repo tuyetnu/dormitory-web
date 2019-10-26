@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-fee.component.scss']
 })
 export class UpdateFeeComponent implements OnInit {
-
+  fee = 1;
   constructor() { }
 
   ngOnInit() {

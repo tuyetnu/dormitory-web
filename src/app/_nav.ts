@@ -47,6 +47,11 @@ export const navItems: NavData[] = [
     ]
   },
   {
+    name: 'Quản lí toà nhà',
+    url: '/buiding-management',
+    icon: 'icon-pencil'
+  },
+  {
     name: 'Quản lí phòng',
     url: '/room-management',
     icon: 'icon-pencil'

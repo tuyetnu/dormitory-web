@@ -14,7 +14,7 @@
                             <div class="col-md-4" style="float: right;">
                                 <form class="navbar-form">
                                     <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Search..."
+                                        <input type="text" value="" class="form-control" placeholder="Tên hoặc Mã thiết bị"
                                             id="searchValue">
                                         <button mat-raised-button type="submit"
                                             class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
@@ -31,21 +31,38 @@
                             <table class="table table-hover" style="text-align: center">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
-                                    <th>Hình ảnh</th>
+                                    <th>Mã TB</th>
                                     <th>Giá</th>
-                                    <th>Thao tác</th>
+                                    <th>Phòng
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(true)">Trong phòng</button>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(false)">Trong kho</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Tình trạng
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(true)">Bình thường</button>
+                                                <button class="dropdown-item"
+                                                    (click)="getConfigurationIsActive(false)">Hư hỏng</button>
+                                            </div>
+                                        </div>
+                                    </th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Gường tầng</td>
-                                        <td><img src="./assets/img/avatar/1.jpg"/></td>
+                                        <td>Gường tầng 1</td>
+                                        <td>G1</td>
                                         <td>400000</td>
-                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
-                                            Sửa</button>
-                                            &nbsp;
-                                        <button type="button" class="btn btn-danger">
-                                            Xoá</button>
-                                        </td>
+                                        <td>A201</td>
+                                        <td>Bình thường</td>
                                     </tr>
 
                                 </tbody>
@@ -71,32 +88,8 @@
             <input type="text" class="form-control" id="exampleFormControlInput1"/>
         </div>
         <div class="form-group col-md-12">
-            <label>Hình ảnh: </label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="file" id="inputExcel" accept=".img" name="myFile">
-        </div>
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Giá: </label>
-            <input type="number" class="form-control" id="exampleFormControlInput1"/>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
-    </div>
-</ng-template>
-<ng-template #update let-modal>
-    <div class="modal-header">
-        <h4>Thêm trang thiết bị</h4>
-    </div>
-    <div class="modal-body modal-basic-title col-md-12 row">
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Tên: </label>
+            <label for="exampleFormControlInput1">Mã thiết bị: </label>
             <input type="text" class="form-control" id="exampleFormControlInput1"/>
-        </div>
-        <div class="form-group col-md-12">
-            <label>Hình ảnh: </label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="file" id="inputExcel" accept=".img" name="myFile">
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Giá: </label>

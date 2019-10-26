@@ -6,8 +6,6 @@
                         <div class="card-header card-header-danger">
                             <h5><b>Tổng số yêu cầu đặt phòng đã được duyệt: 200</b>
                                 <div class="col-md-2" style="float: right;">
-                                        <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                            (click)="openCreate(create)">Xếp phòng</button>
                                         <div class="clearfix"></div>
                                     </div>
                                     <form class="navbar-form col-md-4" style="float: right;">
@@ -32,16 +30,17 @@
                                         <th>Tên</th>
                                         <th>Loại phòng</th>
                                         <th>Số tháng muốn ở</th>
+                                        <th>Tên phòng</th>
                                         <th>Thao tác</th>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                            <td>SE62525</td>
-                                            <td>Nguyễn Hoàng Nam</td>
-                                            <td>Phòng thường</td>
-                                            <td>12 tháng</td>
-                                            <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
-                                                    tiết</button></td>
+                                        <tr *ngFor="let student of students | paginate: { itemsPerPage: 5, currentPage: p }">
+                                            <td>{{student.studentCode}}</td>
+                                            <td>{{student.fullName}}</td>
+                                            <td>{{student.room.type}}</td>
+                                            <td>{{student.month}}</td>
+                                            <td>{{student.room.name}}</td>
+                                            <td><button type="button" class="btn btn-info">Hoàn tất</button></td>
                                         </tr>
     
                                     </tbody>

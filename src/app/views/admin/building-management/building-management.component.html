@@ -1,0 +1,161 @@
+<div class="main-content" style="margin-top: 10px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h5><b>Quản lí khu nhà KTX</b>
+                            <div class="col-md-2" style="float: right;">
+                                <button mat-raised-button type="button" class="btn btn-info pull-right"
+                                    (click)="listRoomMiss()">DS phòng thiếu TB</button>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-md-2" style="float: right;">
+                                <button mat-raised-button type="button" class="btn btn-info pull-right"
+                                    (click)="open(create)">Thêm khu</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" style="text-align: center">
+                                <thead class="thead-dark">
+                                    <th>Tên khu</th>
+                                    <th>Số tầng</th>
+                                    <th>Số phòng 1 tầng</th>
+                                    <th>Thao tác</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Khu A</td>
+                                        <td>10</td>
+                                        <td>10</td>
+                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
+                                                Sửa</button>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Khu B</td>
+                                        <td>10</td>
+                                        <td>10</td>
+                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
+                                                Sửa</button>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Khu C</td>
+                                        <td>10</td>
+                                        <td>10</td>
+                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
+                                                Sửa</button>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #create let-modal>
+    <div id="stepper1" class="bs-stepper">
+        <div class="modal-header header-custom">
+            <div class="bs-stepper-header col-md-12">
+                <div class="step" data-target="#test-l-1">
+                    <button class="step-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">Tạo khu</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="step" data-target="#test-l-2">
+                    <button class="step-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">Tạo tầng</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="step" data-target="#test-l-3">
+                    <button class="step-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">Tạo phòng</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="bs-stepper-content">
+                <div id="test-l-1" class="content">
+                    <div class="col-md-12" style="margin-left: 15%;">
+                        <div class="form-group col-md-9">
+                            <label for="exampleFormControlInput1" class="col-md-4" style="float: left;">Tên khu:
+                            </label>
+                            <input type="text" class="form-control col-md-8" [(ngModel)]="building.name" />
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label for="exampleFormControlInput1" class="col-md-4" style="float: left;">Số tầng:
+                            </label>
+                            <input type="number" class="form-control col-md-8" [(ngModel)]="building.numberFloor" />
+                        </div>
+                        <div class="form-group col-md-9">
+                            <label for="exampleFormControlInput1" class="col-md-4" style="float: left;">Số phòng/1 tầng:
+                            </label>
+                            <input type="number" class="form-control col-md-8"
+                                [(ngModel)]="building.numberRoomOnFloor" />
+                        </div>
+                    </div>
+                </div>
+                <div id="test-l-2" class="content">
+                    <h5 style="margin-left: 30%;">Chọn giới tính và loại phòng của tầng</h5>
+                    <div class="form-group col-md-9" style="margin-left: 15%; margin-top: 10px;"
+                        *ngFor="let floor of building.floors">
+                        <label for="exampleFormControlSelect1" class="col-md-4"
+                            style="float: left;">{{floor.name}}</label>
+                        <select class="form-control col-md-8" id="exampleFormControlSelect1" [(ngModel)]="floor.gender">
+                            <option [value]="true">Nam</option>
+                            <option [value]="false">Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="test-l-3" class="content">
+                    <div class="col-md-12" *ngFor="let floor of building.floors, let i = index">
+                        <div class="card">
+                            <div class="card-header card-header-danger" (click)="show(i)">
+                                <h5>{{floor.name}}
+                                    <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
+                                </h5>
+                            </div>
+                            <div class="card-body" [hidden]="!showList[i]">
+                                <div class="form-group col-md-9" style="margin-left: 15%; margin-top: 10px;"
+                                    *ngFor="let room of floor.rooms">
+                                    <label for="exampleFormControlSelect1" class="col-md-4"
+                                        style="float: left;">{{room.name}}</label>
+                                    <select class="form-control col-md-8" id="exampleFormControlSelect1"
+                                        [(ngModel)]="room.type">
+                                        <option [value]="true">Loại thường</option>
+                                        <option [value]="false">Dịch vụ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary back" (click)="back()" [hidden]="index == 1 ">Back</button>
+        <button (click)="next()" class="btn btn-primary" [hidden]="index == 3">Next</button>
+        <button class="btn btn-success save" [hidden]="index != 3">Create</button>
+    </div>
+</ng-template>
