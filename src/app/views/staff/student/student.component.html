@@ -7,7 +7,7 @@
                         <h5><b>Tổng SV trong KTX: 200</b>
                             <form class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Search..."
+                                    <input type="text" value="" class="form-control" placeholder="Tên hoặc MSSV..."
                                         id="searchValue">
                                     <button mat-raised-button type="submit"
                                         class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
@@ -24,9 +24,31 @@
                                 <thead class="thead-dark ">
                                     <th>Tên</th>
                                     <th>MSSV</th>
-                                    <th>Trạng thái thanh toán</th>
+                                    <th>Trạng thái thanh toán
+                                            <div ngbDropdown class="d-inline-block dropdown">
+                                                    <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                                    <div ngbDropdownMenu>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(true)">Đã thanh toán</button>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(false)">Chưa thanh toán</button>
+                                                    </div>
+                                                </div>
+                                    </th>
                                     <th>Ngày hết hạn HĐ</th>
-                                    <th>Trạng thái HĐ</th>
+                                    <th>Trạng thái HĐ
+                                            <div ngbDropdown class="d-inline-block dropdown">
+                                                    <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                                    <div ngbDropdownMenu>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(true)">Còn hạn</button>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(false)">Hết hạn</button>
+                                                        <button class="dropdown-item"
+                                                            (click)="getConfigurationIsActive(false)">Đã huỷ</button>
+                                                    </div>
+                                                </div>
+                                    </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>

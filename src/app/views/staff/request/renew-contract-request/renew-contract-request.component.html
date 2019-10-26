@@ -4,36 +4,59 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5><b>Tổng số yêu cầu gia hạn hợp đồng: 200</b>
-                                <form class="navbar-form col-md-4" style="float: right;">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control" placeholder="Search..."
-                                                id="searchValue">
-                                            <button mat-raised-button type="submit"
-                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                                <i class="material-icons">search</i>
-                                                <div class="ripple-container"></div>
-                                            </button>
-                                        </div>
-                                    </form>
+                        <h5><b>Yêu cầu gia hạn HĐ: 200</b>
+                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
+                                style="float: right;">
+                                <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
+                                <div ngbDropdownMenu>
+                                    <button class="dropdown-item">5</button>
+                                    <button class="dropdown-item">25</button>
+                                    <button class="dropdown-item">50</button>
+                                </div>
+                            </div>
+                            <form class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Tên hoặc MSSV"
+                                        id="searchValue">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </form>
+                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
+                                style="float: right;">
+                                <button class="btn icon-btn border" ngbDropdownToggle>Tháng</button>
+                                <div ngbDropdownMenu>
+                                    <button class="dropdown-item">4</button>
+                                    <button class="dropdown-item">8</button>
+                                    <button class="dropdown-item">12</button>
+                                </div>
+                            </div>
                         </h5>
-                        
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-dark">       
+                                <thead class="thead-dark">
                                     <th>Tên</th>
                                     <th>Mã số sinh viên</th>
                                     <th>Phòng đang ở</th>
+                                    <th>Ngày tạo
+                                            <i class="fa fa-fw fas fa-sort"></i>
+                                    </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">  
+                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
                                         <td>Nguyễn Hoàng Nam</td>
                                         <td>SE62525</td>
                                         <td>209A</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                        <td>10/27/2019</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                                tiết</button></td>
                                     </tr>
 
                                 </tbody>
@@ -63,45 +86,42 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table style="font-size: 18px;">
-                                <tr>
-                                    <td>Tên:</td>
-                                    <td class="width-20"></td>
-                                    <td>Nguyễn Hoàng Nam</td>
-                                </tr>
-                                <tr>
-                                    <td>MSSV:</td>
-                                    <td class="width-20"></td>
-                                    <td>SE62525</td>
-                                </tr>
-                                <tr>
-                                    <td>Phòng đang ở:</td>
-                                    <td class="width-20"></td>
-                                    <td>201A</td>
-                                </tr>
-                                <tr>
-                                    <td>Loại phòng đang ở:</td>
-                                    <td class="width-20"></td>
-                                    <td>Phòng thường</td>
-                                </tr>
-                                <tr>
-                                    <td>Số tháng muốn gia hạn:</td>
-                                    <td class="width-20"></td>
-                                    <td>12 tháng</td>
-                                </tr>
-                                <tr>
-                                    <td>Phí dự kiến:</td>
-                                    <td class="width-20"></td>
-                                    <td>800.000 vnđ</td>
-                                </tr>
-                            </table>
+                            <tr>
+                                <td>Tên:</td>
+                                <td class="width-20"></td>
+                                <td>Nguyễn Hoàng Nam</td>
+                            </tr>
+                            <tr>
+                                <td>MSSV:</td>
+                                <td class="width-20"></td>
+                                <td>SE62525</td>
+                            </tr>
+                            <tr>
+                                <td>Phòng đang ở:</td>
+                                <td class="width-20"></td>
+                                <td>201A</td>
+                            </tr>
+                            <tr>
+                                <td>Loại phòng đang ở:</td>
+                                <td class="width-20"></td>
+                                <td>Phòng thường</td>
+                            </tr>
+                            <tr>
+                                <td>Số tháng muốn gia hạn:</td>
+                                <td class="width-20"></td>
+                                <td>12 tháng</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
+                
             </div>
+            <label style="float: left">Lý do từ chối: </label>
+            <textarea class="form-control" rows="3"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-            <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6"
-            style="float: left">
+       
         <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
         <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
     </div>
