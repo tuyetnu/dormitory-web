@@ -6,12 +6,29 @@ import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./equipment-report.component.scss']
 })
 export class EquipmentReportComponent implements OnInit {
-  collection = [];
+  equipmentReports = [];
   constructor(private modalService: NgbModal) {}
 
   ngOnInit() {
+    const equipment = {
+      equipmentType: 'Gường tầng',
+      name: 'Gường tầng 1'
+    };
+    const student = {
+      name: 'Nguyễn Văn A'
+    };
+    const room = {
+      name: 'A201'
+    };
+    const equipmentReport = {
+      issueTicketId: 1,
+      status: 'Chưa xử lí',
+      student,
+      equipment,
+      room,
+    };
     for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
+      this.equipmentReports.push(equipmentReport);
     }
   }
 

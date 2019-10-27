@@ -7,13 +7,32 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./student-managerment.component.scss']
 })
 export class StudentManagermentComponent implements OnInit {
-  collection = [];
+ students = [];
   showList = [true, false, false, false];
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
+    const studentMonthlyBill = {
+      isPaid: 'Đã thanh toán'
+    };
+    const room = {
+      roomName: '201'
+    };
+    const contract = {
+       startDate: '1/6/2020',
+       endDate: '1/10/2020',
+       status: 'Còn Hạn'
+    };
+    const student = {
+      name: 'Nguyễn Hoàng Nam',
+      evaluationScore: 100,
+      studentCardNumber: 'SE62525',
+      studentMonthlyBill,
+      contract,
+      room
+    };
+    for (let i = 1; i <= 10; i++) {
+      this.students.push(student);
     }
   }
   open(content) {

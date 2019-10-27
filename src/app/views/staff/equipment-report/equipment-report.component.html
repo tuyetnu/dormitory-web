@@ -4,36 +4,39 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5><b>Tổng số báo cáo về trang thiết bị: 200</b>
-                                <form class="navbar-form col-md-4" style="float: right;">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control" placeholder="Search..."
-                                                id="searchValue">
-                                            <button mat-raised-button type="submit"
-                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
-                                                <i class="material-icons">search</i>
-                                                <div class="ripple-container"></div>
-                                            </button>
-                                        </div>
-                                    </form>
+                        <h5><b>Báo cáo về trang thiết bị: 200</b>
+                            <form class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Tên phòng..."
+                                        id="searchValue">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </form>
                         </h5>
-                        
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-dark">       
+                                <thead class="thead-dark">
                                     <th>ID</th>
                                     <th>Tên phòng</th>
+                                    <th>Loại TB</th>
                                     <th>Trạng thái</th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">  
-                                        <td>1</td>
-                                        <td>201A</td>
-                                        <td style="color: red;">Chưa xử lí</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                    <tr *ngFor="let equipmentReport of equipmentReports | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{equipmentReport.issueTicketId}}</td>
+                                        <td>{{equipmentReport.room.name}}</td>
+                                        <td>{{equipmentReport.equipment.equipmentType}}</td>
+                                        <td style="color: red;">{{equipmentReport.status}}</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                                tiết</button></td>
                                     </tr>
 
                                 </tbody>
@@ -60,30 +63,41 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table style="font-size: 18px;">
-                                <tr>
-                                    <td>Thiết bị:</td>
-                                    <td class="width-20"></td>
-                                    <td>Gường tầng</td>
-                                </tr>
-                                <tr>
-                                    <td>Sinh viên chịu trách nhiệm:</td>
-                                    <td class="width-20"></td>
-                                    <td>Nguyễn Văn A</td>
-                                </tr>
-                                <tr>
-                                    <td>Ghi chú:</td>
-                                    <td class="width-20"></td>
-                                    <td>201A</td>
-                                </tr>
-                            </table>
+                            <tr>
+                                <td>Tên thiết bị:</td>
+                                <td class="width-20"></td>
+                                <td>Gường tầng 1</td>
+                            </tr>
+                            <tr>
+                                <td>Mã thiết bị:</td>
+                                <td class="width-20"></td>
+                                <td>GT1</td>
+                            </tr>
+                            <tr>
+                                <td>Phòng:</td>
+                                <td class="width-20"></td>
+                                <td>A201</td>
+                            </tr>
+                            <tr>
+                                <td>Sinh viên chịu trách nhiệm:</td>
+                                <td class="width-20"></td>
+                                <td style="color: red;">Nguyễn Văn A</td>
+                            </tr>
+                            <tr>
+                                <td>Ghi chú:</td>
+                                <td class="width-20"></td>
+                                <td></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
+            <label style="float: left">Lý do từ chối: </label>
+            <textarea class="form-control" rows="3"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-            <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6"
-            style="float: left">
+      
         <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
         <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
     </div>

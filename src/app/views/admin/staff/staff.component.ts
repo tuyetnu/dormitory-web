@@ -48,36 +48,27 @@ export class StaffComponent implements OnInit {
     defaultOpen: false,
     closeOnSelect: false,
   };
+  staffs = [];
   ngOnInit() {
+    const staff = {
+      name: 'Nguyễn Văn A',
+      birthDate: '20/19/1995',
+      homeTown: 'HCM',
+      phoneNumber: '0964482740',
+      identityNumber: '127484938',
+      gender: 'Nam'
+    };
     for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
+      this.staffs.push(staff);
     }
   }
   open(content) {
-    this.showList = [true, false, false];
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });
   }
   openCreate(content) {
-    this.showList = [true, false, false];
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });
-  }
-
-  show(index) {
-    const tmp = this.showList[index];
-    this.showList.fill(false);
-    this.showList[index] = !tmp;
-    $('.detail').removeClass('fa-caret-down');
-    $('.detail').removeClass('fa-caret-right');
-    $('.detail').addClass('fa-caret-right');
-    if (this.showList[index] === true) {
-      $('.detail').eq(index).removeClass('fa-caret-right');
-      $('.detail').eq(index).addClass('fa-caret-down');
-    }
-  }
-  toggleVisibility(e) {
-    this.marked = e.target.checked;
   }
 
 }

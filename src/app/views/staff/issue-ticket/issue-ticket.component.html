@@ -4,13 +4,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5><b>Tổng số khiếu nại của sinh viên: 200</b>
+                        <h5><b>Khiếu nại của sinh viên: 200</b>
                                 <form class="navbar-form col-md-4" style="float: right;">
                                         <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control" placeholder="Search..."
+                                            <input type="text" value="" class="form-control" placeholder="Tên người tạo..."
                                                 id="searchValue">
                                             <button mat-raised-button type="submit"
-                                                class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                                class="btn btn-white btn-round btn-just-icon">
                                                 <i class="material-icons">search</i>
                                                 <div class="ripple-container"></div>
                                             </button>
@@ -29,10 +29,10 @@
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">  
-                                        <td>1</td>
-                                        <td>Nguyễn Văn A</td>
-                                        <td style="color: red;">Chưa xử lí</td>
+                                    <tr *ngFor="let issueTicket of issueTickets | paginate: { itemsPerPage: 5, currentPage: p }">  
+                                        <td>{{issueTicket.issueTicketId}}</td>
+                                        <td>{{issueTicket.owner.name}}</td>
+                                        <td style="color: red;">{{issueTicket.status}}</td>
                                         <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
                                     </tr>
 
@@ -62,42 +62,23 @@
                         <table style="font-size: 18px;">
                             <tr>
                                 <td>Tên người tạo:</td>
-                                <td style="width: 20%"></td>
-                                <td>Nguyễn Hoàng Nam</td>
+                                <td style="width: 10%"></td>
+                                <td>Nguyễn Văn A</td>
                             </tr>
                             <tr>
                                 <td>Nội dung khiếu nại:</td>
-                                <td style="width: 20%"></td>
-                                <td>Khiếu nại về ý thức sinh hoạt chung</td>
+                                <td style="width: 10%"></td>
+                                <td style="color: red;">Nguyễn Văn Nam. Ý thức sinh hoạt chung kém. </td>
                             </tr>
                         </table>
-                        <hr>
-                        <table style="font-size: 18px;">
-                            <tr>
-                                <th>Người tạo:</th>
-                                <th style="width: 20%"></th>
-                                <th>Người bị khiếu nại</th>
-                            </tr>
-                            <tr>
-                                <td>Tên: Nguyễn Văn A</td>
-                                <td style="width: 20%"></td>
-                                <td>Tên: Nguyễn Văn B</td>
-                            </tr>
-                            <tr>
-                                <td>Phòng: 201A</td>
-                                <td style="width: 20%"></td>
-                                <td>Phòng: 201C</td>
-                            </tr>
-                        </table>
-
                     </div>
                 </div>
             </div>
+            <label style="float: left">Lý do từ chối: </label>
+            <textarea class="form-control" rows="3"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-            <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6"
-            style="float: left">
         <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
         <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
     </div>

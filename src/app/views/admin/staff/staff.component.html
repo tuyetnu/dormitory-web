@@ -39,18 +39,18 @@
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Nguyễn Văn A</td>
-                                        <td>08/12/1995</td>
-                                        <td>HCM</td>
-                                        <td>0987754627</td>
-                                        <td>0987754627</td>
-                                        <td><img src="./assets/img/avatar/1.jpg"/></td>
+                                    <tr *ngFor="let staff of staffs | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{staff.name}}</td>
+                                        <td>{{staff.birthDate}}</td>
+                                        <td>{{staff.homeTown}}</td>
+                                        <td>{{staff.phoneNumber}}</td>
+                                        <td>{{staff.identityNumber}}</td>
+                                        <td>{{staff.gender}}</td>
                                         <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
-                                            Sửa</button>
+                                                Sửa</button>
                                             &nbsp;
-                                        <button type="button" class="btn btn-danger">
-                                            Xoá</button>
+                                            <button type="button" class="btn btn-danger">
+                                                Xoá</button>
                                         </td>
                                     </tr>
 
@@ -74,72 +74,72 @@
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Tên: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12 ">
             <label for="exampleFormControlSelect1">Ngày sinh: </label>
-            <angular2-date-picker id="datetimepicker" [(ngModel)]="startdate"
-            [settings]="settings1">
-        </angular2-date-picker>
+            <angular2-date-picker id="datetimepicker" [(ngModel)]="startdate" [settings]="settings1">
+            </angular2-date-picker>
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Quê quán: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Số điện thoại: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">CMND: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12">
-                <label>Ảnh hồ sơ: </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="file" id="inputExcel" accept=".img" name="myFile">
-
-            </div>
+            <label>Giới tính: </label>
+            <select class="form-control col-md-12">
+                <option [value]="true">Nam</option>
+                <option [value]="false">Nữ</option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+        <button type="button" class="btn btn-success save shadow-card">Thêm</button>
     </div>
 </ng-template>
 <ng-template #update let-modal>
-    <div class="modal-header">
-        <h4>Sửa nhân sự</h4>
-    </div>
-    <div class="modal-body modal-basic-title col-md-12 row">
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Tên: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        <div class="modal-header">
+            <h4>Sửa nhân sự</h4>
         </div>
-        <div class="form-group col-md-12 ">
-            <label for="exampleFormControlSelect1">Ngày sinh: </label>
-            <angular2-date-picker id="datetimepicker" [(ngModel)]="startdate"
-            [settings]="settings1">
-        </angular2-date-picker>
-        </div>
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Quê quán: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
-        </div>
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Số điện thoại: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
-        </div>
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">CMND: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
-        </div>
-        <div class="form-group col-md-12">
-                <label>Ảnh hồ sơ: </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="file" id="inputExcel" accept=".img" name="myFile">
-
+        <div class="modal-body modal-basic-title col-md-12 row">
+            <div class="form-group col-md-12">
+                <label for="exampleFormControlInput1">Tên: </label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
             </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
-    </div>
-</ng-template>
+            <div class="form-group col-md-12 ">
+                <label for="exampleFormControlSelect1">Ngày sinh: </label>
+                <angular2-date-picker id="datetimepicker" [(ngModel)]="startdate" [settings]="settings1">
+                </angular2-date-picker>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="exampleFormControlInput1">Quê quán: </label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="exampleFormControlInput1">Số điện thoại: </label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="exampleFormControlInput1">CMND: </label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" />
+            </div>
+            <div class="form-group col-md-12">
+                <label>Giới tính: </label>
+                <select class="form-control col-md-12">
+                    <option [value]="true">Nam</option>
+                    <option [value]="false">Nữ</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success save shadow-card">Sửa</button>
+        </div>
+    </ng-template>

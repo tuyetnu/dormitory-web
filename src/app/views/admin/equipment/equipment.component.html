@@ -37,10 +37,8 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(true)">Đang sử dụng</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">Chưa sử dụng</button>
+                                                <button class="dropdown-item">Đang sử dụng</button>
+                                                <button class="dropdown-item">Chưa sử dụng</button>
                                             </div>
                                         </div>
                                     </th>
@@ -48,21 +46,19 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(true)">Bình thường</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">Hư hỏng</button>
+                                                <button class="dropdown-item">Bình thường</button>
+                                                <button class="dropdown-item">Hư hỏng</button>
                                             </div>
                                         </div>
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Gường tầng 1</td>
-                                        <td>G1</td>
-                                        <td>400000</td>
-                                        <td>A201</td>
-                                        <td>Bình thường</td>
+                                    <tr *ngFor="let equipment of equipments | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{equipment.name}}</td>
+                                        <td>{{equipment.code}}</td>
+                                        <td>{{equipment.price}}</td>
+                                        <td>{{equipment.roomName}}</td>
+                                        <td>{{equipment.status}}</td>
                                     </tr>
 
                                 </tbody>

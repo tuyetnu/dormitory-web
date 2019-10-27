@@ -40,10 +40,8 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(true)">Đã thanh toán</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">Chưa thanh toán</button>
+                                                <button class="dropdown-item">Đã thanh toán</button>
+                                                <button class="dropdown-item">Chưa thanh toán</button>
                                             </div>
                                         </div>
                                     </th>
@@ -52,24 +50,21 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(true)">Còn hạn</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">Hết hạn</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">Đã huỷ</button>
+                                                <button class="dropdown-item">Còn hạn</button>
+                                                <button class="dropdown-item">Hết hạn</button>
+                                                <button class="dropdown-item">Đã huỷ</button>
                                             </div>
                                         </div>
                                     </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Nguyễn Hoàng Nam</td>
-                                        <td>SE62525</td>
-                                        <td>Đã thanh toán</td>
-                                        <td>1/11/2019</td>
-                                        <td>Còn hạn</td>
+                                    <tr *ngFor="let student of students | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{student.name}}</td>
+                                        <td>{{student.studentCardNumber}}</td>
+                                        <td>{{student.studentMonthlyBill.isPaid}}</td>
+                                        <td>{{student.contract.endDate}}</td>
+                                        <td>{{student.contract.status}}</td>
                                         <td><button type="button" class="btn btn-secondary" (click)="open(detail)">Chi
                                                 tiết</button>
                                             &nbsp;<button type="button" class="btn btn-danger">

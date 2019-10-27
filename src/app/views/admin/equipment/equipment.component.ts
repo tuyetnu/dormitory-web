@@ -6,82 +6,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit {
-  collection = [];
-  showList = [true, false, false];
-  theCheckbox1 = false;
-  theCheckbox2 = false;
-  theCheckbox3 = false;
-  theCheckbox4 = false;
-  theCheckbox5 = false;
-  marked = true;
+  equipments = [];
   constructor(private modalService: NgbModal) { }
-  dropdownList = [
-    { 'id': 1, 'name': 'Bình thường' },
-    { 'id': 5, 'name': 'Đặt biệt' },
-  ];
-  dropdownList2 = [
-    { 'id': 1, 'name': '6 sinh viên' },
-    { 'id': 5, 'name': '8 sinh viên' },
-  ];
-  selectedItems = [];
-  dropdownSetting1 = {
-    text: 'Chọn loại phòng',
-    classes: 'form-control form-group',
-    labelKey: 'name',
-    maxHeight: 240,
-    showCheckbox: true,
-  };
-  dropdownSetting2 = {
-    text: 'Chọn số sinh viên',
-    classes: 'form-control form-group',
-    labelKey: 'name',
-    maxHeight: 240,
-    showCheckbox: true,
-  };
-  startdate: Date = new Date();
-
-  enddate: Date = new Date(this.startdate);
-  settings1 = {
-    bigBanner: true,
-    timePicker: true,
-    format: 'dd-MM-yyyy hh:mm a',
-    defaultOpen: false,
-    closeOnSelect: false,
-  };
   ngOnInit() {
+   const equipment = {
+    name: 'Gường tâng 1',
+    code: 'G1',
+    price: 400000,
+    roomName: 'A201',
+    status: 'Bình thường'
+   };
     if (sessionStorage.getItem('addEquipment') != null) {
       $('#btnAdd').click();
       sessionStorage.removeItem('addEquipment');
     }
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
+    for (let i = 1; i <= 10; i++) {
+      this.equipments.push(equipment);
     }
-  }
-  open(content) {
-    this.showList = [true, false, false];
-    this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    });
-  }
-  openCreate(content) {
-    this.showList = [true, false, false];
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    });
-  }
-
-  show(index) {
-    const tmp = this.showList[index];
-    this.showList.fill(false);
-    this.showList[index] = !tmp;
-    $('.detail').removeClass('fa-caret-down');
-    $('.detail').removeClass('fa-caret-right');
-    $('.detail').addClass('fa-caret-right');
-    if (this.showList[index] === true) {
-      $('.detail').eq(index).removeClass('fa-caret-right');
-      $('.detail').eq(index).addClass('fa-caret-down');
-    }
-  }
-  toggleVisibility(e) {
-    this.marked = e.target.checked;
   }
 
 
