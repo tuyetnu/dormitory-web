@@ -31,6 +31,7 @@ export class RoomBookingRequestComponent implements OnInit {
   status = 'Pending';
   roomType = null;
   month = null;
+  studentCardNumber = null;
   createdDate = 'createdDate';
   isLoaded = false;
   page = 1;
@@ -42,11 +43,14 @@ export class RoomBookingRequestComponent implements OnInit {
   }
 
   getRoomRequest() {
+    console.log(this.studentCardNumber);
     let filters = 'Status@=' + this.status;
     if (this.roomType !== null) {
       filters += ',targetRoomTypeName@=' + this.roomType;
     } if (this.month !== null) {
       filters += ',month==' + this.month;
+    } if (this.studentCardNumber !== null) {
+      filters += ',studentCardNumber@=' + this.studentCardNumber;
     }
     console.log(filters);
     console.log(this.createdDate);
