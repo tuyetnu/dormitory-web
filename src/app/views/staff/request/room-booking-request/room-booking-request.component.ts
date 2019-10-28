@@ -35,7 +35,7 @@ export class RoomBookingRequestComponent implements OnInit {
   createdDate = 'createdDate';
   isLoaded = false;
   page = 1;
-  pageSize = 100;
+  pageSize = 5;
   studentBook;
   constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService, private studentService: StudentService) { }
   ngOnInit() {
@@ -52,8 +52,6 @@ export class RoomBookingRequestComponent implements OnInit {
     } if (this.studentCardNumber !== null) {
       filters += ',studentCardNumber@=' + this.studentCardNumber;
     }
-    console.log(filters);
-    console.log(this.createdDate);
     this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
         this.roomBookingRequests = res;
@@ -84,11 +82,10 @@ export class RoomBookingRequestComponent implements OnInit {
     }
     this.getRoomRequest();
   }
-  detail(studentId) {
-    const filters = 'studentId==' + studentId;
-    this.studentService.getStudent(this.createdDate, filters, this.page, this.pageSize);
+  changePageSize(pageSize) {
+    this.pageSize = pageSize;
+    this.getRoomRequest();
   }
-
   open(content, index, studentId) {
     this.showList = [false, true];
     if (index !== undefined) {

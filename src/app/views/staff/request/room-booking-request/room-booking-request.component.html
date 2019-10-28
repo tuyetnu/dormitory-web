@@ -9,9 +9,9 @@
                                 style="float: right;">
                                 <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
                                 <div ngbDropdownMenu>
-                                    <button class="dropdown-item">5</button>
-                                    <button class="dropdown-item">25</button>
-                                    <button class="dropdown-item">50</button>
+                                    <button class="dropdown-item" (click)="changePageSize(5)">5</button>
+                                    <button class="dropdown-item" (click)="changePageSize(10)">10</button>
+                                    <button class="dropdown-item" (click)="changePageSize(20)">20</button>
                                 </div>
                             </div>
                             <div class="navbar-form col-md-4" style="float: right;">
