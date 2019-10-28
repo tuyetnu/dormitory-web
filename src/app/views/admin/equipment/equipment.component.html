@@ -7,7 +7,7 @@
                         <h5><b>Danh sách trang thiết bị</b>
                             <div class="col-md-2" style="float: right;">
                                 <button mat-raised-button type="button" class="btn btn-info pull-right"
-                                    (click)="openCreate(create)" id="btnAdd">Thêm thiết bị</button>
+                                    (click)="open(create)" id="btnAdd">Thêm thiết bị</button>
                                 <div class="clearfix"></div>
                             </div>
 
@@ -30,7 +30,15 @@
                         <div class="table-responsive">
                             <table class="table table-hover" style="text-align: center">
                                 <thead class="thead-dark">
-                                    <th>Tên</th>
+                                    <th>Loại thiết bị
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item">Gường</button>
+                                                <button class="dropdown-item">Bàn</button>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>Mã TB</th>
                                     <th>Giá</th>
                                     <th>Phòng
@@ -51,14 +59,24 @@
                                             </div>
                                         </div>
                                     </th>
+                                    <th>Ngày tạo
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item">Tăng dần</button>
+                                                <button class="dropdown-item">Giảm dần</button>
+                                            </div>
+                                        </div>
+                                    </th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let equipment of equipments | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>{{equipment.name}}</td>
+                                        <td>{{equipment.equipmentType}}</td>
                                         <td>{{equipment.code}}</td>
                                         <td>{{equipment.price}}</td>
                                         <td>{{equipment.roomName}}</td>
                                         <td>{{equipment.status}}</td>
+                                        <td>{{equipment.createdDate}}</td>
                                     </tr>
 
                                 </tbody>
@@ -79,9 +97,12 @@
         <h4>Thêm trang thiết bị</h4>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
-        <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Tên: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+        <div class="form-group col-md-12 ">
+            <label for="exampleFormControlSelect1">Loại thiết bị</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>Gường</option>
+                <option>Bàn</option>
+            </select>
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Mã thiết bị: </label>
@@ -93,7 +114,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="Save()">Thêm</button>
+        <button type="button" class="btn btn-success save shadow-card">Thêm</button>
     </div>
 </ng-template>
 

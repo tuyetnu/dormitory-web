@@ -50,16 +50,14 @@
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Nguyễn Hoàng Nam</td>
-                                        <td>SE62525</td>
-                                        <td>209A</td>
-                                        <td>10/27/2019</td>
-                                        <td>Chưa duyệt</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
-                                                tiết</button></td>
+                                    <tr *ngFor="let cancelContract of cancelContracts | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{cancelContract.student.name}}</td>
+                                        <td>{{cancelContract.student.studentCardNumber}}</td>
+                                        <td>{{cancelContract.room.name}}</td>
+                                        <td>{{cancelContract.createdDate}}</td>
+                                        <td>{{cancelContract.status}}</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
                                     </tr>
-
                                 </tbody>
                             </table>
                             <div class="paging">

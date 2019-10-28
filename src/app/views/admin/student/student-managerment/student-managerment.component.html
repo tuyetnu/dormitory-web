@@ -59,13 +59,13 @@
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let student of students | paginate: { itemsPerPage: 5, currentPage: p }">
+                                    <tr *ngFor="let student of students; let i = index">
                                         <td>{{student.name}}</td>
                                         <td>{{student.studentCardNumber}}</td>
-                                        <td>{{student.studentMonthlyBill.isPaid}}</td>
+                                        <td style="color: green;">{{student.isPaid}}</td>
                                         <td>{{student.contract.endDate}}</td>
                                         <td>{{student.contract.status}}</td>
-                                        <td><button type="button" class="btn btn-secondary" (click)="open(detail)">Chi
+                                        <td><button type="button" class="btn btn-secondary" (click)="open(detail, i)">Chi
                                                 tiết</button>
                                             &nbsp;<button type="button" class="btn btn-danger">
                                                 Xoá</button></td>
@@ -74,7 +74,7 @@
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                
                             </div>
                         </div>
                     </div>
@@ -103,37 +103,72 @@
                             <tr>
                                 <td>Tên:</td>
                                 <td class="width-20"></td>
-                                <td>Nguyễn Hoàng Nam</td>
+                                <td>{{studentDetail.name}}</td>
                             </tr>
                             <tr>
                                 <td>MSSV:</td>
                                 <td class="width-20"></td>
-                                <td>SE62525</td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Giới tính:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>SĐT:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>CMND:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Khoá:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Đối tượng ưu tiên:</td>
+                                <td class="width-20"></td>
+                                <td>{{studentDetail.studentCardNumber}}</td>
                             </tr>
                             <tr>
                                 <td>Ngày vào KTX:</td>
                                 <td class="width-20"></td>
-                                <td>05/12/2018</td>
+                                <td>{{studentDetail.startDate}}</td>
                             </tr>
                             <tr>
                                 <td>Ngày hết hợp đồng:</td>
                                 <td class="width-20"></td>
-                                <td>05/12/2019</td>
+                                <td>{{studentDetail.endDate}}</td>
                             </tr>
                             <tr>
                                 <td>Trạng thái thanh toán phí:</td>
                                 <td class="width-20"></td>
-                                <td style="color: green">Đã thanh toán</td>
+                                <td style="color: green">{{studentDetail.isPaid}}</td>
                             </tr>
                             <tr>
                                 <td>Điểm rèn luyện:</td>
                                 <td class="width-20"></td>
-                                <td>90</td>
+                                <td>{{studentDetail.evaluationScore}}</td>
                             </tr>
                             <tr>
                                 <td>Phòng:</td>
                                 <td class="width-20"></td>
-                                <td>201A</td>
+                                <td>{{studentDetail.roomName}}</td>
                             </tr>
                         </table>
                     </div>

@@ -30,7 +30,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 200px;">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
                                     <th>MSSV</th>
@@ -38,10 +38,12 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="filteByRoomType(null)">Tất
+                                                    cả</button>
                                                 <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(true)">Thường</button>
+                                                    (click)="filteByRoomType('Standard Room')">Thường</button>
                                                 <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">Dịch vụ</button>
+                                                    (click)="filteByRoomType('Service Room')">Dịch vụ</button>
                                             </div>
                                         </div>
                                     </th>
@@ -49,47 +51,60 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(true)">4</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">8</button>
-                                                <button class="dropdown-item"
-                                                    (click)="getConfigurationIsActive(false)">12</button>
+                                                <button class="dropdown-item" (click)="filteByMonth(null)">Tất
+                                                    cả</button>
+                                                <button class="dropdown-item" (click)="filteByMonth('4')">4</button>
+                                                <button class="dropdown-item" (click)="filteByMonth('8')">8</button>
+                                                <button class="dropdown-item" (click)="filteByMonth('12')">12</button>
                                             </div>
                                         </div>
                                     </th>
                                     <th>Ngày tạo
-                                            <i class="fa fa-fw fas fa-sort"></i>
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Tăng
+                                                    dần</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Giảm
+                                                    dần</button>
+                                            </div>
+                                        </div>
                                     </th>
                                     <th>Trạng thái
-                                            <div ngbDropdown class="d-inline-block dropdown">
-                                                    <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                                    <div ngbDropdownMenu>
-                                                        <button class="dropdown-item"
-                                                            (click)="getConfigurationIsActive(true)">Chưa duyệt</button>
-                                                        <button class="dropdown-item"
-                                                            (click)="getConfigurationIsActive(false)">Đã huỷ</button>
-                                                    </div>
-                                                </div>
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="filterByStatus('Pending')">Chưa
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Reject')">Đã
+                                                    huỷ</button>
+                                            </div>
+                                        </div>
                                     </th>
                                     <th>Thao tác</th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Nguyễn Hoàng Nam</td>
-                                        <td>SE62525</td>
-                                        <td>Phòng thường</td>
-                                        <td>12 tháng</td>
-                                        <td>25/10/2019</td>
-                                        <td>Chưa duyệt</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="roomBookingRequests.length == 0" style="text-align: center;">
+                                        <td colspan="7">Không có yêu cầu nào</td>
+                                    </tr>
+                                    <tr *ngFor="let roomBookingRequest of roomBookingRequests, let i = index">
+                                        <td>{{roomBookingRequest.name}}</td>
+                                        <td>{{roomBookingRequest.studentCardNumber}}</td>
+                                        <td>{{roomBookingRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}
+                                        </td>
+                                        <td>{{roomBookingRequest.month}}</td>
+                                        <td>{{roomBookingRequest.createdDate}}</td>
+                                        <td
+                                            [ngClass]="{pending : roomBookingRequest.status == 'Pending', reject: roomBookingRequest.status == 'Reject'}">
+                                            {{roomBookingRequest.status == 'Pending' ? 'Chưa duyệt' : 'Đã huỷ'}}</td>
+                                        <td><button type="button" class="btn btn-info"
+                                                (click)="open(detail,i,roomBookingRequest.studentId)">Chi
                                                 tiết</button></td>
                                     </tr>
-
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
                             </div>
                         </div>
                     </div>
@@ -119,22 +134,23 @@
                             <tr>
                                 <td>Tên:</td>
                                 <td class="width-20"></td>
-                                <td>Nguyễn Hoàng Nam</td>
+                                <td>{{roomBookingRequestDetail.name}}</td>
                             </tr>
                             <tr>
                                 <td>MSSV:</td>
                                 <td class="width-20"></td>
-                                <td>SE62525</td>
+                                <td>{{roomBookingRequestDetail.studentCardNumber}}</td>
                             </tr>
                             <tr>
                                 <td>Loại phòng:</td>
                                 <td class="width-20"></td>
-                                <td>Loại thường</td>
+                                <td>{{roomBookingRequestDetail.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Số tháng muốn ở:</td>
                                 <td class="width-20"></td>
-                                <td>12 tháng</td>
+                                <td>{{roomBookingRequestDetail.month}}</td>
                             </tr>
                         </table>
                     </div>
@@ -157,68 +173,64 @@
                                 <tr>
                                     <td>Tên:</td>
                                     <td class="width-20"></td>
-                                    <td>Nguyễn Hoàng Nam</td>
+                                    <td>{{studentBook.name}}</td>
                                 </tr>
                                 <tr>
                                     <td>MSSV:</td>
                                     <td class="width-20"></td>
-                                    <td>SE62525</td>
+                                    <td>{{studentBook.studentCardNumber}}</td>
                                 </tr>
                                 <tr>
                                     <td>Giới tính:</td>
                                     <td class="width-20"></td>
-                                    <td>Nam</td>
+                                    <td>{{studentBook.gender == 'True' ? 'Nam' : 'Nữ'}}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>SĐT:</td>
                                     <td class="width-20"></td>
-                                    <td>0964482740</td>
-                                </tr>
+                                    <td>{{studentBook.studentCardNumber}}</td>
+                                </tr> -->
                                 <tr>
                                     <td>Ngày sinh:</td>
                                     <td class="width-20"></td>
-                                    <td>20/10/2000</td>
+                                    <td>{{studentBook.birthDay}}</td>
                                 </tr>
                                 <tr>
                                     <td>Địa chỉ:</td>
                                     <td class="width-20"></td>
-                                    <td>HCM</td>
+                                    <td>{{studentBook.address}}</td>
                                 </tr>
                                 <tr>
                                     <td>CMND:</td>
                                     <td class="width-20"></td>
-                                    <td>215432589</td>
+                                    <td>{{studentBook.identityNumber}}</td>
                                 </tr>
                                 <tr>
                                     <td>Khoá:</td>
                                     <td class="width-20"></td>
-                                    <td>12B</td>
+                                    <td>{{studentBook.term}}</td>
                                 </tr>
                                 <tr>
                                     <td>Đối tượng ưu tiên:</td>
                                     <td class="width-20"></td>
-                                    <td>Loại 1</td>
+                                    <td>{{studentBook.priorityType == 0 ? 'Không' : 'Loại' + studentBook.priorityType}}
+                                    </td>
                                 </tr>
-                                <!-- <tr>
-                                    <td>Phí dự kiến:</td>
-                                    <td class="width-20"></td>
-                                    <td>800.000 vnđ</td>
-                                </tr> -->
 
                             </table>
                             <hr>
                             <div style="margin-bottom:25px">
-                                <div style="display:block;" [style.width]="width">
-                                    <slideshow #slideshow [imageUrls]="imageUrls" [height]="height"
-                                        [minHeight]="minHeight" [arrowSize]="arrowSize" [showArrows]="showArrows"
-                                        [backgroundSize]="backgroundSize" [backgroundPosition]="backgroundPosition"
-                                        [showDots]="showDots" [dotColor]="dotColor" [showCaptions]="showCaptions"
-                                        [captionColor]="captionColor" [captionBackground]="captionBackground">
+                                <div style="display:block;" style.width="">
+                                    <slideshow #slideshow [imageUrls]="imageUrls" height="400px" arrowSize="30px"
+                                        showArrows= true backgroundSize="cover"
+                                        backgroundPosition="center center" showDots= true
+                                        dotColor="#FFF" showCaptions= true
+                                        captionColor="#FFF" captionBackground="rgba(0, 0, 0, .35)">
                                     </slideshow>
                                 </div>
                             </div>
                             <label style="float: left">Lý do từ chối: </label>
-                            <textarea class = "form-control" rows = "3" ></textarea>
+                            <textarea class="form-control" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -226,8 +238,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <!-- <label style="float: left">Lý do từ chối: </label><input type="text" class="form-control col-md-6"
-            style="float: left"> -->
         <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
         <button type="button" class="btn btn-danger save shadow-card">Từ chối</button>
     </div>

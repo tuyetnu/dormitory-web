@@ -7,12 +7,27 @@ import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class RenewContractRequestComponent implements OnInit {
 
-  collection = [];
+  renewContracts = [];
   constructor(private modalService: NgbModal) {}
 
   ngOnInit() {
+    const room = {
+      name: 'A201',
+      roomType: 'Loại thường'
+    };
+    const student = {
+      name: 'Nguyễn Văn A',
+      studentCardNumber: 'SE62525',
+    };
+    const renewContract = {
+      createdDate: '27/10/2019',
+      status: 'Chưa xử lí',
+      month: '12',
+      room,
+      student,
+    };
     for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
+      this.renewContracts.push(renewContract);
     }
   }
 

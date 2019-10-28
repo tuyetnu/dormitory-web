@@ -10,11 +10,12 @@ export class EquipmentComponent implements OnInit {
   constructor(private modalService: NgbModal) { }
   ngOnInit() {
    const equipment = {
-    name: 'Gường tâng 1',
+    equipmentType: 'Gường tầng',
     code: 'G1',
     price: 400000,
     roomName: 'A201',
-    status: 'Bình thường'
+    status: 'Bình thường',
+    createdDate: '28/10/2019 19:02:00'
    };
     if (sessionStorage.getItem('addEquipment') != null) {
       $('#btnAdd').click();
@@ -24,6 +25,9 @@ export class EquipmentComponent implements OnInit {
       this.equipments.push(equipment);
     }
   }
-
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    });
+  }
 
 }

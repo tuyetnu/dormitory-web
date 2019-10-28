@@ -47,14 +47,24 @@
                                     <th>Ngày tạo
                                             <i class="fa fa-fw fas fa-sort"></i>
                                     </th>
+                                    <th>Trạng thái
+                                            <div ngbDropdown class="d-inline-block dropdown">
+                                                <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                                <div ngbDropdownMenu>
+                                                    <button class="dropdown-item">Chưa duyệt</button>
+                                                    <button class="dropdown-item">Đã huỷ</button>
+                                                </div>
+                                            </div>
+                                        </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of collection | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>Nguyễn Hoàng Nam</td>
-                                        <td>SE62525</td>
-                                        <td>209A</td>
-                                        <td>10/27/2019</td>
+                                    <tr *ngFor="let renewContract of renewContracts | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        <td>{{renewContract.student.name}}</td>
+                                        <td>{{renewContract.student.studentCardNumber}}</td>
+                                        <td>{{renewContract.room.name}}</td>
+                                        <td>{{renewContract.createdDate}}</td>
+                                        <td style="color: red;">{{renewContract.status}}</td>
                                         <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
                                                 tiết</button></td>
                                     </tr>

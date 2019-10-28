@@ -7,38 +7,70 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./student-managerment.component.scss']
 })
 export class StudentManagermentComponent implements OnInit {
- students = [];
+  students = [];
+  studentDetail;
   showList = [true, false, false, false];
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
-    const studentMonthlyBill = {
-      isPaid: 'Đã thanh toán'
-    };
-    const room = {
-      roomName: '201'
-    };
-    const contract = {
-       startDate: '1/6/2020',
-       endDate: '1/10/2020',
-       status: 'Còn Hạn'
-    };
-    const student = {
-      name: 'Nguyễn Hoàng Nam',
+    this.students = [
+      {
+      name: 'Nguyễn Văn A',
       evaluationScore: 100,
       studentCardNumber: 'SE62525',
-      studentMonthlyBill,
-      contract,
-      room
-    };
-    for (let i = 1; i <= 10; i++) {
-      this.students.push(student);
-    }
+      isPaid: 'Đã thanh toán',
+      contract: {
+        startDate: '1/6/2020',
+        endDate: '1/10/2020',
+        status: 'Còn Hạn'
+      },
+      roomName: '201'
+    },
+    {
+      name: 'Nguyễn Văn B',
+      evaluationScore: 90,
+      studentCardNumber: 'SE62577',
+      isPaid: 'Chưa thanh toán',
+      contract: {
+        startDate: '1/6/2020',
+        endDate: '1/10/2020',
+        status: 'Còn Hạn'
+      },
+      roomName: '201'
+    },
+    {
+      name: 'Nguyễn Văn C',
+      evaluationScore: 80,
+      studentCardNumber: 'SE62588',
+      isPaid: 'Đã thanh toán',
+      contract: {
+        startDate: '1/6/2020',
+        endDate: '1/10/2020',
+        status: 'Còn Hạn'
+      },
+      roomName: '201'
+    },
+    {
+      name: 'Nguyễn Hoàng Nam',
+      evaluationScore: 100,
+      studentCardNumber: 'SE62544',
+      isPaid: 'Đã thanh toán',
+      contract: {
+        startDate: '1/6/2020',
+        endDate: '1/10/2020',
+        status: 'Còn Hạn'
+      },
+      roomName: '201'
+    },
+  ];
   }
-  open(content) {
+  open(content, index) {
+    if (index !== undefined) {
+      this.studentDetail = this.students[index];
+    }
     this.showList = [true, false, false, false];
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    });
+    }).catch(error => { });
   }
 
   show(index) {
@@ -48,7 +80,6 @@ export class StudentManagermentComponent implements OnInit {
     $('.detail').removeClass('fa-caret-down');
     $('.detail').removeClass('fa-caret-right');
     $('.detail').addClass('fa-caret-right');
-    console.log($('.detail'));
     if (this.showList[index] === true) {
       $('.detail').eq(index).removeClass('fa-caret-right');
       $('.detail').eq(index).addClass('fa-caret-down');

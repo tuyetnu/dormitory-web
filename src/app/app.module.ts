@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -63,7 +62,6 @@ import { CancleContracRequestComponent } from './views/staff/request/cancle-cont
 import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/admin/room/room-management/room-management.component';
 import {SlideshowModule} from 'ng-simple-slideshow';
-import { LogoutComponent } from './views/logout/logout.component';
 import { StaffComponent } from './views/admin/staff/staff.component';
 import { UpdateFeeComponent } from './views/admin/update-fee/update-fee.component';
 import { EquipmentComponent } from './views/admin/equipment/equipment.component';
@@ -74,6 +72,8 @@ import { CreateNewComponent } from './views/admin/create-new/create-new.componen
 import { ApprovedRequestComponent } from './views/admin/approved-request/approved-request.component';
 import { BuildingManagementComponent } from './views/admin/building-management/building-management.component';
 import { RoomMissEquipmentComponent } from './views/admin/room-miss-equipment/room-miss-equipment.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './_helpers';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -127,7 +127,6 @@ export function provideConfig() {
     CancleContracRequestComponent,
     DashboardComponent,
     RoomManagementComponent,
-    LogoutComponent,
     StaffComponent,
     UpdateFeeComponent,
     EquipmentComponent,
@@ -139,7 +138,9 @@ export function provideConfig() {
     BuildingManagementComponent,
     RoomMissEquipmentComponent
   ],
-  providers: [{
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {
     provide: AuthServiceConfig,
     useFactory: provideConfig
   }],

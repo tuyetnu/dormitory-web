@@ -11,38 +11,36 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   private user: SocialUser;
-  private loggedIn: boolean;
   constructor(private authService: AuthService,
     private userService: UserService,
     private router: Router) { }
   signInWithGoogle(): void {
     if (this.user != null) {
-      this.signOut();
-    } this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-  signOut(): void {
-    this.authService.signOut();
+      this.authService.signOut();
+    }
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(userData => {
+        this.user = userData;
+        if (this.user != null) {
+          sessionStorage.setItem('photoUrl', userData.photoUrl);
+          const socialUser = {
+            idToken: this.user.idToken,
+            email: this.user.email
+          };
+          this.userService.login(socialUser)
+            .subscribe(res => {
+              sessionStorage.setItem('accessToken', res.accessToken);
+              // check role to route
+              this.router.navigate(['/dashboard']);
+            });
+        }
+      });
   }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      if (this.loggedIn) {
-        console.log(this.user);
-        sessionStorage.setItem('photoUrl', user.photoUrl);
-        const socialUser = {
-          idToken: this.user.idToken,
-          email: this.user.email
-        };
-        this.userService.login(socialUser)
-          .subscribe(res => {
-            console.log(res);
-            sessionStorage.setItem('accessToken', res.accessToken);
-            // check role to route
-            this.router.navigate(['/dashboard']);
-          });
-      }
-    });
+    const accessToken = sessionStorage.getItem('accessToken');
+    if (accessToken != null) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 }

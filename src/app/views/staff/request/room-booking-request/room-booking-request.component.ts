@@ -1,3 +1,6 @@
+import { StudentService } from './../../../../services/student.service';
+
+import { RoomBookingService } from './../../../../services/room-booking.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IImage } from '../../../../module/IImage';
@@ -7,43 +10,92 @@ import { IImage } from '../../../../module/IImage';
   styleUrls: ['./room-booking-request.component.scss']
 })
 export class RoomBookingRequestComponent implements OnInit {
-  collection = [];
+  roomBookingRequests;
+  roomBookingRequestDetail;
   showList = [false, true];
-  constructor(private modalService: NgbModal) { }
   imageUrls: (string | IImage)[] = [
-    { url: '/assets/img/CMND.jpg',
-     caption: 'Hình chứng minh nhân dân', href: '#config' },
-    { url: '/assets/img/theSV.png',
-    caption: 'Hình thẻ sinh viên', href: '#config' },
-    { url: '/assets/img/hoNgheo.jpg',
-    caption: 'Hình đối tượng ưu tiên', href: 'https://www.apple.com/' },
+    {
+      url: '/assets/img/CMND.jpg',
+      caption: 'Hình chứng minh nhân dân'
+    },
+    {
+      url: '/assets/img/theSV.png',
+      caption: 'Hình thẻ sinh viên'
+    },
+    {
+      url: '/assets/img/hoNgheo.jpg',
+      caption: 'Hình đối tượng ưu tiên'
+    },
   ];
-  height: string = '400px';
-  minHeight: string;
-  arrowSize: string = '30px';
-  showArrows: boolean = true;
-
-
-  backgroundSize: string = 'cover';
-  backgroundPosition: string = 'center center';
-  backgroundRepeat: string = 'no-repeat';
-  showDots: boolean = true;
-  dotColor: string = '#FFF';
-  showCaptions: boolean = true;
-  captionColor: string = '#FFF';
-  captionBackground: string = 'rgba(0, 0, 0, .35)';
-
+  // room-booking
+  status = 'Pending';
+  roomType = null;
+  month = null;
+  createdDate = 'createdDate';
+  isLoaded = false;
+  page = 1;
+  pageSize = 100;
+  studentBook;
+  constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService, private studentService: StudentService) { }
   ngOnInit() {
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
-    }
+    this.getRoomRequest();
   }
 
-  open(content) {
-    this.showList = [false, true];
-    this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+  getRoomRequest() {
+    let filters = 'Status@=' + this.status;
+    if (this.roomType !== null) {
+      filters += ',targetRoomTypeName@=' + this.roomType;
+    } if (this.month !== null) {
+      filters += ',month==' + this.month;
+    }
+    console.log(filters);
+    console.log(this.createdDate);
+    this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
+      .subscribe((res) => {
+        this.roomBookingRequests = res;
+        this.isLoaded = true;
+      },
+        (error) => {
 
-    });
+        });
+  }
+
+  filterByStatus(status) {
+    this.status = status;
+    this.getRoomRequest();
+  }
+  filteByRoomType(roomtype) {
+    this.roomType = roomtype;
+    this.getRoomRequest();
+  }
+  filteByMonth(month) {
+    this.month = month;
+    this.getRoomRequest();
+  }
+  sortByCreateDate(des) {
+    if (!des) {
+      this.createdDate = this.createdDate.replace('-', '');
+    } else if (des && this.createdDate[0] !== '-') {
+      this.createdDate = '-' + this.createdDate;
+    }
+    this.getRoomRequest();
+  }
+  detail(studentId) {
+    const filters = 'studentId==' + studentId;
+    this.studentService.getStudent(this.createdDate, filters, this.page, this.pageSize);
+  }
+
+  open(content, index, studentId) {
+    this.showList = [false, true];
+    if (index !== undefined) {
+      this.roomBookingRequestDetail = this.roomBookingRequests[index];
+    }
+    const filters = 'studentId==' + studentId;
+    this.studentService.getStudent(this.createdDate, filters, 1, 1)
+      .subscribe(res => {
+        this.studentBook = res[0];
+        this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => { });
+      });
   }
   show(index) {
     const tmp = this.showList[index];

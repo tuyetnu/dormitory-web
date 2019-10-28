@@ -4,7 +4,6 @@ import { ApprovedRequestComponent } from './views/admin/approved-request/approve
 import { EquipmentReportComponent } from './views/staff/equipment-report/equipment-report.component';
 import { StudentComponent } from './views/staff/student/student.component';
 import { EquipmentComponent } from './views/admin/equipment/equipment.component';
-import { LogoutComponent } from './views/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -54,10 +53,6 @@ export const routes: Routes = [
     data: {
       title: 'Login Page'
     }
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent,
   },
   {
     path: 'register',
