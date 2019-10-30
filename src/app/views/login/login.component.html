@@ -5,7 +5,8 @@
         <div class="login-form">
           <h2 class="text-center">Đăng nhập</h2>
           <div class="text-center social-btn">
-            <button (click)="signInWithGoogle()" class="btn btn-danger btn-block btn-login col-md-8"><i class="fa fa-google"></i> Sign in with
+            <button (click)="signInWithGoogle()" class="btn btn-danger btn-block btn-login col-md-8"><i
+                class="fa fa-google"></i> Sign in with
               <b>Google</b></button>
           </div>
         </div>
@@ -27,3 +28,10 @@
       </div>
     </div>
   </div>
+
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>

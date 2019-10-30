@@ -9,9 +9,9 @@
                                 style="float: right;">
                                 <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
                                 <div ngbDropdownMenu>
-                                    <button class="dropdown-item">5</button>
-                                    <button class="dropdown-item">25</button>
-                                    <button class="dropdown-item">50</button>
+                                    <button class="dropdown-item" (click)="changePageSize(5)">5</button>
+                                    <button class="dropdown-item" (click)="changePageSize(10)">10</button>
+                                    <button class="dropdown-item" (click)="changePageSize(20)">20</button>
                                 </div>
                             </div>
                             <div class="navbar-form col-md-4" style="float: right;">
@@ -38,8 +38,8 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Loại thường</button>
-                                                <button class="dropdown-item">Dịch vụ</button>
+                                                <button class="dropdown-item" (click)="filteByRoomType('Standard Room')">Loại thường</button>
+                                                <button class="dropdown-item" (click)="filteByRoomType('Service Room')">Dịch vụ</button>
                                             </div>
                                         </div>
                                     </th>
@@ -66,7 +66,7 @@
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody *ngIf="isLoaded">
-                                    <tr *ngIf="roomBookingRequests.length == 0" style="text-align: center;">
+                                    <tr *ngIf="roomBookingRequests.length == 0" style="text-align: center; min-height: 400px;">
                                         <td colspan="7">Không có yêu cầu nào</td>
                                     </tr>
                                     <tr *ngFor="let roomBookingRequest of roomBookingRequests">
@@ -97,13 +97,13 @@
 
 <ng-template #detail let-modal>
     <div class="modal-header">
-        <h5><b>Chi tiết yêu cầu đặt phòng</b></h5>
+        <h5><b>Chi tiết yêu cầu</b></h5>
     </div>
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger" (click)="show(0)">
-                    <h5>Thông tin yêu cầu đặt phòng
+                    <h5>Thông tin yêu cầu đã được duyệt
                         <i class="fa fa-caret-right detail" style="font-size:30px; float: right;"></i>
                     </h5>
 
@@ -210,3 +210,9 @@
         </div>
     </div>
 </ng-template>
+<ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>

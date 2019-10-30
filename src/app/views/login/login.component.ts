@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   private user: SocialUser;
+  loading = false;
   constructor(private authService: AuthService,
     private userService: UserService,
     private router: Router) { }
@@ -27,13 +28,19 @@ export class LoginComponent implements OnInit {
             idToken: this.user.idToken,
             email: this.user.email
           };
+          this.loading = true;
           this.userService.login(socialUser)
             .subscribe(res => {
               console.log(res);
               sessionStorage.setItem('accessToken', res.accessToken);
               sessionStorage.setItem('accountID', res.id + '');
-              // check role to route
-              this.router.navigate(['/dashboard']);
+              sessionStorage.setItem('role', res.role);
+              this.loading = false;
+              if (res.role === 'Admin') {
+                this.router.navigate(['/dashboard']);
+              } else {
+                this.router.navigate(['/approved-request']);
+              }
             });
         }
       });

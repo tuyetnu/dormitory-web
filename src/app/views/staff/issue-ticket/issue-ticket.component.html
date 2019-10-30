@@ -5,41 +5,68 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Khiếu nại của sinh viên: 200</b>
-                                <form class="navbar-form col-md-4" style="float: right;">
-                                        <div class="input-group no-border">
-                                            <input type="text" value="" class="form-control" placeholder="Tên người tạo..."
-                                                id="searchValue">
-                                            <button mat-raised-button type="submit"
-                                                class="btn btn-white btn-round btn-just-icon">
-                                                <i class="material-icons">search</i>
-                                                <div class="ripple-container"></div>
-                                            </button>
-                                        </div>
-                                    </form>
+                            <div class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Tên người tạo..."
+                                        id="searchValue" [(ngModel)]="ownerName">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getIssue()">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </div>
                         </h5>
-                        
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-dark">       
-                                    <th>ID</th>
+                                <thead class="thead-dark">
                                     <th>Tên người tạo</th>
-                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Tăng
+                                                    dần</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Giảm
+                                                    dần</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Trạng thái
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="filterByStatus('Pending')">Chưa
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Reject')">Đã
+                                                    huỷ</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                   
                                     <th>Thao tác</th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let issueTicket of issueTickets | paginate: { itemsPerPage: 5, currentPage: p }">  
-                                        <td>{{issueTicket.issueTicketId}}</td>
-                                        <td>{{issueTicket.owner.name}}</td>
-                                        <td style="color: red;">{{issueTicket.status}}</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="issueTickets.length == 0" style="text-align: center; min-height: 400px;">
+                                        <td colspan="7">Không có yêu cầu nào</td>
+                                    <tr *ngFor="let issueTicket of issueTickets">
+                                        <td>{{issueTicket.ownerName}}</td>
+                                        <td>{{issueTicket.createdDate}}</td>
+                                        <td
+                                            [ngClass]="{pending : issueTicket.status == 'Pending', reject: issueTicket.status == 'Reject'}">
+                                            {{issueTicket.status == 'Pending' ? 'Chưa duyệt' : 'Đã huỷ'}}</td>
+                                        
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                                tiết</button></td>
                                     </tr>
 
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
                             </div>
                         </div>
                     </div>

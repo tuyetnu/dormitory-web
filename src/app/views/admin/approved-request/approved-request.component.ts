@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./approved-request.component.scss']
 })
 export class ApprovedRequestComponent implements OnInit {
+  loading = false;
   roomBookingRequests;
   roomBookingRequestDetail;
   showList = [false, true];
@@ -47,13 +48,16 @@ export class ApprovedRequestComponent implements OnInit {
       filters += ',targetRoomTypeName@=' + this.roomType;
     } if (this.month !== null) {
       filters += ',month==' + this.month;
-    } if (this.studentCardNumber !== null) {
+    } if (this.studentCardNumber !== null && this.studentCardNumber !== '') {
       filters += ',studentCardNumber@=' + this.studentCardNumber;
     }
+    this.loading = true;
     this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
         this.roomBookingRequests = res.resultList;
         this.isLoaded = true;
+        console.log(res.resultList);
+        this.loading = false;
       },
         (error) => {
 

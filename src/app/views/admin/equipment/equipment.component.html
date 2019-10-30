@@ -122,3 +122,9 @@
         <button type="button" class="btn btn-success save shadow-card">Thêm</button>
     </div>
 </ng-template>
+<ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>

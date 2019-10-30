@@ -51,9 +51,9 @@ import { ArrageComponent } from './views/admin/student/arrage/arrage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentManagermentComponent } from './views/admin/student/student-managerment/student-managerment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {NgxPaginationModule} from 'ngx-pagination';
-import { SetRequestDateComponent } from './views/staff/request/set-request-date/set-request-date.component'; 
-import {AngularDateTimePickerModule} from 'angular2-datetimepicker';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SetRequestDateComponent } from './views/staff/request/set-request-date/set-request-date.component';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { RoomBookingRequestComponent } from './views/staff/request/room-booking-request/room-booking-request.component';
 import { RoomTransferRequestComponent } from './views/staff/request/room-transfer-request/room-transfer-request.component';
@@ -61,7 +61,7 @@ import { RenewContractRequestComponent } from './views/staff/request/renew-contr
 import { CancleContracRequestComponent } from './views/staff/request/cancle-contrac-request/cancle-contrac-request.component';
 import { DashboardComponent } from './views/admin/dashboard/dashboard.component';
 import { RoomManagementComponent } from './views/admin/room/room-management/room-management.component';
-import {SlideshowModule} from 'ng-simple-slideshow';
+import { SlideshowModule } from 'ng-simple-slideshow';
 import { StaffComponent } from './views/admin/staff/staff.component';
 import { UpdateFeeComponent } from './views/admin/update-fee/update-fee.component';
 import { EquipmentComponent } from './views/admin/equipment/equipment.component';
@@ -74,6 +74,7 @@ import { BuildingManagementComponent } from './views/admin/building-management/b
 import { RoomMissEquipmentComponent } from './views/admin/room-miss-equipment/room-miss-equipment.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './_helpers';
+import { NgxLoadingModule } from 'ngx-loading';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -109,7 +110,8 @@ export function provideConfig() {
     NgxPaginationModule,
     AngularDateTimePickerModule,
     AngularMultiSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxLoadingModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -141,9 +143,9 @@ export function provideConfig() {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     {
-    provide: AuthServiceConfig,
-    useFactory: provideConfig
-  }],
-  bootstrap: [ AppComponent ]
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

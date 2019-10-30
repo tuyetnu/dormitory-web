@@ -94,8 +94,8 @@ export class RoomBookingRequestComponent implements OnInit {
         this.imageUrls[0].url = this.roomBookingRequestDetail.identityCardImageUrl;
         this.imageUrls[1].url = this.roomBookingRequestDetail.studentCardImageUrl;
         this.imageUrls[2].url = this.roomBookingRequestDetail.priorityImageUrl;
-        console.log(this.roomBookingRequestDetail);
-        this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => { });
+        this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result
+          .then((result) => { });
       });
   }
   closeModal() {

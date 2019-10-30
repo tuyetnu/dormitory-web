@@ -8,6 +8,7 @@ import { ParamService } from '../../../services/param.service';
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit {
+  loading = false;
   equipmentCode = null;
   equipments;
   equipmentType;
@@ -49,6 +50,7 @@ export class EquipmentComponent implements OnInit {
       });
   }
   getEquipment() {
+    this.loading = true;
     let filters = 'Status@=' + this.status;
     if (this.equipmentTypeName !== null) {
       filters += ',equipmentTypeName@=' + this.equipmentTypeName;
@@ -63,6 +65,7 @@ export class EquipmentComponent implements OnInit {
       .subscribe((res) => {
         this.equipments = res.resultList;
         this.isLoaded = true;
+        this.loading = false;
       },
         (error) => {
 

@@ -5,36 +5,68 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Báo cáo về trang thiết bị: 200</b>
-                            <form class="navbar-form col-md-4" style="float: right;">
+                            <div class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Tên phòng..."
-                                        id="searchValue">
+                                    <input type="text" value="" class="form-control" placeholder="Tên người tạo..."
+                                        id="searchValue" [(ngModel)]="ownerName">
                                     <button mat-raised-button type="submit"
-                                        class="btn btn-white btn-round btn-just-icon">
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getIssueEquipment()">
                                         <i class="material-icons">search</i>
                                         <div class="ripple-container"></div>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Tên phòng..."
+                                        id="searchValue" [(ngModel)]="roomName">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getIssueEquipment()">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </div>
                         </h5>
 
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 400px;">
                                 <thead class="thead-dark">
-                                    <th>ID</th>
+                                    <th>Người tạo</th>
                                     <th>Tên phòng</th>
-                                    <th>Loại TB</th>
-                                    <th>Trạng thái</th>
+                                    <th>Loại thiết bị
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button *ngFor="let type of equipmentType" class="dropdown-item" (click)="filterType(type.name)">{{type.name}}</button>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>Trạng thái
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="filterByStatus('Pending')">Chưa
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Reject')">Đã
+                                                    huỷ</button>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th>Thao tác</th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let equipmentReport of equipmentReports | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>{{equipmentReport.issueTicketId}}</td>
-                                        <td>{{equipmentReport.room.name}}</td>
-                                        <td>{{equipmentReport.equipment.equipmentType}}</td>
-                                        <td style="color: red;">{{equipmentReport.status}}</td>
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="equipmentReports.length == 0" style="text-align: center; min-height: 400px;">
+                                        <td colspan="7">Không có yêu cầu nào</td>
+                                    <tr *ngFor="let equipmentReport of equipmentReports">
+                                        <td>{{equipmentReport.ownerName}}</td>
+                                        <td>{{equipmentReport.roomName}}</td>
+                                        <td>{{equipmentReport.equipmentTypeName}}</td>
+                                        <td
+                                        [ngClass]="{pending : equipmentReport.status == 'Pending', reject: equipmentReport.status == 'Reject'}">
+                                        {{equipmentReport.status == 'Pending' ? 'Chưa duyệt' : 'Đã huỷ'}}</td>
                                         <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
                                                 tiết</button></td>
                                     </tr>
@@ -42,7 +74,6 @@
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>

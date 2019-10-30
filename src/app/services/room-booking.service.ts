@@ -14,7 +14,7 @@ export class RoomBookingService {
     return this.httpClient.get<any>(`${this.BASE_URL}api/RoomBookings?sorts=${sort}&filters=${filters}&page=${page}&pageSize=${pageSize}`);
   }
   getRoomBookingDetail(id) {
-    return this.httpClient.get(`${this.BASE_URL}api/RoomBookings/GetDetail/${id}`);
+    return this.httpClient.get<any>(`${this.BASE_URL}api/RoomBookings/GetDetail/${id}`);
   }
   updateStatus(data) {
     return this.httpClient.put(`${this.BASE_URL}api/RoomBookings/ChangeRoomBookingStatus`, data);
