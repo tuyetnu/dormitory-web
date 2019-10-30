@@ -10,52 +10,52 @@
                                     (click)="open(create)" id="btnAdd">Thêm thiết bị</button>
                                 <div class="clearfix"></div>
                             </div>
-
-                            <div class="col-md-4" style="float: right;">
-                                <form class="navbar-form">
-                                    <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Tên hoặc Mã thiết bị"
-                                            id="searchValue">
-                                        <button mat-raised-button type="submit"
-                                            class="btn btn-white btn-round btn-just-icon">
-                                            <i class="material-icons">search</i>
-                                            <div class="ripple-container"></div>
-                                        </button>
-                                    </div>
-                                </form>
+                            <div class="navbar-form col-md-4" style="float: right;">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="MSSV" id="searchValue"
+                                        [(ngModel)]="equipmentCode">
+                                    <button mat-raised-button type="submit"
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getEquipmentType()">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3" style="float: right;">
+                                <select class="form-control" id="exampleFormControlSelect1"
+                                    (change)="filterUseEquiment($event.target.value)">
+                                    <option value=1>Tất cả</option>
+                                    <option value=2>TB đang sử dụng</option>
+                                    <option value=3>TB chưa sử dụng</option>
+                                </select>
                             </div>
                         </h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 500px;">
                                 <thead class="thead-dark">
                                     <th>Loại thiết bị
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Gường</button>
-                                                <button class="dropdown-item">Bàn</button>
+                                                <button *ngFor="let type of equipmentType" class="dropdown-item"
+                                                    (click)="filterType(type.name)">{{type.name}}</button>
                                             </div>
                                         </div>
                                     </th>
                                     <th>Mã TB</th>
                                     <th>Giá</th>
                                     <th>Phòng
-                                        <div ngbDropdown class="d-inline-block dropdown">
-                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                            <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Đang sử dụng</button>
-                                                <button class="dropdown-item">Chưa sử dụng</button>
-                                            </div>
-                                        </div>
                                     </th>
                                     <th>Tình trạng
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Bình thường</button>
-                                                <button class="dropdown-item">Hư hỏng</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Active')">Bình
+                                                    thường</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Inactive')">Hư
+                                                    hỏng</button>
                                             </div>
                                         </div>
                                     </th>
@@ -63,26 +63,31 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Tăng dần</button>
-                                                <button class="dropdown-item">Giảm dần</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Tăng
+                                                    dần</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Giảm
+                                                    dần</button>
                                             </div>
                                         </div>
                                     </th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let equipment of equipments | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>{{equipment.equipmentType}}</td>
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="equipments.length == 0" style="text-align: center;">
+                                        <td colspan="6">Không có thiết bị nào</td>
+                                    </tr>
+                                    <tr *ngFor="let equipment of equipments">
+                                        <td>{{equipment.equipmentTypeName}}</td>
                                         <td>{{equipment.code}}</td>
                                         <td>{{equipment.price}}</td>
-                                        <td>{{equipment.roomName}}</td>
-                                        <td>{{equipment.status}}</td>
+                                        <td>{{equipment.roomId < 0 ? 'Trống' : equipment.roomName}}</td>
+                                        <td>{{equipment.status == 'Active' ? 'Bình thường' : 'Hư hỏng'}}</td>
                                         <td>{{equipment.createdDate}}</td>
                                     </tr>
 
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
                             </div>
                         </div>
                     </div>
@@ -106,15 +111,14 @@
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Mã thiết bị: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"/>
+            <input type="text" class="form-control" id="exampleFormControlInput1" />
         </div>
         <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Giá: </label>
-            <input type="number" class="form-control" id="exampleFormControlInput1"/>
+            <input type="number" class="form-control" id="exampleFormControlInput1" />
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-success save shadow-card">Thêm</button>
     </div>
 </ng-template>
-

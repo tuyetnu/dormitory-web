@@ -1,29 +1,102 @@
+import { EquipmentService } from './../../../services/equipment.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ParamService } from '../../../services/param.service';
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit {
-  equipments = [];
-  constructor(private modalService: NgbModal) { }
+  equipmentCode = null;
+  equipments;
+  equipmentType;
+  filterUse = null;
+  status = 'Active';
+  equipmentTypeName = null;
+  createdDate = '-createdDate';
+  page = 1;
+  pageSize = 5;
+  isLoaded = false;
+  constructor(private modalService: NgbModal, private equipmentService: EquipmentService,
+    private paramService: ParamService) { }
   ngOnInit() {
-   const equipment = {
-    equipmentType: 'Gường tầng',
-    code: 'G1',
-    price: 400000,
-    roomName: 'A201',
-    status: 'Bình thường',
-    createdDate: '28/10/2019 19:02:00'
-   };
     if (sessionStorage.getItem('addEquipment') != null) {
       $('#btnAdd').click();
       sessionStorage.removeItem('addEquipment');
     }
-    for (let i = 1; i <= 10; i++) {
-      this.equipments.push(equipment);
+    const paramTypeId = sessionStorage.getItem('EquipmentType');
+    if (paramTypeId == null) {
+      this.paramService.getParamTypes()
+        .subscribe((res) => {
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].name === 'EquipmentType') {
+              sessionStorage.setItem('EquipmentType', res[i].paramTypeId);
+              break;
+            }
+          }
+          this.getEquipmentType();
+        });
+    } else {
+      this.getEquipmentType();
     }
+  }
+  getEquipmentType() {
+    this.paramService.getByParamTypeById(sessionStorage.getItem('EquipmentType'))
+      .subscribe((res) => {
+        this.equipmentType = res;
+        this.getEquipment();
+      });
+  }
+  getEquipment() {
+    let filters = 'Status@=' + this.status;
+    if (this.equipmentTypeName !== null) {
+      filters += ',equipmentTypeName@=' + this.equipmentTypeName;
+    }
+    if (this.filterUse !== null) {
+      filters += this.filterUse;
+    }
+    if (this.equipmentCode !== null) {
+      filters += ',code@=' + this.equipmentCode;
+    }
+    this.equipmentService.getEquipment(this.createdDate, filters, this.page, this.pageSize)
+      .subscribe((res) => {
+        this.equipments = res.resultList;
+        this.isLoaded = true;
+      },
+        (error) => {
+
+        });
+  }
+  filterType(equipmentTypeName) {
+    this.equipmentTypeName = equipmentTypeName;
+    this.getEquipment();
+  }
+  filterUseEquiment(filterUse) {
+    switch (filterUse) {
+      case '1':
+        this.filterUse = null;
+        break;
+      case '2':
+        this.filterUse = ',roomId>0';
+        break;
+      case '3':
+        this.filterUse = ',roomId<0';
+        break;
+    }
+    this.getEquipment();
+  }
+  sortByCreateDate(des) {
+    if (!des) {
+      this.createdDate = this.createdDate.replace('-', '');
+    } else if (des && this.createdDate[0] !== '-') {
+      this.createdDate = '-' + this.createdDate;
+    }
+    this.getEquipment();
+  }
+  filterByStatus(status) {
+    this.status = status;
+    this.getEquipment();
   }
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {

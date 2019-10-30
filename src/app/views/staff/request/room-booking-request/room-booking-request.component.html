@@ -16,8 +16,8 @@
                             </div>
                             <div class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="MSSV"
-                                        id="searchValue" [(ngModel)]="studentCardNumber">
+                                    <input type="text" value="" class="form-control" placeholder="MSSV" id="searchValue"
+                                        [(ngModel)]="studentCardNumber">
                                     <button mat-raised-button type="submit"
                                         class="btn btn-white btn-round btn-just-icon" (click)="getRoomRequest()">
                                         <i class="material-icons">search</i>
@@ -87,7 +87,7 @@
                                     <tr *ngIf="roomBookingRequests.length == 0" style="text-align: center;">
                                         <td colspan="7">Không có yêu cầu nào</td>
                                     </tr>
-                                    <tr *ngFor="let roomBookingRequest of roomBookingRequests, let i = index">
+                                    <tr *ngFor="let roomBookingRequest of roomBookingRequests">
                                         <td>{{roomBookingRequest.name}}</td>
                                         <td>{{roomBookingRequest.studentCardNumber}}</td>
                                         <td>{{roomBookingRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}
@@ -98,7 +98,7 @@
                                             [ngClass]="{pending : roomBookingRequest.status == 'Pending', reject: roomBookingRequest.status == 'Reject'}">
                                             {{roomBookingRequest.status == 'Pending' ? 'Chưa duyệt' : 'Đã huỷ'}}</td>
                                         <td><button type="button" class="btn btn-info"
-                                                (click)="open(detail,i,roomBookingRequest.studentId)">Chi
+                                                (click)="open(detail,roomBookingRequest.roomBookingRequestFormId)">Chi
                                                 tiết</button></td>
                                     </tr>
                                 </tbody>
@@ -173,47 +173,47 @@
                                 <tr>
                                     <td>Tên:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.name}}</td>
+                                    <td>{{roomBookingRequestDetail.name}}</td>
                                 </tr>
                                 <tr>
                                     <td>MSSV:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.studentCardNumber}}</td>
+                                    <td>{{roomBookingRequestDetail.studentCardNumber}}</td>
                                 </tr>
                                 <tr>
                                     <td>Giới tính:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.gender == 'True' ? 'Nam' : 'Nữ'}}</td>
+                                    <td>{{roomBookingRequestDetail.gender == 'True' ? 'Nam' : 'Nữ'}}</td>
                                 </tr>
                                 <!-- <tr>
                                     <td>SĐT:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.studentCardNumber}}</td>
+                                    <td>{{roomBookingRequestDetail.studentCardNumber}}</td>
                                 </tr> -->
                                 <tr>
                                     <td>Ngày sinh:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.birthDay}}</td>
+                                    <td>{{roomBookingRequestDetail.birthDay}}</td>
                                 </tr>
                                 <tr>
                                     <td>Địa chỉ:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.address}}</td>
+                                    <td>{{roomBookingRequestDetail.address}}</td>
                                 </tr>
                                 <tr>
                                     <td>CMND:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.identityNumber}}</td>
+                                    <td>{{roomBookingRequestDetail.identityCardNumber}}</td>
                                 </tr>
                                 <tr>
                                     <td>Khoá:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.term}}</td>
+                                    <td>{{roomBookingRequestDetail.term}}</td>
                                 </tr>
                                 <tr>
                                     <td>Đối tượng ưu tiên:</td>
                                     <td class="width-20"></td>
-                                    <td>{{studentBook.priorityType == 0 ? 'Không' : 'Loại' + studentBook.priorityType}}
+                                    <td>{{roomBookingRequestDetail.priorityType}}
                                     </td>
                                 </tr>
 
@@ -222,15 +222,14 @@
                             <div style="margin-bottom:25px">
                                 <div style="display:block;" style.width="">
                                     <slideshow #slideshow [imageUrls]="imageUrls" height="400px" arrowSize="30px"
-                                        showArrows= true backgroundSize="cover"
-                                        backgroundPosition="center center" showDots= true
-                                        dotColor="#FFF" showCaptions= true
-                                        captionColor="#FFF" captionBackground="rgba(0, 0, 0, .35)">
+                                        showArrows=true backgroundSize="cover" backgroundPosition="center center"
+                                        showDots=true dotColor="#FFF" showCaptions=true captionColor="#FFF"
+                                        captionBackground="rgba(0, 0, 0, .35)">
                                     </slideshow>
                                 </div>
                             </div>
                             <label style="float: left">Lý do từ chối: </label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" rows="3" [(ngModel)]="rejectReason" id="inputReason"></textarea>
                         </div>
                     </div>
                 </div>
@@ -238,7 +237,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
-        <button type="button" class="btn btn-danger save shadow-card">Từ chối</button>
+        <button type="button" class="btn btn-success save shadow-card" (click)="updateStatus(roomBookingRequestDetail.roomBookingId, 'Approved')">Chấp nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card" (click)="updateStatus(roomBookingRequestDetail.roomBookingId, 'Rejected')">Từ chối</button>
     </div>
 </ng-template>

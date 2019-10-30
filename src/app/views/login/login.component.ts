@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
           };
           this.userService.login(socialUser)
             .subscribe(res => {
+              console.log(res);
               sessionStorage.setItem('accessToken', res.accessToken);
+              sessionStorage.setItem('accountID', res.id + '');
               // check role to route
               this.router.navigate(['/dashboard']);
             });

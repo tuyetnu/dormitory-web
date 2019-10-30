@@ -13,17 +13,17 @@ export class RoomBookingRequestComponent implements OnInit {
   roomBookingRequests;
   roomBookingRequestDetail;
   showList = [false, true];
-  imageUrls: (string | IImage)[] = [
+  imageUrls = [
     {
-      url: '/assets/img/CMND.jpg',
+      url: '',
       caption: 'Hình chứng minh nhân dân'
     },
     {
-      url: '/assets/img/theSV.png',
+      url: '',
       caption: 'Hình thẻ sinh viên'
     },
     {
-      url: '/assets/img/hoNgheo.jpg',
+      url: '',
       caption: 'Hình đối tượng ưu tiên'
     },
   ];
@@ -37,13 +37,13 @@ export class RoomBookingRequestComponent implements OnInit {
   page = 1;
   pageSize = 5;
   studentBook;
-  constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService, private studentService: StudentService) { }
+  rejectReason = '';
+  constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService) { }
   ngOnInit() {
     this.getRoomRequest();
   }
 
   getRoomRequest() {
-    console.log(this.studentCardNumber);
     let filters = 'Status@=' + this.status;
     if (this.roomType !== null) {
       filters += ',targetRoomTypeName@=' + this.roomType;
@@ -54,7 +54,7 @@ export class RoomBookingRequestComponent implements OnInit {
     }
     this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
-        this.roomBookingRequests = res;
+        this.roomBookingRequests = res.resultList;
         this.isLoaded = true;
       },
         (error) => {
@@ -86,17 +86,20 @@ export class RoomBookingRequestComponent implements OnInit {
     this.pageSize = pageSize;
     this.getRoomRequest();
   }
-  open(content, index, studentId) {
+  open(content, id) {
     this.showList = [false, true];
-    if (index !== undefined) {
-      this.roomBookingRequestDetail = this.roomBookingRequests[index];
-    }
-    const filters = 'studentId==' + studentId;
-    this.studentService.getStudent(this.createdDate, filters, 1, 1)
+    this.roomBookingService.getRoomBookingDetail(id)
       .subscribe(res => {
-        this.studentBook = res[0];
+        this.roomBookingRequestDetail = res;
+        this.imageUrls[0].url = this.roomBookingRequestDetail.identityCardImageUrl;
+        this.imageUrls[1].url = this.roomBookingRequestDetail.studentCardImageUrl;
+        this.imageUrls[2].url = this.roomBookingRequestDetail.priorityImageUrl;
+        console.log(this.roomBookingRequestDetail);
         this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => { });
       });
+  }
+  closeModal() {
+    this.modalService.dismissAll();
   }
   show(index) {
     const tmp = this.showList[index];
@@ -109,5 +112,27 @@ export class RoomBookingRequestComponent implements OnInit {
       $('.detail').eq(index).addClass('fa-caret-down');
     }
   }
-
+  updateStatus(bookingId, status) {
+    if (status === 'Rejected' && this.rejectReason === '') {
+      alert('Nhập lí do từ chối');
+      $('#inputReason').focus();
+      return;
+    }
+    const data = {
+      roomBookingRequestFormId: bookingId,
+      status: status,
+      staffId: sessionStorage.getItem('accountID'),
+      reason: this.rejectReason
+    };
+    console.log(JSON.stringify(data));
+    this.roomBookingService.updateStatus(data)
+      .subscribe((res) => {
+        alert('Chỉnh sửa yêu cầu thành công');
+        console.log(res);
+        this.rejectReason = '';
+        this.closeModal();
+      }, (error) => {
+        alert('Chỉnh sửa yêu cầu thất bại');
+      });
+  }
 }

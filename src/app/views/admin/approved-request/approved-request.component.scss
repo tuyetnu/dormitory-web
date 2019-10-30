@@ -1,13 +1,19 @@
-.icon-btn{
-    border: none;
-    background-color: transparent;
-    outline: 0;
-    i{
-        color: #007bff;
-        font-size: 2em;
-        cursor: pointer;
-    }
+.icon-btn {
+  border: none;
+  background-color: transparent;
+  outline: 0;
+  i {
+    color: #007bff;
+    font-size: 2em;
+    cursor: pointer;
   }
-  .paging {
-    text-align: center;
-  }
+}
+.paging {
+  text-align: center;
+}
+.approved {
+  color: gray;
+}
+.complete {
+  color: green;
+}
