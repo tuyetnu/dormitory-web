@@ -304,7 +304,7 @@ module.exports = "<app-header [navbarBrandRouterLink]=\"['/dashboard']\" [fixed]
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\" style=\"margin-top: 10px\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h5><b>Danh sách yêu cầu đặt phòng đã duyệt</b>\n                            <div ngbDropdown class=\"d-flex justify-content-end d-inline-block dropdown\"\n                                style=\"float: right;\">\n                                <button class=\"btn icon-btn border\" ngbDropdownToggle>Dòng</button>\n                                <div ngbDropdownMenu>\n                                    <button class=\"dropdown-item\">5</button>\n                                    <button class=\"dropdown-item\">25</button>\n                                    <button class=\"dropdown-item\">50</button>\n                                </div>\n                            </div>\n                            <div class=\"navbar-form col-md-4\" style=\"float: right;\">\n                                <div class=\"input-group no-border\">\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"MSSV\" id=\"searchValue\"\n                                        [(ngModel)]=\"studentCardNumber\">\n                                    <button mat-raised-button type=\"submit\"\n                                        class=\"btn btn-white btn-round btn-just-icon\" (click)=\"getRoomRequest()\">\n                                        <i class=\"material-icons\">search</i>\n                                        <div class=\"ripple-container\"></div>\n                                    </button>\n                                </div>\n                            </div>\n                        </h5>\n\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table table-hover\" style=\"text-align: center\">\n                                <thead class=\"thead-dark\">\n                                    <th>Tên</th>\n                                    <th>MSSV</th>\n                                    <th>Loại phòng\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\">Loại thường</button>\n                                                <button class=\"dropdown-item\">Dịch vụ</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Tháng muốn ở\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\">4</button>\n                                                <button class=\"dropdown-item\">8</button>\n                                                <button class=\"dropdown-item\">12</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Tên phòng</th>\n                                    <th>Trạng thái\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Approved')\">Đã duyệt</button>\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Complete')\">Hoàn tất</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Thao tác</th>\n                                </thead>\n                                <tbody *ngIf=\"isLoaded\">\n                                    <tr *ngIf=\"roomBookingRequests.length == 0\" style=\"text-align: center;\">\n                                        <td colspan=\"7\">Không có yêu cầu nào</td>\n                                    </tr>\n                                    <tr *ngFor=\"let roomBookingRequest of roomBookingRequests\">\n                                        <td>{{roomBookingRequest.name}}</td>\n                                        <td>{{roomBookingRequest.studentCardNumber}}</td>\n                                        <td>{{roomBookingRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}\n                                        </td>\n                                        <td>{{roomBookingRequest.month}}</td>\n                                        <td>{{roomBookingRequest.roomName}}</td>\n                                        <td\n                                            [ngClass]=\"{approved : roomBookingRequest.status == 'Approved', complete: roomBookingRequest.status == 'Complete'}\">\n                                            {{roomBookingRequest.status == 'Approved' ? 'Đã duyệt' : 'Hoàn tất'}}</td>\n                                        <td><button type=\"button\" class=\"btn btn-secondary\"  (click)=\"open(detail,roomBookingRequest.roomBookingRequestFormId)\">Chi tiết</button>&nbsp;\n                                            <button type=\"button\" class=\"btn btn-success\" (click)=\"updateStatus(roomBookingRequest.roomBookingRequestFormId, 'Complete')\">Hoàn tất</button></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                            <div class=\"paging\">\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n<ng-template #detail let-modal>\n    <div class=\"modal-header\">\n        <h5><b>Chi tiết yêu cầu đặt phòng</b></h5>\n    </div>\n    <div class=\"modal-body modal-basic-title col-md-12 row\">\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-header card-header-danger\" (click)=\"show(0)\">\n                    <h5>Thông tin yêu cầu đặt phòng\n                        <i class=\"fa fa-caret-right detail\" style=\"font-size:30px; float: right;\"></i>\n                    </h5>\n\n                </div>\n                <div class=\"card-body\" [hidden]=\"!showList[0]\">\n                    <div class=\"table-responsive\">\n                        <table style=\"font-size: 18px;\">\n                            <tr>\n                                <td>Tên:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.name}}</td>\n                            </tr>\n                            <tr>\n                                <td>MSSV:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.studentCardNumber}}</td>\n                            </tr>\n                            <tr>\n                                <td>Loại phòng:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>Số tháng muốn ở:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.month}}</td>\n                            </tr>\n                        </table>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-header card-header-danger\" (click)=\"show(1)\">\n                    <h5>Thông tin chi tiết sinh viên\n                        <i class=\"fa fa-caret-down detail\" style=\"font-size:30px; float: right;\"></i>\n                    </h5>\n                </div>\n                <div class=\"card-body\" [hidden]=\"!showList[1]\">\n                    <div class=\"table-responsive\">\n                        <div class=\"col-md-12\">\n                            <table style=\"font-size: 18px;\">\n                                <tr>\n                                    <td>Tên:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.name}}</td>\n                                </tr>\n                                <tr>\n                                    <td>MSSV:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.studentCardNumber}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Giới tính:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.gender == 'True' ? 'Nam' : 'Nữ'}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Ngày sinh:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.birthDay}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Địa chỉ:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.address}}</td>\n                                </tr>\n                                <tr>\n                                    <td>CMND:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.identityCardNumber}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Khoá:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.term}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Đối tượng ưu tiên:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.priorityType}}\n                                    </td>\n                                </tr>\n\n                            </table>\n                            <hr>\n                            <div style=\"margin-bottom:25px\">\n                                <div style=\"display:block;\" style.width=\"\">\n                                    <slideshow #slideshow [imageUrls]=\"imageUrls\" height=\"400px\" arrowSize=\"30px\"\n                                        showArrows=true backgroundSize=\"cover\" backgroundPosition=\"center center\"\n                                        showDots=true dotColor=\"#FFF\" showCaptions=true captionColor=\"#FFF\"\n                                        captionBackground=\"rgba(0, 0, 0, .35)\">\n                                    </slideshow>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</ng-template>"
+module.exports = "<div class=\"main-content\" style=\"margin-top: 10px\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h5><b>Danh sách yêu cầu đặt phòng đã duyệt</b>\n                            <div ngbDropdown class=\"d-flex justify-content-end d-inline-block dropdown\"\n                                style=\"float: right;\">\n                                <button class=\"btn icon-btn border\" ngbDropdownToggle>Dòng</button>\n                                <div ngbDropdownMenu>\n                                    <button class=\"dropdown-item\" (click)=\"changePageSize(5)\">5</button>\n                                    <button class=\"dropdown-item\" (click)=\"changePageSize(10)\">10</button>\n                                    <button class=\"dropdown-item\" (click)=\"changePageSize(20)\">20</button>\n                                </div>\n                            </div>\n                            <div class=\"navbar-form col-md-4\" style=\"float: right;\">\n                                <div class=\"input-group no-border\">\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"MSSV\" id=\"searchValue\"\n                                        [(ngModel)]=\"studentCardNumber\">\n                                    <button mat-raised-button type=\"submit\"\n                                        class=\"btn btn-white btn-round btn-just-icon\" (click)=\"getRoomRequest()\">\n                                        <i class=\"material-icons\">search</i>\n                                        <div class=\"ripple-container\"></div>\n                                    </button>\n                                </div>\n                            </div>\n                        </h5>\n\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table table-hover\" style=\"text-align: center\">\n                                <thead class=\"thead-dark\">\n                                    <th>Tên</th>\n                                    <th>MSSV</th>\n                                    <th>Loại phòng\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\" (click)=\"filteByRoomType('Standard Room')\">Loại thường</button>\n                                                <button class=\"dropdown-item\" (click)=\"filteByRoomType('Service Room')\">Dịch vụ</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Tháng muốn ở\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\">4</button>\n                                                <button class=\"dropdown-item\">8</button>\n                                                <button class=\"dropdown-item\">12</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Tên phòng</th>\n                                    <th>Trạng thái\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Approved')\">Đã duyệt</button>\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Complete')\">Hoàn tất</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Thao tác</th>\n                                </thead>\n                                <tbody *ngIf=\"isLoaded\">\n                                    <tr *ngIf=\"roomBookingRequests.length == 0\" style=\"text-align: center; min-height: 400px;\">\n                                        <td colspan=\"7\">Không có yêu cầu nào</td>\n                                    </tr>\n                                    <tr *ngFor=\"let roomBookingRequest of roomBookingRequests\">\n                                        <td>{{roomBookingRequest.name}}</td>\n                                        <td>{{roomBookingRequest.studentCardNumber}}</td>\n                                        <td>{{roomBookingRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}\n                                        </td>\n                                        <td>{{roomBookingRequest.month}}</td>\n                                        <td>{{roomBookingRequest.roomName}}</td>\n                                        <td\n                                            [ngClass]=\"{approved : roomBookingRequest.status == 'Approved', complete: roomBookingRequest.status == 'Complete'}\">\n                                            {{roomBookingRequest.status == 'Approved' ? 'Đã duyệt' : 'Hoàn tất'}}</td>\n                                        <td><button type=\"button\" class=\"btn btn-secondary\"  (click)=\"open(detail,roomBookingRequest.roomBookingRequestFormId)\">Chi tiết</button>&nbsp;\n                                            <button type=\"button\" class=\"btn btn-success\" (click)=\"updateStatus(roomBookingRequest.roomBookingRequestFormId, 'Complete')\">Hoàn tất</button></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                            <div class=\"paging\">\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n<ng-template #detail let-modal>\n    <div class=\"modal-header\">\n        <h5><b>Chi tiết yêu cầu</b></h5>\n    </div>\n    <div class=\"modal-body modal-basic-title col-md-12 row\">\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-header card-header-danger\" (click)=\"show(0)\">\n                    <h5>Thông tin yêu cầu đã được duyệt\n                        <i class=\"fa fa-caret-right detail\" style=\"font-size:30px; float: right;\"></i>\n                    </h5>\n\n                </div>\n                <div class=\"card-body\" [hidden]=\"!showList[0]\">\n                    <div class=\"table-responsive\">\n                        <table style=\"font-size: 18px;\">\n                            <tr>\n                                <td>Tên:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.name}}</td>\n                            </tr>\n                            <tr>\n                                <td>MSSV:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.studentCardNumber}}</td>\n                            </tr>\n                            <tr>\n                                <td>Loại phòng:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>Số tháng muốn ở:</td>\n                                <td class=\"width-20\"></td>\n                                <td>{{roomBookingRequestDetail.month}}</td>\n                            </tr>\n                        </table>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-header card-header-danger\" (click)=\"show(1)\">\n                    <h5>Thông tin chi tiết sinh viên\n                        <i class=\"fa fa-caret-down detail\" style=\"font-size:30px; float: right;\"></i>\n                    </h5>\n                </div>\n                <div class=\"card-body\" [hidden]=\"!showList[1]\">\n                    <div class=\"table-responsive\">\n                        <div class=\"col-md-12\">\n                            <table style=\"font-size: 18px;\">\n                                <tr>\n                                    <td>Tên:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.name}}</td>\n                                </tr>\n                                <tr>\n                                    <td>MSSV:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.studentCardNumber}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Giới tính:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.gender == 'True' ? 'Nam' : 'Nữ'}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Ngày sinh:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.birthDay}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Địa chỉ:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.address}}</td>\n                                </tr>\n                                <tr>\n                                    <td>CMND:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.identityCardNumber}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Khoá:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.term}}</td>\n                                </tr>\n                                <tr>\n                                    <td>Đối tượng ưu tiên:</td>\n                                    <td class=\"width-20\"></td>\n                                    <td>{{roomBookingRequestDetail.priorityType}}\n                                    </td>\n                                </tr>\n\n                            </table>\n                            <hr>\n                            <div style=\"margin-bottom:25px\">\n                                <div style=\"display:block;\" style.width=\"\">\n                                    <slideshow #slideshow [imageUrls]=\"imageUrls\" height=\"400px\" arrowSize=\"30px\"\n                                        showArrows=true backgroundSize=\"cover\" backgroundPosition=\"center center\"\n                                        showDots=true dotColor=\"#FFF\" showCaptions=true captionColor=\"#FFF\"\n                                        captionBackground=\"rgba(0, 0, 0, .35)\">\n                                    </slideshow>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</ng-template>\n<ng-template #customLoadingTemplate>\n    <div class=\"custom-class\"></div>\n  </ng-template>\n\n  <ngx-loading [show]=\"loading\" [config]=\"{ backdropBorderRadius: '3px' }\" [template]=\"customLoadingTemplate\">\n  </ngx-loading>"
 
 /***/ }),
 
@@ -348,7 +348,7 @@ module.exports = "<div class=\"animated fadeIn\" style=\"margin-top:5px\">\r\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\" style=\"margin-top: 10px\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-danger\">\r\n                        <h5><b>Danh sách trang thiết bị</b>\r\n                            <div class=\"col-md-2\" style=\"float: right;\">\r\n                                <button mat-raised-button type=\"button\" class=\"btn btn-info pull-right\"\r\n                                    (click)=\"open(create)\" id=\"btnAdd\">Thêm thiết bị</button>\r\n                                <div class=\"clearfix\"></div>\r\n                            </div>\r\n                            <div class=\"navbar-form col-md-4\" style=\"float: right;\">\r\n                                <div class=\"input-group no-border\">\r\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"MSSV\" id=\"searchValue\"\r\n                                        [(ngModel)]=\"equipmentCode\">\r\n                                    <button mat-raised-button type=\"submit\"\r\n                                        class=\"btn btn-white btn-round btn-just-icon\" (click)=\"getEquipmentType()\">\r\n                                        <i class=\"material-icons\">search</i>\r\n                                        <div class=\"ripple-container\"></div>\r\n                                    </button>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group col-md-3\" style=\"float: right;\">\r\n                                <select class=\"form-control\" id=\"exampleFormControlSelect1\"\r\n                                    (change)=\"filterUseEquiment($event.target.value)\">\r\n                                    <option value=1>Tất cả</option>\r\n                                    <option value=2>TB đang sử dụng</option>\r\n                                    <option value=3>TB chưa sử dụng</option>\r\n                                </select>\r\n                            </div>\r\n                        </h5>\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"table-responsive\">\r\n                            <table class=\"table table-hover\" style=\"text-align: center; min-height: 500px;\">\r\n                                <thead class=\"thead-dark\">\r\n                                    <th>Loại thiết bị\r\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\r\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\r\n                                            <div ngbDropdownMenu>\r\n                                                <button *ngFor=\"let type of equipmentType\" class=\"dropdown-item\"\r\n                                                    (click)=\"filterType(type.name)\">{{type.name}}</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </th>\r\n                                    <th>Mã TB</th>\r\n                                    <th>Giá</th>\r\n                                    <th>Phòng\r\n                                    </th>\r\n                                    <th>Tình trạng\r\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\r\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\r\n                                            <div ngbDropdownMenu>\r\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Active')\">Bình\r\n                                                    thường</button>\r\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Inactive')\">Hư\r\n                                                    hỏng</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </th>\r\n                                    <th>Ngày tạo\r\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\r\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\r\n                                            <div ngbDropdownMenu>\r\n                                                <button class=\"dropdown-item\" (click)=\"sortByCreateDate(false)\">Tăng\r\n                                                    dần</button>\r\n                                                <button class=\"dropdown-item\" (click)=\"sortByCreateDate(true)\">Giảm\r\n                                                    dần</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </th>\r\n                                </thead>\r\n                                <tbody *ngIf=\"isLoaded\">\r\n                                    <tr *ngIf=\"equipments.length == 0\" style=\"text-align: center;\">\r\n                                        <td colspan=\"6\">Không có thiết bị nào</td>\r\n                                    </tr>\r\n                                    <tr *ngFor=\"let equipment of equipments\">\r\n                                        <td>{{equipment.equipmentTypeName}}</td>\r\n                                        <td>{{equipment.code}}</td>\r\n                                        <td>{{equipment.price}}</td>\r\n                                        <td>{{equipment.roomId < 0 ? 'Trống' : equipment.roomName}}</td>\r\n                                        <td>{{equipment.status == 'Active' ? 'Bình thường' : 'Hư hỏng'}}</td>\r\n                                        <td>{{equipment.createdDate}}</td>\r\n                                    </tr>\r\n\r\n                                </tbody>\r\n                            </table>\r\n                            <div class=\"paging\">\r\n\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>\r\n<ng-template #create let-modal>\r\n    <div class=\"modal-header\">\r\n        <h4>Thêm trang thiết bị</h4>\r\n    </div>\r\n    <div class=\"modal-body modal-basic-title col-md-12 row\">\r\n        <div class=\"form-group col-md-12 \">\r\n            <label for=\"exampleFormControlSelect1\">Loại thiết bị</label>\r\n            <select class=\"form-control\" id=\"exampleFormControlSelect1\">\r\n                <option>Gường</option>\r\n                <option>Bàn</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"exampleFormControlInput1\">Mã thiết bị: </label>\r\n            <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" />\r\n        </div>\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"exampleFormControlInput1\">Giá: </label>\r\n            <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" />\r\n        </div>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-success save shadow-card\">Thêm</button>\r\n    </div>\r\n</ng-template>"
+module.exports = "<div class=\"main-content\" style=\"margin-top: 10px\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-danger\">\r\n                        <h5><b>Danh sách trang thiết bị</b>\r\n                            <div class=\"col-md-2\" style=\"float: right;\">\r\n                                <button mat-raised-button type=\"button\" class=\"btn btn-info pull-right\"\r\n                                    (click)=\"open(create)\" id=\"btnAdd\">Thêm thiết bị</button>\r\n                                <div class=\"clearfix\"></div>\r\n                            </div>\r\n                            <div class=\"navbar-form col-md-4\" style=\"float: right;\">\r\n                                <div class=\"input-group no-border\">\r\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"MSSV\" id=\"searchValue\"\r\n                                        [(ngModel)]=\"equipmentCode\">\r\n                                    <button mat-raised-button type=\"submit\"\r\n                                        class=\"btn btn-white btn-round btn-just-icon\" (click)=\"getEquipmentType()\">\r\n                                        <i class=\"material-icons\">search</i>\r\n                                        <div class=\"ripple-container\"></div>\r\n                                    </button>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"form-group col-md-3\" style=\"float: right;\">\r\n                                <select class=\"form-control\" id=\"exampleFormControlSelect1\"\r\n                                    (change)=\"filterUseEquiment($event.target.value)\">\r\n                                    <option value=1>Tất cả</option>\r\n                                    <option value=2>TB đang sử dụng</option>\r\n                                    <option value=3>TB chưa sử dụng</option>\r\n                                </select>\r\n                            </div>\r\n                        </h5>\r\n                    </div>\r\n                    <div class=\"card-body\">\r\n                        <div class=\"table-responsive\">\r\n                            <table class=\"table table-hover\" style=\"text-align: center; min-height: 500px;\">\r\n                                <thead class=\"thead-dark\">\r\n                                    <th>Loại thiết bị\r\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\r\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\r\n                                            <div ngbDropdownMenu>\r\n                                                <button *ngFor=\"let type of equipmentType\" class=\"dropdown-item\"\r\n                                                    (click)=\"filterType(type.name)\">{{type.name}}</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </th>\r\n                                    <th>Mã TB</th>\r\n                                    <th>Giá</th>\r\n                                    <th>Phòng\r\n                                    </th>\r\n                                    <th>Tình trạng\r\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\r\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\r\n                                            <div ngbDropdownMenu>\r\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Active')\">Bình\r\n                                                    thường</button>\r\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Inactive')\">Hư\r\n                                                    hỏng</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </th>\r\n                                    <th>Ngày tạo\r\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\r\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\r\n                                            <div ngbDropdownMenu>\r\n                                                <button class=\"dropdown-item\" (click)=\"sortByCreateDate(false)\">Tăng\r\n                                                    dần</button>\r\n                                                <button class=\"dropdown-item\" (click)=\"sortByCreateDate(true)\">Giảm\r\n                                                    dần</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </th>\r\n                                </thead>\r\n                                <tbody *ngIf=\"isLoaded\">\r\n                                    <tr *ngIf=\"equipments.length == 0\" style=\"text-align: center;\">\r\n                                        <td colspan=\"6\">Không có thiết bị nào</td>\r\n                                    </tr>\r\n                                    <tr *ngFor=\"let equipment of equipments\">\r\n                                        <td>{{equipment.equipmentTypeName}}</td>\r\n                                        <td>{{equipment.code}}</td>\r\n                                        <td>{{equipment.price}}</td>\r\n                                        <td>{{equipment.roomId < 0 ? 'Trống' : equipment.roomName}}</td>\r\n                                        <td>{{equipment.status == 'Active' ? 'Bình thường' : 'Hư hỏng'}}</td>\r\n                                        <td>{{equipment.createdDate}}</td>\r\n                                    </tr>\r\n\r\n                                </tbody>\r\n                            </table>\r\n                            <div class=\"paging\">\r\n\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>\r\n<ng-template #create let-modal>\r\n    <div class=\"modal-header\">\r\n        <h4>Thêm trang thiết bị</h4>\r\n    </div>\r\n    <div class=\"modal-body modal-basic-title col-md-12 row\">\r\n        <div class=\"form-group col-md-12 \">\r\n            <label for=\"exampleFormControlSelect1\">Loại thiết bị</label>\r\n            <select class=\"form-control\" id=\"exampleFormControlSelect1\">\r\n                <option>Gường</option>\r\n                <option>Bàn</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"exampleFormControlInput1\">Mã thiết bị: </label>\r\n            <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" />\r\n        </div>\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"exampleFormControlInput1\">Giá: </label>\r\n            <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" />\r\n        </div>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-success save shadow-card\">Thêm</button>\r\n    </div>\r\n</ng-template>\r\n<ng-template #customLoadingTemplate>\r\n    <div class=\"custom-class\"></div>\r\n  </ng-template>\r\n\r\n  <ngx-loading [show]=\"loading\" [config]=\"{ backdropBorderRadius: '3px' }\" [template]=\"customLoadingTemplate\">\r\n  </ngx-loading>"
 
 /***/ }),
 
@@ -447,7 +447,7 @@ module.exports = "<div class=\"app flex-row align-items-center\">\r\n  <div clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-block text-center\">\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 login-sec\">\r\n        <div class=\"login-form\">\r\n          <h2 class=\"text-center\">Đăng nhập</h2>\r\n          <div class=\"text-center social-btn\">\r\n            <button (click)=\"signInWithGoogle()\" class=\"btn btn-danger btn-block btn-login col-md-8\"><i class=\"fa fa-google\"></i> Sign in with\r\n              <b>Google</b></button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-8 banner-sec\">\r\n        <div>\r\n          <div class=\"carousel-inner\" role=\"listbox\">\r\n            <div class=\"carousel-item active\">\r\n              <img class=\"d-block img-fluid\" src=\"https://static.pexels.com/photos/33972/pexels-photo.jpg\"\r\n                alt=\"First slide\">\r\n              <div class=\"carousel-caption d-none d-md-block\">\r\n                <div class=\"banner-text\">\r\n                  <h2>Quản lí Ký Túc Xá</h2>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n"
+module.exports = "<div class=\"login-block text-center\">\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 login-sec\">\r\n        <div class=\"login-form\">\r\n          <h2 class=\"text-center\">Đăng nhập</h2>\r\n          <div class=\"text-center social-btn\">\r\n            <button (click)=\"signInWithGoogle()\" class=\"btn btn-danger btn-block btn-login col-md-8\"><i\r\n                class=\"fa fa-google\"></i> Sign in with\r\n              <b>Google</b></button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-8 banner-sec\">\r\n        <div>\r\n          <div class=\"carousel-inner\" role=\"listbox\">\r\n            <div class=\"carousel-item active\">\r\n              <img class=\"d-block img-fluid\" src=\"https://static.pexels.com/photos/33972/pexels-photo.jpg\"\r\n                alt=\"First slide\">\r\n              <div class=\"carousel-caption d-none d-md-block\">\r\n                <div class=\"banner-text\">\r\n                  <h2>Quản lí Ký Túc Xá</h2>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <ng-template #customLoadingTemplate>\r\n    <div class=\"custom-class\"></div>\r\n  </ng-template>\r\n\r\n  <ngx-loading [show]=\"loading\" [config]=\"{ backdropBorderRadius: '3px' }\" [template]=\"customLoadingTemplate\">\r\n  </ngx-loading>"
 
 /***/ }),
 
@@ -469,7 +469,7 @@ module.exports = "<div class=\"app-body\">\r\n  <main class=\"main d-flex align-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\" style=\"margin-top: 10px\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h5><b>Báo cáo về trang thiết bị: 200</b>\n                            <form class=\"navbar-form col-md-4\" style=\"float: right;\">\n                                <div class=\"input-group no-border\">\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Tên phòng...\"\n                                        id=\"searchValue\">\n                                    <button mat-raised-button type=\"submit\"\n                                        class=\"btn btn-white btn-round btn-just-icon\">\n                                        <i class=\"material-icons\">search</i>\n                                        <div class=\"ripple-container\"></div>\n                                    </button>\n                                </div>\n                            </form>\n                        </h5>\n\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table table-hover\" style=\"text-align: center\">\n                                <thead class=\"thead-dark\">\n                                    <th>ID</th>\n                                    <th>Tên phòng</th>\n                                    <th>Loại TB</th>\n                                    <th>Trạng thái</th>\n                                    <th>Thao tác</th>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let equipmentReport of equipmentReports | paginate: { itemsPerPage: 5, currentPage: p }\">\n                                        <td>{{equipmentReport.issueTicketId}}</td>\n                                        <td>{{equipmentReport.room.name}}</td>\n                                        <td>{{equipmentReport.equipment.equipmentType}}</td>\n                                        <td style=\"color: red;\">{{equipmentReport.status}}</td>\n                                        <td><button type=\"button\" class=\"btn btn-info\" (click)=\"open(detail)\">Chi\n                                                tiết</button></td>\n                                    </tr>\n\n                                </tbody>\n                            </table>\n                            <div class=\"paging\">\n                                <pagination-controls (pageChange)=\"p = $event\"></pagination-controls>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n<ng-template #detail let-modal>\n    <div class=\"modal-header\">\n        <h5><b>Chi tiết báo cáo trang thiết bị</b></h5>\n    </div>\n    <div class=\"modal-body modal-basic-title col-md-12 row\">\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-body\">\n                    <div class=\"table-responsive\">\n                        <table style=\"font-size: 18px;\">\n                            <tr>\n                                <td>Tên thiết bị:</td>\n                                <td class=\"width-20\"></td>\n                                <td>Gường tầng 1</td>\n                            </tr>\n                            <tr>\n                                <td>Mã thiết bị:</td>\n                                <td class=\"width-20\"></td>\n                                <td>GT1</td>\n                            </tr>\n                            <tr>\n                                <td>Phòng:</td>\n                                <td class=\"width-20\"></td>\n                                <td>A201</td>\n                            </tr>\n                            <tr>\n                                <td>Sinh viên chịu trách nhiệm:</td>\n                                <td class=\"width-20\"></td>\n                                <td style=\"color: red;\">Nguyễn Văn A</td>\n                            </tr>\n                            <tr>\n                                <td>Ghi chú:</td>\n                                <td class=\"width-20\"></td>\n                                <td></td>\n                            </tr>\n                        </table>\n                    </div>\n                </div>\n            </div>\n            <label style=\"float: left\">Lý do từ chối: </label>\n            <textarea class=\"form-control\" rows=\"3\"></textarea>\n        </div>\n    </div>\n    <div class=\"modal-footer\">\n      \n        <button type=\"button\" class=\"btn btn-success save shadow-card\">Chấp nhận</button>\n        <button type=\"button\" class=\"btn btn-danger save shadow-card\">Huỷ bỏ</button>\n    </div>\n</ng-template>"
+module.exports = "<div class=\"main-content\" style=\"margin-top: 10px\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-danger\">\n                        <h5><b>Báo cáo về trang thiết bị: 200</b>\n                            <div class=\"navbar-form col-md-4\" style=\"float: right;\">\n                                <div class=\"input-group no-border\">\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Tên người tạo...\"\n                                        id=\"searchValue\" [(ngModel)]=\"ownerName\">\n                                    <button mat-raised-button type=\"submit\"\n                                        class=\"btn btn-white btn-round btn-just-icon\" (click)=\"getIssueEquipment()\">\n                                        <i class=\"material-icons\">search</i>\n                                        <div class=\"ripple-container\"></div>\n                                    </button>\n                                </div>\n                            </div>\n                            <div class=\"navbar-form col-md-4\" style=\"float: right;\">\n                                <div class=\"input-group no-border\">\n                                    <input type=\"text\" value=\"\" class=\"form-control\" placeholder=\"Tên phòng...\"\n                                        id=\"searchValue\" [(ngModel)]=\"roomName\">\n                                    <button mat-raised-button type=\"submit\"\n                                        class=\"btn btn-white btn-round btn-just-icon\" (click)=\"getIssueEquipment()\">\n                                        <i class=\"material-icons\">search</i>\n                                        <div class=\"ripple-container\"></div>\n                                    </button>\n                                </div>\n                            </div>\n                        </h5>\n\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table table-hover\" style=\"text-align: center; min-height: 400px;\">\n                                <thead class=\"thead-dark\">\n                                    <th>Người tạo</th>\n                                    <th>Tên phòng</th>\n                                    <th>Loại thiết bị\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button *ngFor=\"let type of equipmentType\" class=\"dropdown-item\" (click)=\"filterType(type.name)\">{{type.name}}</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Trạng thái\n                                        <div ngbDropdown class=\"d-inline-block dropdown\">\n                                            <button class=\" icon-btn\" ngbDropdownToggle style=\"color: white\"></button>\n                                            <div ngbDropdownMenu>\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Pending')\">Chưa\n                                                    duyệt</button>\n                                                <button class=\"dropdown-item\" (click)=\"filterByStatus('Reject')\">Đã\n                                                    huỷ</button>\n                                            </div>\n                                        </div>\n                                    </th>\n                                    <th>Thao tác</th>\n                                </thead>\n                                <tbody *ngIf=\"isLoaded\">\n                                    <tr *ngIf=\"equipmentReports.length == 0\" style=\"text-align: center; min-height: 400px;\">\n                                        <td colspan=\"7\">Không có yêu cầu nào</td>\n                                    <tr *ngFor=\"let equipmentReport of equipmentReports\">\n                                        <td>{{equipmentReport.ownerName}}</td>\n                                        <td>{{equipmentReport.roomName}}</td>\n                                        <td>{{equipmentReport.equipmentTypeName}}</td>\n                                        <td\n                                        [ngClass]=\"{pending : equipmentReport.status == 'Pending', reject: equipmentReport.status == 'Reject'}\">\n                                        {{equipmentReport.status == 'Pending' ? 'Chưa duyệt' : 'Đã huỷ'}}</td>\n                                        <td><button type=\"button\" class=\"btn btn-info\" (click)=\"open(detail)\">Chi\n                                                tiết</button></td>\n                                    </tr>\n\n                                </tbody>\n                            </table>\n                            <div class=\"paging\">\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</div>\n\n<ng-template #detail let-modal>\n    <div class=\"modal-header\">\n        <h5><b>Chi tiết báo cáo trang thiết bị</b></h5>\n    </div>\n    <div class=\"modal-body modal-basic-title col-md-12 row\">\n        <div class=\"col-md-12\">\n            <div class=\"card\">\n                <div class=\"card-body\">\n                    <div class=\"table-responsive\">\n                        <table style=\"font-size: 18px;\">\n                            <tr>\n                                <td>Tên thiết bị:</td>\n                                <td class=\"width-20\"></td>\n                                <td>Gường tầng 1</td>\n                            </tr>\n                            <tr>\n                                <td>Mã thiết bị:</td>\n                                <td class=\"width-20\"></td>\n                                <td>GT1</td>\n                            </tr>\n                            <tr>\n                                <td>Phòng:</td>\n                                <td class=\"width-20\"></td>\n                                <td>A201</td>\n                            </tr>\n                            <tr>\n                                <td>Sinh viên chịu trách nhiệm:</td>\n                                <td class=\"width-20\"></td>\n                                <td style=\"color: red;\">Nguyễn Văn A</td>\n                            </tr>\n                            <tr>\n                                <td>Ghi chú:</td>\n                                <td class=\"width-20\"></td>\n                                <td></td>\n                            </tr>\n                        </table>\n                    </div>\n                </div>\n            </div>\n            <label style=\"float: left\">Lý do từ chối: </label>\n            <textarea class=\"form-control\" rows=\"3\"></textarea>\n        </div>\n    </div>\n    <div class=\"modal-footer\">\n      \n        <button type=\"button\" class=\"btn btn-success save shadow-card\">Chấp nhận</button>\n        <button type=\"button\" class=\"btn btn-danger save shadow-card\">Huỷ bỏ</button>\n    </div>\n</ng-template>"
 
 /***/ }),
 
@@ -626,124 +626,6 @@ var JwtInterceptor = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/_nav.ts":
-/*!*************************!*\
-  !*** ./src/app/_nav.ts ***!
-  \*************************/
-/*! exports provided: navItems */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navItems", function() { return navItems; });
-var navItems = [
-    {
-        name: 'Xem thống kê',
-        url: '/dashboard',
-        icon: 'icon-speedometer',
-    },
-    {
-        name: 'Quản lí sinh viên',
-        icon: 'icon-puzzle',
-        children: [
-            {
-                name: 'Danh sách sinh viên',
-                url: '/student-managerment',
-                icon: 'icon-cursor'
-            },
-        ]
-    },
-    {
-        name: 'Quản lí toà nhà',
-        url: '/buiding-management',
-        icon: 'icon-pencil'
-    },
-    {
-        name: 'Quản lí phòng',
-        url: '/room-management',
-        icon: 'icon-pencil'
-    },
-    {
-        name: 'Danh sách đã duyệt',
-        url: '/approved-request',
-        icon: 'icon-pencil'
-    },
-    {
-        name: 'Quản lí nhân sự',
-        url: '/staff-management',
-        icon: 'icon-puzzle',
-    },
-    {
-        name: 'Đặt ngày',
-        url: '/setDate',
-        icon: 'icon-cursor'
-    },
-    {
-        name: 'Cập nhật phí',
-        url: '/update-fee',
-        icon: 'icon-puzzle',
-    },
-    {
-        name: 'Quản lí thiết bị',
-        url: '/equipment-management',
-        icon: 'icon-puzzle',
-    },
-    {
-        name: 'Tạo thông báo',
-        url: '/create-news',
-        icon: 'icon-puzzle',
-    },
-    {
-        name: 'Quản lí sinh viên (staff)',
-        url: '/student-managerment-staff',
-        icon: 'icon-puzzle',
-    },
-    {
-        name: 'Danh sách yêu cầu',
-        icon: 'icon-puzzle',
-        children: [
-            {
-                name: 'Thêm danh sách SV',
-                url: '/arrange',
-                icon: 'icon-cursor'
-            },
-            {
-                name: 'Yêu cầu đặt phòng',
-                url: '/room-booking-request',
-                icon: 'icon-cursor'
-            },
-            {
-                name: 'Yêu cầu chuyển phòng',
-                url: '/room-transfer-request',
-                icon: 'icon-cursor'
-            },
-            {
-                name: 'Yêu cầu gia hạn HĐ',
-                url: '/renew-contract-request',
-                icon: 'icon-cursor'
-            },
-            {
-                name: 'Yêu cầu huỷ hợp đồng',
-                url: '/cancle-contract-request',
-                icon: 'icon-cursor'
-            },
-        ]
-    },
-    {
-        name: 'Báo cáo về TTB (staff)',
-        url: '/equipment-report',
-        icon: 'icon-puzzle',
-    },
-    {
-        name: 'Danh sách khiếu nại (staff)',
-        url: '/issue-ticket',
-        icon: 'icon-puzzle',
-    },
-];
-
-
-/***/ }),
-
 /***/ "./src/app/app.component.ts":
 /*!**********************************!*\
   !*** ./src/app/app.component.ts ***!
@@ -833,6 +715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_admin_room_miss_equipment_room_miss_equipment_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./views/admin/room-miss-equipment/room-miss-equipment.component */ "./src/app/views/admin/room-miss-equipment/room-miss-equipment.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./_helpers */ "./src/app/_helpers/index.ts");
+/* harmony import */ var ngx_loading__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ngx-loading */ "./node_modules/ngx-loading/fesm5/ngx-loading.js");
 
 
 
@@ -855,6 +738,7 @@ var APP_CONTAINERS = [
 // Import routing module
 
 // Import 3rd party components
+
 
 
 
@@ -923,7 +807,8 @@ var AppModule = /** @class */ (function () {
                 ngx_pagination__WEBPACK_IMPORTED_MODULE_22__["NgxPaginationModule"],
                 angular2_datetimepicker__WEBPACK_IMPORTED_MODULE_24__["AngularDateTimePickerModule"],
                 angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_25__["AngularMultiSelectModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_43__["HttpClientModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_43__["HttpClientModule"],
+                ngx_loading__WEBPACK_IMPORTED_MODULE_45__["NgxLoadingModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]
@@ -1185,8 +1070,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../_nav */ "./src/app/_nav.ts");
-
 
 
 
@@ -1195,7 +1078,6 @@ var DefaultLayoutComponent = /** @class */ (function () {
     function DefaultLayoutComponent(_document, router) {
         var _this = this;
         this.router = router;
-        this.navItems = _nav__WEBPACK_IMPORTED_MODULE_4__["navItems"];
         this.sidebarMinimized = true;
         this.photoUrl = sessionStorage.getItem('photoUrl');
         this.changes = new MutationObserver(function (mutations) {
@@ -1207,6 +1089,120 @@ var DefaultLayoutComponent = /** @class */ (function () {
             attributeFilter: ['class']
         });
     }
+    DefaultLayoutComponent.prototype.ngOnInit = function () {
+        var role = sessionStorage.getItem('role');
+        console.log(role);
+        if (role === 'Staff') {
+            this.navItems = [
+                {
+                    name: 'Danh sách đã duyệt',
+                    url: '/approved-request',
+                    icon: 'icon-pencil'
+                },
+                {
+                    name: 'Quản lí sinh viên (staff)',
+                    url: '/student-managerment-staff',
+                    icon: 'icon-puzzle',
+                },
+                {
+                    name: 'Danh sách yêu cầu',
+                    icon: 'icon-puzzle',
+                    children: [
+                        {
+                            name: 'Thêm danh sách SV',
+                            url: '/arrange',
+                            icon: 'icon-cursor'
+                        },
+                        {
+                            name: 'Yêu cầu đặt phòng',
+                            url: '/room-booking-request',
+                            icon: 'icon-cursor'
+                        },
+                        {
+                            name: 'Yêu cầu chuyển phòng',
+                            url: '/room-transfer-request',
+                            icon: 'icon-cursor'
+                        },
+                        {
+                            name: 'Yêu cầu gia hạn HĐ',
+                            url: '/renew-contract-request',
+                            icon: 'icon-cursor'
+                        },
+                        {
+                            name: 'Yêu cầu huỷ hợp đồng',
+                            url: '/cancle-contract-request',
+                            icon: 'icon-cursor'
+                        },
+                    ]
+                },
+                {
+                    name: 'Báo cáo về TTB (staff)',
+                    url: '/equipment-report',
+                    icon: 'icon-puzzle',
+                },
+                {
+                    name: 'Danh sách khiếu nại (staff)',
+                    url: '/issue-ticket',
+                    icon: 'icon-puzzle',
+                }
+            ];
+        }
+        else {
+            this.navItems = [
+                {
+                    name: 'Xem thống kê',
+                    url: '/dashboard',
+                    icon: 'icon-speedometer',
+                },
+                {
+                    name: 'Quản lí sinh viên',
+                    icon: 'icon-puzzle',
+                    children: [
+                        {
+                            name: 'Danh sách sinh viên',
+                            url: '/student-managerment',
+                            icon: 'icon-cursor'
+                        },
+                    ]
+                },
+                {
+                    name: 'Quản lí toà nhà',
+                    url: '/buiding-management',
+                    icon: 'icon-pencil'
+                },
+                {
+                    name: 'Quản lí phòng',
+                    url: '/room-management',
+                    icon: 'icon-pencil'
+                },
+                {
+                    name: 'Quản lí nhân sự',
+                    url: '/staff-management',
+                    icon: 'icon-puzzle',
+                },
+                {
+                    name: 'Đặt ngày',
+                    url: '/setDate',
+                    icon: 'icon-cursor'
+                },
+                {
+                    name: 'Cập nhật phí',
+                    url: '/update-fee',
+                    icon: 'icon-puzzle',
+                },
+                {
+                    name: 'Quản lí thiết bị',
+                    url: '/equipment-management',
+                    icon: 'icon-puzzle',
+                },
+                {
+                    name: 'Tạo thông báo',
+                    url: '/create-news',
+                    icon: 'icon-puzzle',
+                }
+            ];
+        }
+    };
     DefaultLayoutComponent.prototype.logout = function () {
         sessionStorage.clear();
         this.router.navigate(['/login']);
@@ -1527,6 +1523,7 @@ var ApprovedRequestComponent = /** @class */ (function () {
     function ApprovedRequestComponent(roomBookingService, modalService) {
         this.roomBookingService = roomBookingService;
         this.modalService = modalService;
+        this.loading = false;
         this.showList = [false, true];
         this.imageUrls = [
             {
@@ -1565,13 +1562,16 @@ var ApprovedRequestComponent = /** @class */ (function () {
         if (this.month !== null) {
             filters += ',month==' + this.month;
         }
-        if (this.studentCardNumber !== null) {
+        if (this.studentCardNumber !== null && this.studentCardNumber !== '') {
             filters += ',studentCardNumber@=' + this.studentCardNumber;
         }
+        this.loading = true;
         this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
             .subscribe(function (res) {
             _this.roomBookingRequests = res.resultList;
             _this.isLoaded = true;
+            console.log(res.resultList);
+            _this.loading = false;
         }, function (error) {
         });
     };
@@ -2260,6 +2260,7 @@ var EquipmentComponent = /** @class */ (function () {
         this.modalService = modalService;
         this.equipmentService = equipmentService;
         this.paramService = paramService;
+        this.loading = false;
         this.equipmentCode = null;
         this.filterUse = null;
         this.status = 'Active';
@@ -2302,6 +2303,7 @@ var EquipmentComponent = /** @class */ (function () {
     };
     EquipmentComponent.prototype.getEquipment = function () {
         var _this = this;
+        this.loading = true;
         var filters = 'Status@=' + this.status;
         if (this.equipmentTypeName !== null) {
             filters += ',equipmentTypeName@=' + this.equipmentTypeName;
@@ -2316,6 +2318,7 @@ var EquipmentComponent = /** @class */ (function () {
             .subscribe(function (res) {
             _this.equipments = res.resultList;
             _this.isLoaded = true;
+            _this.loading = false;
         }, function (error) {
         });
     };
@@ -3033,6 +3036,7 @@ var LoginComponent = /** @class */ (function () {
         this.authService = authService;
         this.userService = userService;
         this.router = router;
+        this.loading = false;
     }
     LoginComponent.prototype.signInWithGoogle = function () {
         var _this = this;
@@ -3048,13 +3052,20 @@ var LoginComponent = /** @class */ (function () {
                     idToken: _this.user.idToken,
                     email: _this.user.email
                 };
+                _this.loading = true;
                 _this.userService.login(socialUser)
                     .subscribe(function (res) {
                     console.log(res);
                     sessionStorage.setItem('accessToken', res.accessToken);
                     sessionStorage.setItem('accountID', res.id + '');
-                    // check role to route
-                    _this.router.navigate(['/dashboard']);
+                    sessionStorage.setItem('role', res.role);
+                    _this.loading = false;
+                    if (res.role === 'Admin') {
+                        _this.router.navigate(['/dashboard']);
+                    }
+                    else {
+                        _this.router.navigate(['/approved-request']);
+                    }
                 });
             }
         });
@@ -3125,7 +3136,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".paging {\n  text-align: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc3RhZmYvZXF1aXBtZW50LXJlcG9ydC9EOlxcU3R1ZHlcXE51bnR0c2U2MjUyNVxcZG9ybWl0b3J5LXdlYi9zcmNcXGFwcFxcdmlld3NcXHN0YWZmXFxlcXVpcG1lbnQtcmVwb3J0XFxlcXVpcG1lbnQtcmVwb3J0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC92aWV3cy9zdGFmZi9lcXVpcG1lbnQtcmVwb3J0L2VxdWlwbWVudC1yZXBvcnQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9hcHAvdmlld3Mvc3RhZmYvZXF1aXBtZW50LXJlcG9ydC9lcXVpcG1lbnQtcmVwb3J0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBhZ2luZ3tcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufSIsIi5wYWdpbmcge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59Il19 */"
+module.exports = ".paging {\n  text-align: center;\n}\n\n.pending {\n  color: gray;\n}\n\n.reject {\n  color: red;\n}\n\n.icon-btn {\n  border: none;\n  background-color: transparent;\n  outline: 0;\n}\n\n.icon-btn i {\n  color: #007bff;\n  font-size: 2em;\n  cursor: pointer;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc3RhZmYvZXF1aXBtZW50LXJlcG9ydC9EOlxcU3R1ZHlcXE51bnR0c2U2MjUyNVxcZG9ybWl0b3J5LXdlYi9zcmNcXGFwcFxcdmlld3NcXHN0YWZmXFxlcXVpcG1lbnQtcmVwb3J0XFxlcXVpcG1lbnQtcmVwb3J0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC92aWV3cy9zdGFmZi9lcXVpcG1lbnQtcmVwb3J0L2VxdWlwbWVudC1yZXBvcnQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKOztBRENBO0VBQ0ksV0FBQTtBQ0VKOztBREFBO0VBQ0ksVUFBQTtBQ0dKOztBRERBO0VBQ0ksWUFBQTtFQUNBLDZCQUFBO0VBQ0EsVUFBQTtBQ0lKOztBREhJO0VBQ0ksY0FBQTtFQUNBLGNBQUE7RUFDQSxlQUFBO0FDS1IiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9zdGFmZi9lcXVpcG1lbnQtcmVwb3J0L2VxdWlwbWVudC1yZXBvcnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGFnaW5ne1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi5wZW5kaW5ne1xyXG4gICAgY29sb3I6IGdyYXk7XHJcbn1cclxuLnJlamVjdHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbn1cclxuLmljb24tYnRue1xyXG4gICAgYm9yZGVyOiBub25lO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcbiAgICBvdXRsaW5lOiAwO1xyXG4gICAgaXtcclxuICAgICAgICBjb2xvcjogIzAwN2JmZjtcclxuICAgICAgICBmb250LXNpemU6IDJlbTtcclxuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICB9XHJcbiAgfSIsIi5wYWdpbmcge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5wZW5kaW5nIHtcbiAgY29sb3I6IGdyYXk7XG59XG5cbi5yZWplY3Qge1xuICBjb2xvcjogcmVkO1xufVxuXG4uaWNvbi1idG4ge1xuICBib3JkZXI6IG5vbmU7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xuICBvdXRsaW5lOiAwO1xufVxuLmljb24tYnRuIGkge1xuICBjb2xvcjogIzAwN2JmZjtcbiAgZm9udC1zaXplOiAyZW07XG4gIGN1cnNvcjogcG9pbnRlcjtcbn0iXX0= */"
 
 /***/ }),
 
@@ -3140,52 +3151,121 @@ module.exports = ".paging {\n  text-align: center;\n}\n/*# sourceMappingURL=data
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EquipmentReportComponent", function() { return EquipmentReportComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _services_issue_ticket_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../services/issue-ticket.service */ "./src/app/services/issue-ticket.service.ts");
+/* harmony import */ var _services_param_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../services/param.service */ "./src/app/services/param.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+
+
 
 
 
 var EquipmentReportComponent = /** @class */ (function () {
-    function EquipmentReportComponent(modalService) {
+    function EquipmentReportComponent(modalService, paramService, issueTicketService) {
         this.modalService = modalService;
+        this.paramService = paramService;
+        this.issueTicketService = issueTicketService;
         this.equipmentReports = [];
+        this.createdDate = '-createdDate';
+        this.page = 1;
+        this.pageSize = 5;
+        this.isLoaded = false;
+        this.status = null;
+        this.filter = null;
+        this.ownerName = null;
+        this.equipmentTypeName = null;
+        this.roomName = null;
     }
     EquipmentReportComponent.prototype.ngOnInit = function () {
-        var equipment = {
-            equipmentType: 'Gường tầng',
-            name: 'Gường tầng 1'
-        };
-        var student = {
-            name: 'Nguyễn Văn A'
-        };
-        var room = {
-            name: 'A201'
-        };
-        var equipmentReport = {
-            issueTicketId: 1,
-            status: 'Chưa xử lí',
-            student: student,
-            equipment: equipment,
-            room: room,
-        };
-        for (var i = 1; i <= 100; i++) {
-            this.equipmentReports.push(equipmentReport);
+        var _this = this;
+        var paramEquipment = sessionStorage.getItem('paramEquipment');
+        if (paramEquipment == null) {
+            this.paramService.getAllIssueType()
+                .subscribe(function (res) {
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].name === 'Tình trạng thiết bị') {
+                        sessionStorage.setItem('paramEquipment', res[i].paramId);
+                        break;
+                    }
+                }
+                _this.getIssueEquipment();
+            });
         }
+        else {
+            this.getIssueEquipment();
+        }
+        var paramTypeId = sessionStorage.getItem('EquipmentType');
+        if (paramTypeId == null) {
+            this.paramService.getParamTypes()
+                .subscribe(function (res) {
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].name === 'EquipmentType') {
+                        sessionStorage.setItem('EquipmentType', res[i].paramTypeId);
+                        break;
+                    }
+                }
+                _this.getEquipmentType();
+            });
+        }
+        else {
+            this.getEquipmentType();
+        }
+    };
+    EquipmentReportComponent.prototype.getIssueEquipment = function () {
+        var _this = this;
+        var filters = 'type==' + sessionStorage.getItem('paramEquipment');
+        if (this.status !== null) {
+            filters += ',status@=' + this.status;
+        }
+        if (this.ownerName !== null && this.ownerName !== '') {
+            filters += ',ownerName@=' + this.ownerName;
+        }
+        if (this.equipmentTypeName !== null) {
+            filters += ',equipmentTypeName@=' + this.equipmentTypeName;
+        }
+        if (this.roomName !== null && this.roomName !== '') {
+            filters += ',roomName@=' + this.roomName;
+        }
+        console.log(filters);
+        this.issueTicketService.getIssue(this.createdDate, filters, this.page, this.pageSize)
+            .subscribe(function (res) {
+            _this.equipmentReports = res.resultList;
+            _this.isLoaded = true;
+            console.log(_this.equipmentReports);
+        }, function (error) {
+        });
+    };
+    EquipmentReportComponent.prototype.filterByStatus = function (status) {
+        this.status = status;
+        this.getIssueEquipment();
+    };
+    EquipmentReportComponent.prototype.filterType = function (equipmentTypeName) {
+        this.equipmentTypeName = equipmentTypeName;
+        this.getIssueEquipment();
+    };
+    EquipmentReportComponent.prototype.getEquipmentType = function () {
+        var _this = this;
+        this.paramService.getByParamTypeById(sessionStorage.getItem('EquipmentType'))
+            .subscribe(function (res) {
+            _this.equipmentType = res;
+        });
     };
     EquipmentReportComponent.prototype.open = function (content) {
         this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then(function (result) {
         });
     };
     EquipmentReportComponent.ctorParameters = function () { return [
-        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"] }
+        { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"] },
+        { type: _services_param_service__WEBPACK_IMPORTED_MODULE_2__["ParamService"] },
+        { type: _services_issue_ticket_service__WEBPACK_IMPORTED_MODULE_1__["IssueTicketService"] }
     ]; };
     EquipmentReportComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-equipment-report',
             template: __webpack_require__(/*! raw-loader!./equipment-report.component.html */ "./node_modules/raw-loader/index.js!./src/app/views/staff/equipment-report/equipment-report.component.html"),
             styles: [__webpack_require__(/*! ./equipment-report.component.scss */ "./src/app/views/staff/equipment-report/equipment-report.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"], _services_param_service__WEBPACK_IMPORTED_MODULE_2__["ParamService"], _services_issue_ticket_service__WEBPACK_IMPORTED_MODULE_1__["IssueTicketService"]])
     ], EquipmentReportComponent);
     return EquipmentReportComponent;
 }());
@@ -3469,7 +3549,7 @@ var RenewContractRequestComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".paging {\n  text-align: center;\n}\n\n.width-20 {\n  width: 20%;\n}\n\n.width-40 {\n  width: 40%;\n}\n\n.width-33 {\n  width: 33%;\n}\n\n.icon-btn {\n  border: none;\n  background-color: transparent;\n  outline: 0;\n}\n\n.icon-btn i {\n  color: #007bff;\n  font-size: 2em;\n  cursor: pointer;\n}\n\n.pending {\n  color: gray;\n}\n\n.reject {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc3RhZmYvcmVxdWVzdC9yb29tLWJvb2tpbmctcmVxdWVzdC9EOlxcU3R1ZHlcXE51bnR0c2U2MjUyNVxcZG9ybWl0b3J5LXdlYi9zcmNcXGFwcFxcdmlld3NcXHN0YWZmXFxyZXF1ZXN0XFxyb29tLWJvb2tpbmctcmVxdWVzdFxccm9vbS1ib29raW5nLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3ZpZXdzL3N0YWZmL3JlcXVlc3Qvcm9vbS1ib29raW5nLXJlcXVlc3Qvcm9vbS1ib29raW5nLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBQTtBQ0NKOztBRENBO0VBQ0ksVUFBQTtBQ0VKOztBREFBO0VBQ0ksVUFBQTtBQ0dKOztBRERBO0VBQ0ksVUFBQTtBQ0lKOztBREZBO0VBQ0ksWUFBQTtFQUNBLDZCQUFBO0VBQ0EsVUFBQTtBQ0tKOztBREpJO0VBQ0ksY0FBQTtFQUNBLGNBQUE7RUFDQSxlQUFBO0FDTVI7O0FESEU7RUFDSSxXQUFBO0FDTU47O0FESkU7RUFDSSxVQUFBO0FDT04iLCJmaWxlIjoic3JjL2FwcC92aWV3cy9zdGFmZi9yZXF1ZXN0L3Jvb20tYm9va2luZy1yZXF1ZXN0L3Jvb20tYm9va2luZy1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBhZ2luZ3tcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG4ud2lkdGgtMjB7XHJcbiAgICB3aWR0aDogMjAlO1xyXG59XHJcbi53aWR0aC00MHtcclxuICAgIHdpZHRoOiA0MCU7XHJcbn1cclxuLndpZHRoLTMzIHtcclxuICAgIHdpZHRoOiAzMyU7XHJcbn1cclxuLmljb24tYnRue1xyXG4gICAgYm9yZGVyOiBub25lO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcbiAgICBvdXRsaW5lOiAwO1xyXG4gICAgaXtcclxuICAgICAgICBjb2xvcjogIzAwN2JmZjtcclxuICAgICAgICBmb250LXNpemU6IDJlbTtcclxuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgICB9XHJcbiAgfVxyXG4gIC5wZW5kaW5ne1xyXG4gICAgICBjb2xvcjogZ3JheTtcclxuICB9XHJcbiAgLnJlamVjdHtcclxuICAgICAgY29sb3I6IHJlZDtcclxuICB9XHJcbiBcclxuXHJcbiIsIi5wYWdpbmcge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi53aWR0aC0yMCB7XG4gIHdpZHRoOiAyMCU7XG59XG5cbi53aWR0aC00MCB7XG4gIHdpZHRoOiA0MCU7XG59XG5cbi53aWR0aC0zMyB7XG4gIHdpZHRoOiAzMyU7XG59XG5cbi5pY29uLWJ0biB7XG4gIGJvcmRlcjogbm9uZTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7XG4gIG91dGxpbmU6IDA7XG59XG4uaWNvbi1idG4gaSB7XG4gIGNvbG9yOiAjMDA3YmZmO1xuICBmb250LXNpemU6IDJlbTtcbiAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4ucGVuZGluZyB7XG4gIGNvbG9yOiBncmF5O1xufVxuXG4ucmVqZWN0IHtcbiAgY29sb3I6IHJlZDtcbn0iXX0= */"
+module.exports = ".paging {\n  text-align: center;\n}\n\n.width-20 {\n  width: 20%;\n}\n\n.width-40 {\n  width: 40%;\n}\n\n.width-33 {\n  width: 33%;\n}\n\n.icon-btn {\n  border: none;\n  background-color: transparent;\n  outline: 0;\n}\n\n.icon-btn i {\n  color: #007bff;\n  font-size: 2em;\n  cursor: pointer;\n}\n\n.pending {\n  color: gray;\n}\n\n.reject {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc3RhZmYvcmVxdWVzdC9yb29tLWJvb2tpbmctcmVxdWVzdC9EOlxcU3R1ZHlcXE51bnR0c2U2MjUyNVxcZG9ybWl0b3J5LXdlYi9zcmNcXGFwcFxcdmlld3NcXHN0YWZmXFxyZXF1ZXN0XFxyb29tLWJvb2tpbmctcmVxdWVzdFxccm9vbS1ib29raW5nLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3ZpZXdzL3N0YWZmL3JlcXVlc3Qvcm9vbS1ib29raW5nLXJlcXVlc3Qvcm9vbS1ib29raW5nLXJlcXVlc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBQTtBQ0NGOztBRENBO0VBQ0UsVUFBQTtBQ0VGOztBREFBO0VBQ0UsVUFBQTtBQ0dGOztBRERBO0VBQ0UsVUFBQTtBQ0lGOztBREZBO0VBQ0UsWUFBQTtFQUNBLDZCQUFBO0VBQ0EsVUFBQTtBQ0tGOztBREpFO0VBQ0UsY0FBQTtFQUNBLGNBQUE7RUFDQSxlQUFBO0FDTUo7O0FESEE7RUFDRSxXQUFBO0FDTUY7O0FESkE7RUFDRSxVQUFBO0FDT0YiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9zdGFmZi9yZXF1ZXN0L3Jvb20tYm9va2luZy1yZXF1ZXN0L3Jvb20tYm9va2luZy1yZXF1ZXN0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBhZ2luZyB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi53aWR0aC0yMCB7XHJcbiAgd2lkdGg6IDIwJTtcclxufVxyXG4ud2lkdGgtNDAge1xyXG4gIHdpZHRoOiA0MCU7XHJcbn1cclxuLndpZHRoLTMzIHtcclxuICB3aWR0aDogMzMlO1xyXG59XHJcbi5pY29uLWJ0biB7XHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xyXG4gIG91dGxpbmU6IDA7XHJcbiAgaSB7XHJcbiAgICBjb2xvcjogIzAwN2JmZjtcclxuICAgIGZvbnQtc2l6ZTogMmVtO1xyXG4gICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIH1cclxufVxyXG4ucGVuZGluZyB7XHJcbiAgY29sb3I6IGdyYXk7XHJcbn1cclxuLnJlamVjdCB7XHJcbiAgY29sb3I6IHJlZDtcclxufVxyXG4iLCIucGFnaW5nIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4ud2lkdGgtMjAge1xuICB3aWR0aDogMjAlO1xufVxuXG4ud2lkdGgtNDAge1xuICB3aWR0aDogNDAlO1xufVxuXG4ud2lkdGgtMzMge1xuICB3aWR0aDogMzMlO1xufVxuXG4uaWNvbi1idG4ge1xuICBib3JkZXI6IG5vbmU7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xuICBvdXRsaW5lOiAwO1xufVxuLmljb24tYnRuIGkge1xuICBjb2xvcjogIzAwN2JmZjtcbiAgZm9udC1zaXplOiAyZW07XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLnBlbmRpbmcge1xuICBjb2xvcjogZ3JheTtcbn1cblxuLnJlamVjdCB7XG4gIGNvbG9yOiByZWQ7XG59Il19 */"
 
 /***/ }),
 
@@ -3577,8 +3657,8 @@ var RoomBookingRequestComponent = /** @class */ (function () {
             _this.imageUrls[0].url = _this.roomBookingRequestDetail.identityCardImageUrl;
             _this.imageUrls[1].url = _this.roomBookingRequestDetail.studentCardImageUrl;
             _this.imageUrls[2].url = _this.roomBookingRequestDetail.priorityImageUrl;
-            console.log(_this.roomBookingRequestDetail);
-            _this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then(function (result) { });
+            _this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result
+                .then(function (result) { });
         });
     };
     RoomBookingRequestComponent.prototype.closeModal = function () {

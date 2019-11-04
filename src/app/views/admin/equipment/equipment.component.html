@@ -12,7 +12,7 @@
                             </div>
                             <div class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="MSSV" id="searchValue"
+                                    <input type="text" value="" class="form-control" placeholder="Mã TB" id="searchValue"
                                         [(ngModel)]="equipmentCode">
                                     <button mat-raised-button type="submit"
                                         class="btn btn-white btn-round btn-just-icon" (click)="getEquipmentType()">
@@ -63,10 +63,8 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Tăng
-                                                    dần</button>
-                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Giảm
-                                                    dần</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Cũ nhất</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Mới nhất</button>
                                             </div>
                                         </div>
                                     </th>
@@ -104,22 +102,17 @@
     <div class="modal-body modal-basic-title col-md-12 row">
         <div class="form-group col-md-12 ">
             <label for="exampleFormControlSelect1">Loại thiết bị</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>Gường</option>
-                <option>Bàn</option>
+            <select class="form-control" [(ngModel)]="createEquipment.equipmentTypeId">
+                <option *ngFor="let type of equipmentType" [value]="type.paramId">{{type.name}}</option>
             </select>
         </div>
         <div class="form-group col-md-12">
-            <label for="exampleFormControlInput1">Mã thiết bị: </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" />
-        </div>
-        <div class="form-group col-md-12">
             <label for="exampleFormControlInput1">Giá: </label>
-            <input type="number" class="form-control" id="exampleFormControlInput1" />
+            <input type="number" class="form-control" [(ngModel)]="createEquipment.price"/>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card">Thêm</button>
+        <button type="button" class="btn btn-success save shadow-card" (click)="addEquipment()">Thêm</button>
     </div>
 </ng-template>
 <ng-template #customLoadingTemplate>

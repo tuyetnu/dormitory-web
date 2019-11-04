@@ -26,7 +26,6 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     const role = sessionStorage.getItem('role');
-    console.log(role);
     if (role === 'Staff') {
       this.navItems = [
         {
@@ -35,7 +34,7 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
           icon: 'icon-pencil'
         },
         {
-          name: 'Quản lí sinh viên (staff)',
+          name: 'Quản lí sinh viên',
           url: '/student-managerment-staff',
           icon: 'icon-puzzle',
         },
@@ -43,11 +42,6 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
           name: 'Danh sách yêu cầu',
           icon: 'icon-puzzle',
           children: [
-            {
-              name: 'Thêm danh sách SV',
-              url: '/arrange',
-              icon: 'icon-cursor'
-            },
             {
               name: 'Yêu cầu đặt phòng',
               url: '/room-booking-request',
@@ -71,12 +65,12 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
           ]
         },
         {
-          name: 'Báo cáo về TTB (staff)',
+          name: 'Báo cáo về TTB',
           url: '/equipment-report',
           icon: 'icon-puzzle',
         },
         {
-          name: 'Danh sách khiếu nại (staff)',
+          name: 'Danh sách khiếu nại',
           url: '/issue-ticket',
           icon: 'icon-puzzle',
         }
@@ -92,6 +86,16 @@ export class DefaultLayoutComponent implements OnDestroy, OnInit {
           name: 'Quản lí sinh viên',
           icon: 'icon-puzzle',
           children: [
+            {
+              name: 'Thêm DS sinh viên',
+              url: '/add-list-student',
+              icon: 'icon-cursor',
+            },
+            {
+              name: 'Thêm DS đăng kí',
+              url: '/add-list-register',
+              icon: 'icon-cursor',
+            },
             {
               name: 'Danh sách sinh viên',
               url: '/student-managerment',

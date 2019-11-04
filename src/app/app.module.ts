@@ -47,7 +47,6 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { ArrageComponent } from './views/admin/student/arrage/arrage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentManagermentComponent } from './views/admin/student/student-managerment/student-managerment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -75,6 +74,8 @@ import { RoomMissEquipmentComponent } from './views/admin/room-miss-equipment/ro
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './_helpers';
 import { NgxLoadingModule } from 'ngx-loading';
+import { AddListStudentComponent } from './views/staff/request/add-list-student/add-list-student.component';
+import { AddListRegisterComponent } from './views/staff/request/add-list-register/add-list-register.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -111,7 +112,7 @@ export function provideConfig() {
     AngularDateTimePickerModule,
     AngularMultiSelectModule,
     HttpClientModule,
-    NgxLoadingModule.forRoot()
+    NgxLoadingModule
   ],
   declarations: [
     AppComponent,
@@ -120,7 +121,6 @@ export function provideConfig() {
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ArrageComponent,
     StudentManagermentComponent,
     SetRequestDateComponent,
     RoomBookingRequestComponent,
@@ -138,7 +138,9 @@ export function provideConfig() {
     CreateNewComponent,
     ApprovedRequestComponent,
     BuildingManagementComponent,
-    RoomMissEquipmentComponent
+    RoomMissEquipmentComponent,
+    AddListStudentComponent,
+    AddListRegisterComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

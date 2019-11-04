@@ -1,3 +1,4 @@
+import { RoomService } from './../../../services/room.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
@@ -8,22 +9,16 @@ import { Router } from '@angular/router';
 export class RoomMissEquipmentComponent implements OnInit {
   missEquipments = [];
   equipments = [];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private roomService: RoomService) { }
 
   ngOnInit() {
-    const missEquipment = {
-      roomName: 'A201',
-      equipmentType: 'Gường tầng',
-      quality: 2
-    };
-    const equipment = {
-      equipmentTypeName: 'Gường tầng',
-      quality: 2
-    };
-    for (let i = 0; i <= 10; i++) {
-      this.missEquipments.push(missEquipment);
-      this.equipments.push(equipment);
-    }
+   this.roomService.getRoomMissEquipment()
+   .subscribe((res) => {
+   this.missEquipments = res;
+   },
+   (err) => {
+
+   });
   }
   addEquipment() {
     this.router.navigate(['/equipment-management']);

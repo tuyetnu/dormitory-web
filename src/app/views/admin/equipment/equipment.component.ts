@@ -15,10 +15,11 @@ export class EquipmentComponent implements OnInit {
   filterUse = null;
   status = 'Active';
   equipmentTypeName = null;
-  createdDate = '-createdDate';
+  createdDate = 'createdDate';
   page = 1;
   pageSize = 5;
   isLoaded = false;
+  createEquipment;
   constructor(private modalService: NgbModal, private equipmentService: EquipmentService,
     private paramService: ParamService) { }
   ngOnInit() {
@@ -101,9 +102,28 @@ export class EquipmentComponent implements OnInit {
     this.status = status;
     this.getEquipment();
   }
+  closeModal() {
+    this.modalService.dismissAll();
+  }
   open(content) {
+    this.createEquipment = {
+      imageUrl: '',
+      status: 'Active',
+      price: '',
+      equipmentTypeId: this.equipmentType[0].paramId
+    };
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });
   }
-
+  addEquipment() {
+    this.equipmentService.addEquipment(this.createEquipment)
+      .subscribe((res) => {
+        alert('Thêm thiết bị thành công');
+      },
+        (error) => {
+          alert('Thêm thiết bị không thành công');
+        });
+        this.closeModal();
+        this.getEquipment();
+  }
 }

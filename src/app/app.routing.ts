@@ -1,3 +1,5 @@
+import { AddListStudentComponent } from './views/staff/request/add-list-student/add-list-student.component';
+import { AddListRegisterComponent } from './views/staff/request/add-list-register/add-list-register.component';
 import { RoomMissEquipmentComponent } from './views/admin/room-miss-equipment/room-miss-equipment.component';
 import { BuildingManagementComponent } from './views/admin/building-management/building-management.component';
 import { ApprovedRequestComponent } from './views/admin/approved-request/approved-request.component';
@@ -14,7 +16,6 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import { ArrageComponent } from './views/admin/student/arrage/arrage.component';
 import { StudentManagermentComponent } from './views/admin/student/student-managerment/student-managerment.component';
 import { SetRequestDateComponent } from './views/staff/request/set-request-date/set-request-date.component';
 import { RoomBookingRequestComponent } from './views/staff/request/room-booking-request/room-booking-request.component';
@@ -73,8 +74,8 @@ export const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'arrange',
-        component: ArrageComponent
+        path: 'add-list-register',
+        component: AddListRegisterComponent
       },
       {
         path: 'student-managerment',
@@ -143,6 +144,10 @@ export const routes: Routes = [
       {
         path: 'room-miss-equipment',
         component: RoomMissEquipmentComponent
+      },
+      {
+        path: 'add-list-student',
+        component: AddListStudentComponent
       },
     ]
   },

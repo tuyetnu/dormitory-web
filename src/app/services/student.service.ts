@@ -12,4 +12,7 @@ export class StudentService {
     return this.httpClient.get(`${this.BASE_URL}api/Student/AdvancedGet?sorts=${sort}
     &filters=${filters}&page=${page}&pageSize=${pageSize}`);
   }
+  importListStudent(data) {
+    return this.httpClient.post(`${this.BASE_URL}api/Student`, data);
+  }
 }

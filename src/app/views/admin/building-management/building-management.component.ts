@@ -1,3 +1,5 @@
+import { BuildingService } from './../../../services/building.service';
+
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +11,7 @@ import Stepper from 'bs-stepper';
 })
 export class BuildingManagementComponent implements OnInit {
 
-  constructor(private modalService: NgbModal, private router: Router) { }
+  constructor(private modalService: NgbModal, private router: Router, private buildingService: BuildingService) { }
   stepper: Stepper;
   index;
   building;
@@ -20,10 +22,10 @@ export class BuildingManagementComponent implements OnInit {
   open(content) {
     this.index = 1;
     this.building = {
-      numberFloor: 1,
-      numberRoomOnFloor: 1,
       name: '',
-      floors: []
+      numberOfFloor: 1,
+      roomOnEachFloor: 1,
+      floors: [],
     };
     this.modalService.open(content, { size: 'lg', windowClass: 'myCustomModalClass' });
     const a = document.querySelector('#stepper1');
@@ -35,26 +37,27 @@ export class BuildingManagementComponent implements OnInit {
 
   next() {
     if (this.index === 1) {
-      for (let i = 1; i <= this.building.numberFloor; i++) {
-        const rooms = [];
-        for (let j = 1; j <= this.building.numberRoomOnFloor; j++) {
+      for (let i = 1; i <= this.building.numberOfFloor; i++) {
+        const createRoomRequests = [];
+        for (let j = 1; j <= this.building.roomOnEachFloor; j++) {
           const name = this.building.name + i + (j < 10 ? '0' + j : j);
           const room = {
             name,
-            type: false
+            roomType: 11,
+            roomStatus: 'Active',
+            gender: false
           };
-          rooms.push(room);
+          createRoomRequests.push(room);
         }
-        const tmp = {
+        const floor = {
           name: 'Tầng ' + i,
           gender: false,
-          rooms
+          createRoomRequests
         };
-        this.building.floors.push(tmp);
+        this.building.floors.push(floor);
       }
     } else if (this.index === 2) {
-      console.log(this.building.floors);
-      this.showList = new Array(this.building.numberFloor).fill(false);
+      this.showList = new Array(this.building.numberOfFloor).fill(false);
       this.show(0);
     }
     this.stepper.next();
@@ -80,6 +83,24 @@ export class BuildingManagementComponent implements OnInit {
   }
   listRoomMiss() {
     this.router.navigate(['/room-miss-equipment']);
+  }
+  newBuilding() {
+    const data = {
+      name: this.building.name,
+      numberOfFloor: this.building.numberOfFloor,
+      roomOnEachFloor: this.building.roomOnEachFloor,
+      createRoomRequests: [],
+    };
+    this.building.floors.forEach(floor => {
+      floor.createRoomRequests.forEach(createRoomRequest => {
+        createRoomRequest.gender = floor.gender;
+      });
+      data.createRoomRequests = data.createRoomRequests.concat(floor.createRoomRequests);
+    });
+    this.buildingService.newBuilding(data)
+    .subscribe((res) => {
+      console.log(res);
+    });
   }
 }
 

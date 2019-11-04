@@ -105,18 +105,18 @@
                         <div class="form-group col-md-9">
                             <label for="exampleFormControlInput1" class="col-md-4" style="float: left;">Số tầng:
                             </label>
-                            <input type="number" class="form-control col-md-8" [(ngModel)]="building.numberFloor" />
+                            <input type="number" class="form-control col-md-8" [(ngModel)]="building.numberOfFloor" />
                         </div>
                         <div class="form-group col-md-9">
                             <label for="exampleFormControlInput1" class="col-md-4" style="float: left;">Số phòng/1 tầng:
                             </label>
                             <input type="number" class="form-control col-md-8"
-                                [(ngModel)]="building.numberRoomOnFloor" />
+                                [(ngModel)]="building.roomOnEachFloor" />
                         </div>
                     </div>
                 </div>
                 <div id="test-l-2" class="content">
-                    <h5 style="margin-left: 30%;">Chọn giới tính và loại phòng của tầng</h5>
+                    <h5 style="margin-left: 30%;">Chọn giới tính của tầng</h5>
                     <div class="form-group col-md-9" style="margin-left: 15%; margin-top: 10px;"
                         *ngFor="let floor of building.floors">
                         <label for="exampleFormControlSelect1" class="col-md-4"
@@ -137,13 +137,13 @@
                             </div>
                             <div class="card-body" [hidden]="!showList[i]">
                                 <div class="form-group col-md-9" style="margin-left: 15%; margin-top: 10px;"
-                                    *ngFor="let room of floor.rooms">
+                                    *ngFor="let room of floor.createRoomRequests">
                                     <label for="exampleFormControlSelect1" class="col-md-4"
                                         style="float: left;">{{room.name}}</label>
                                     <select class="form-control col-md-8" id="exampleFormControlSelect1"
-                                        [(ngModel)]="room.type">
-                                        <option [value]="true">Loại thường</option>
-                                        <option [value]="false">Dịch vụ</option>
+                                        [(ngModel)]="room.roomType">
+                                        <option [value]="11">Loại thường</option>
+                                        <option [value]="12">Dịch vụ</option>
                                     </select>
                                 </div>
                             </div>
@@ -156,6 +156,6 @@
     <div class="modal-footer">
         <button class="btn btn-secondary back" (click)="back()" [hidden]="index == 1 ">Back</button>
         <button (click)="next()" class="btn btn-primary" [hidden]="index == 3">Next</button>
-        <button class="btn btn-success save" [hidden]="index != 3">Create</button>
+        <button class="btn btn-success save" [hidden]="index != 3" (click)="newBuilding()">Tạo</button>
     </div>
 </ng-template>
