@@ -9,7 +9,7 @@ export class StudentService {
   constructor(private httpClient: HttpClient) { }
   BASE_URL = 'https://dormywebservice.azurewebsites.net/';
   getStudent(sort = '', filters = '', page = 1, pageSize = 5) {
-    return this.httpClient.get(`${this.BASE_URL}api/Student/AdvancedGet?sorts=${sort}
+    return this.httpClient.get<any>(`${this.BASE_URL}api/Student/AdvancedGet?sorts=${sort}
     &filters=${filters}&page=${page}&pageSize=${pageSize}`);
   }
   importListStudent(data) {

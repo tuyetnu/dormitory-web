@@ -8,9 +8,10 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
   constructor(private httpClient: HttpClient) { }
-  baseUrl = 'https://dormywebservice.azurewebsites.net/api/Users/Login';
+  baseUrl = 'https://dormywebservice.azurewebsites.net/';
 
   login(socialUser) {
-    return this.httpClient.post<SocialUserRespone>(this.baseUrl, socialUser);
+    const api = 'api/Users/Login';
+    return this.httpClient.post<SocialUserRespone>(this.baseUrl + api, socialUser);
   }
 }

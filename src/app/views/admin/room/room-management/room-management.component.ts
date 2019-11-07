@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BuildingService } from '../../../../services/building.service';
 @Component({
   selector: 'app-room-management',
   templateUrl: './room-management.component.html',
   styleUrls: ['./room-management.component.scss']
 })
 export class RoomManagementComponent implements OnInit {
-  collection = [];
   showList = [true, false, false];
   theCheckbox1 = false;
   theCheckbox2 = false;
@@ -14,7 +14,11 @@ export class RoomManagementComponent implements OnInit {
   theCheckbox4 = false;
   theCheckbox5 = false;
   marked = true;
-  constructor(private modalService: NgbModal) { }
+  loading = false;
+  building;
+  floors = [];
+  constructor(private modalService: NgbModal,
+    private buildingService: BuildingService) { }
   dropdownList = [
     { 'id': 1, 'name': 'Bình thường' },
     { 'id': 5, 'name': 'Đặt biệt' },
@@ -40,10 +44,31 @@ export class RoomManagementComponent implements OnInit {
   };
   numbers;
   ngOnInit() {
-    this.numbers = Array(10).fill(1);
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
-    }
+    this.loading = true;
+    const buildingId = 1;
+    this.buildingService.getBuildingById(buildingId)
+      .subscribe((res) => {
+        this.building = res;
+        for (let i = 1; i <= this.building.numberOfFloor; i++) {
+          const rooms = [];
+          for (let j = 1; j <= this.building.roomOnEachFloor; j++) {
+            const name = this.building.name + i + (j < 10 ? '0' + j : j);
+            const room = this.building.rooms.find(r => {
+              return r.name === name;
+            });
+            rooms.push(room);
+          }
+          const floor = {
+            name: 'Tầng ' + i,
+            rooms
+          };
+          this.floors.push(floor);
+        }
+        console.log(this.floors);
+        this.loading = false;
+      }, (err) => {
+
+      });
   }
   open(content) {
     this.showList = [true, false, false];

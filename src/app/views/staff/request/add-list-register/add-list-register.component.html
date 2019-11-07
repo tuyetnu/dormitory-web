@@ -13,15 +13,38 @@
                     </div>
                     <div class="card-body"> 
                         <div class="modal-body modal-basic-title col-md-12 row">
-                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên đăng kí ở KTX: &nbsp;&nbsp;&nbsp; 
                             <input type="file"
                                 id="inputExcel"
                                 accept=".xlsm"
                                 name="myFile">&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-secondary" (click)="importFileExcel()">Thêm</button>
+                                <button type="button" class="btn btn-success" (click)="importFileExcel()" *ngIf="!preview">Thêm</button>
+                                <button type="button" class="btn btn-secondary" (click)="importFileExcel()" *ngIf="preview">Xem trước</button>
 
                         </div>
-                        <div class="modal-footer">
+                        <div class="card-body" *ngIf="!preview">
+                            <div>
+                                <table class="table table-hover" style="text-align: center; min-height: 300px;">
+                                    <thead class="thead-dark ">
+                                        <th>Email</th>
+                                        <th>Tháng muốn ở</th>
+                                        <th>Độ ưu tiên</th>
+                                        <th>Loại phòng</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let student of students; let i = index">
+                                            <td>{{student.email}}</td>
+                                            <td>{{student.month}}</td>
+                                            <td>{{student.priorityType}}</td>
+                                            <td>{{student.targetRoomType}}</td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                                <div class="paging">
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

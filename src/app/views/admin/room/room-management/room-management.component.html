@@ -30,25 +30,47 @@
                     <div class="card-body">
                         <div class="text-center">
                             <h3>KHU NHÀ A</h3>
-                            <div *ngFor="let a of numbers">
-                                <div class="room bg-normal">
-                                    <div class="room-name" (click)="open(detail)" data-toggle="tooltip" title="Xem chi tiết">A201</div>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"
+                            <div *ngFor="let floor of floors">
+                                <div class="room" [ngClass]="{'bg-normal': room.capacity - room.currentNumberOfStudent > 0 && room.currentNumberOfStudent > 0, 'bg-empty' : room.currentNumberOfStudent == 0, 'bg-full' : room.capacity == room.currentNumberOfStudent}" *ngFor="let room of floor.rooms">
+                                    <div class="room-name" (click)="open(detail)" data-toggle="tooltip"
+                                        title="Xem chi tiết">{{room.name}}</div>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
                                         data-toggle="tooltip" title="Đang ở"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color:yellow;"
-                                    data-toggle="tooltip" title="Đang chờ"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white;"
-                                    data-toggle="tooltip" title="Trống"></i>
-                                    <br />
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: white"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: red"
-                                    data-toggle="tooltip" title="Đang hỏng"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở"></i>
+                                    <br *ngIf="room.capacity == 4" />
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở"></i>
+                                    <br *ngIf="room.capacity == 8" />
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở" *ngIf="room.capacity == 8"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở" *ngIf="room.capacity == 8"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở" *ngIf="room.capacity == 8"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                        data-toggle="tooltip" title="Đang ở" *ngIf="room.capacity == 8"></i>
                                 </div>
                             </div>
-                            <div *ngFor="let a of numbers">
+                            <!-- <div class="room bg-normal" *ngFor="let room of floor.rooms">
+                                    <div class="room-name" (click)="open(detail)" data-toggle="tooltip" title="Xem chi tiết">{{room.name}}</div>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow;"
+                                        data-toggle="tooltip" title="Đang ở"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color:yellow;"
+                                    data-toggle="tooltip" title="Đang chờ"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
+                                    data-toggle="tooltip" title="Trống"></i>
+                                    <br />
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: red"
+                                    data-toggle="tooltip" title="Đang hỏng"></i>
+                                </div> -->
+                            <!-- <div>
                                 <div class="room bg-empty">
                                     <div class="room-name">A201</div>
                                     <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
@@ -57,21 +79,21 @@
                                     <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
                                     <i class="fa fa-female fa-2x" aria-hidden="true" style="color: white"></i>
                                 </div>
-                            </div>
-                            <div *ngFor="let a of numbers">
+                            </div> -->
+                            <!-- <div>
                                 <div class="room bg-full">
                                     <div class="room-name">A201</div>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color:greenyellow;"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow;"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow;"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color:greenyellow;"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow;"></i>
                                     <br />
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
-                                    <i class="fa fa-male fa-2x" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow"></i>
+                                    <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: greenyellow"></i>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -79,7 +101,7 @@
             </div>
         </div>
     </div>
-    
+
     <ng-template #update let-modal>
         <div class="modal-header">
             <h4>Chỉnh sửa phòng</h4>
@@ -284,3 +306,9 @@
             </div>
         </div>
     </ng-template>
+    <ng-template #customLoadingTemplate>
+        <div class="custom-class"></div>
+      </ng-template>
+    
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+      </ngx-loading>

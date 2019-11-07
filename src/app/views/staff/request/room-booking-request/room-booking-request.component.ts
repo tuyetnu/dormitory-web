@@ -38,6 +38,7 @@ export class RoomBookingRequestComponent implements OnInit {
   pageSize = 5;
   studentBook;
   rejectReason = '';
+  loading = false;
   constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService) { }
   ngOnInit() {
     this.getRoomRequest();
@@ -52,8 +53,10 @@ export class RoomBookingRequestComponent implements OnInit {
     } if (this.studentCardNumber !== null) {
       filters += ',studentCardNumber@=' + this.studentCardNumber;
     }
+    this.loading = true;
     this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
+        this.loading = false;
         this.roomBookingRequests = res.resultList;
         this.isLoaded = true;
       },
@@ -112,27 +115,39 @@ export class RoomBookingRequestComponent implements OnInit {
       $('.detail').eq(index).addClass('fa-caret-down');
     }
   }
-  updateStatus(bookingId, status) {
-    if (status === 'Rejected' && this.rejectReason === '') {
+  approveRoomBooking(bookingId) {
+    this.roomBookingService.approveRoomBooking(bookingId)
+    .subscribe((res) => {
+      alert('Chỉnh sửa yêu cầu thành công');
+      console.log(res);
+      this.closeModal();
+      this.getRoomRequest();
+    }, (error) => {
+      console.log(error);
+      alert('Chỉnh sửa yêu cầu thất bại');
+      this.closeModal();
+    });
+  }
+  rejectRequest(id) {
+    if (this.rejectReason === '') {
       alert('Nhập lí do từ chối');
       $('#inputReason').focus();
       return;
     }
     const data = {
-      roomBookingRequestFormId: bookingId,
-      status: status,
-      staffId: sessionStorage.getItem('accountID'),
-      reason: this.rejectReason
+      'roomBookingId': id,
+      'reason': this.rejectReason
     };
-    console.log(JSON.stringify(data));
-    this.roomBookingService.updateStatus(data)
-      .subscribe((res) => {
-        alert('Chỉnh sửa yêu cầu thành công');
-        console.log(res);
-        this.rejectReason = '';
-        this.closeModal();
-      }, (error) => {
-        alert('Chỉnh sửa yêu cầu thất bại');
-      });
+    this.roomBookingService.rejectRequest(data)
+    .subscribe((res) => {
+      alert('Chỉnh sửa yêu cầu thành công');
+      console.log(res);
+      this.closeModal();
+      this.getRoomRequest();
+    }, (error) => {
+      console.log(error);
+      alert('Chỉnh sửa yêu cầu thất bại');
+      this.closeModal();
+    });
   }
 }

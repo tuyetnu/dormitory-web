@@ -1,3 +1,4 @@
+import { StudentService } from './../../../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,60 +10,31 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class StudentManagermentComponent implements OnInit {
   students = [];
   studentDetail;
+  isLoaded = false;
+  createdDate = 'createdDate';
+  gender = true;
+  page = 1;
+  loading = false;
+  pageSize = 5;
   showList = [true, false, false, false];
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private studentService: StudentService) { }
 
   ngOnInit() {
-    this.students = [
-      {
-      name: 'Nguyễn Văn A',
-      evaluationScore: 100,
-      studentCardNumber: 'SE62525',
-      isPaid: 'Đã thanh toán',
-      contract: {
-        startDate: '1/6/2020',
-        endDate: '1/10/2020',
-        status: 'Còn Hạn'
+    this.getStudent();
+  }
+  getStudent() {
+    const filters = 'gender==' + this.gender;
+    this.loading = true;
+    this.studentService.getStudent(this.createdDate, filters, this.page, this.pageSize)
+      .subscribe((res) => {
+        this.loading = false;
+        this.students = res;
+      console.log(this.students);
+        this.isLoaded = true;
       },
-      roomName: '201'
-    },
-    {
-      name: 'Nguyễn Văn B',
-      evaluationScore: 90,
-      studentCardNumber: 'SE62577',
-      isPaid: 'Chưa thanh toán',
-      contract: {
-        startDate: '1/6/2020',
-        endDate: '1/10/2020',
-        status: 'Còn Hạn'
-      },
-      roomName: '201'
-    },
-    {
-      name: 'Nguyễn Văn C',
-      evaluationScore: 80,
-      studentCardNumber: 'SE62588',
-      isPaid: 'Đã thanh toán',
-      contract: {
-        startDate: '1/6/2020',
-        endDate: '1/10/2020',
-        status: 'Còn Hạn'
-      },
-      roomName: '201'
-    },
-    {
-      name: 'Nguyễn Hoàng Nam',
-      evaluationScore: 100,
-      studentCardNumber: 'SE62544',
-      isPaid: 'Đã thanh toán',
-      contract: {
-        startDate: '1/6/2020',
-        endDate: '1/10/2020',
-        status: 'Còn Hạn'
-      },
-      roomName: '201'
-    },
-  ];
+        (error) => {
+
+        });
   }
   open(content, index) {
     if (index !== undefined) {

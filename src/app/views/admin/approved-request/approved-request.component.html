@@ -38,8 +38,10 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item" (click)="filteByRoomType('Standard Room')">Loại thường</button>
-                                                <button class="dropdown-item" (click)="filteByRoomType('Service Room')">Dịch vụ</button>
+                                                <button class="dropdown-item"
+                                                    (click)="filteByRoomType('Standard Room')">Loại thường</button>
+                                                <button class="dropdown-item"
+                                                    (click)="filteByRoomType('Service Room')">Dịch vụ</button>
                                             </div>
                                         </div>
                                     </th>
@@ -58,15 +60,17 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item" (click)="filterByStatus('Approved')">Đã duyệt</button>
-                                                <button class="dropdown-item" (click)="filterByStatus('Complete')">Hoàn tất</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Approved')">Chờ hoàn tất</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Complete')">Hoàn
+                                                    tất</button>
                                             </div>
                                         </div>
                                     </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody *ngIf="isLoaded">
-                                    <tr *ngIf="roomBookingRequests.length == 0" style="text-align: center; min-height: 400px;">
+                                    <tr *ngIf="roomBookingRequests.length == 0"
+                                        style="text-align: center; min-height: 400px;">
                                         <td colspan="7">Không có yêu cầu nào</td>
                                     </tr>
                                     <tr *ngFor="let roomBookingRequest of roomBookingRequests">
@@ -78,9 +82,16 @@
                                         <td>{{roomBookingRequest.roomName}}</td>
                                         <td
                                             [ngClass]="{approved : roomBookingRequest.status == 'Approved', complete: roomBookingRequest.status == 'Complete'}">
-                                            {{roomBookingRequest.status == 'Approved' ? 'Đã duyệt' : 'Hoàn tất'}}</td>
-                                        <td><button type="button" class="btn btn-secondary"  (click)="open(detail,roomBookingRequest.roomBookingRequestFormId)">Chi tiết</button>&nbsp;
-                                            <button type="button" class="btn btn-success" (click)="updateStatus(roomBookingRequest.roomBookingRequestFormId, 'Complete')">Hoàn tất</button></td>
+                                            {{roomBookingRequest.status == 'Approved' ? 'Chờ hoàn tất' : 'Hoàn tất'}}</td>
+                                        <td><button type="button" class="btn btn-secondary"
+                                                (click)="open(detail,roomBookingRequest.roomBookingRequestFormId)"><i
+                                                    class="fa fa-info-circle" aria-hidden="true"></i></button>&nbsp;
+                                            <button type="button" class="btn btn-success"
+                                                (click)="completeRequest(roomBookingRequest.roomBookingRequestFormId)"><i
+                                                    class="fa fa-check" aria-hidden="true"></i></button>&nbsp;
+                                            <button type="button" class="btn btn-danger"
+                                                (click)="open(reject,roomBookingRequest.roomBookingRequestFormId)"><i
+                                                    class="fa fa-ban" aria-hidden="true"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -94,7 +105,19 @@
         </div>
     </div>
 </div>
+<ng-template #reject let-modal>
+    <div class="modal-header">
+        <h5><b>Từ chối yêu cầu</b></h5>
+    </div>
+    <div class="col-md-10">
+        <textarea class="form-control" rows="4" style="margin-left: 10%; margin-top: 5px; margin-bottom: 5px;" [(ngModel)]="rejectReason" id="inputReason" placeholder="Lí do từ chối:"></textarea>
+    </div>
 
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger save shadow-card"
+            (click)="rejectRequest(roomBookingRequestDetail.roomBookingId, rejectReason)">Từ chối</button>
+    </div>
+</ng-template>
 <ng-template #detail let-modal>
     <div class="modal-header">
         <h5><b>Chi tiết yêu cầu</b></h5>
@@ -212,7 +235,7 @@
 </ng-template>
 <ng-template #customLoadingTemplate>
     <div class="custom-class"></div>
-  </ng-template>
+</ng-template>
 
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
-  </ngx-loading>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+</ngx-loading>

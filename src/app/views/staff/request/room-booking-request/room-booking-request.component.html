@@ -63,10 +63,8 @@
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Tăng
-                                                    dần</button>
-                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Giảm
-                                                    dần</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Cũ nhất</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Mới nhất</button>
                                             </div>
                                         </div>
                                     </th>
@@ -96,10 +94,9 @@
                                         <td>{{roomBookingRequest.createdDate}}</td>
                                         <td
                                             [ngClass]="{pending : roomBookingRequest.status == 'Pending', reject: roomBookingRequest.status == 'Reject'}">
-                                            {{roomBookingRequest.status == 'Pending' ? 'Chưa duyệt' : 'Đã huỷ'}}</td>
+                                            {{roomBookingRequest.status == 'Pending' ? 'Chưa duyệt' : 'Đã từ chối'}}</td>
                                         <td><button type="button" class="btn btn-info"
-                                                (click)="open(detail,roomBookingRequest.roomBookingRequestFormId)">Chi
-                                                tiết</button></td>
+                                                (click)="open(detail,roomBookingRequest.roomBookingRequestFormId)"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -237,7 +234,13 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card" (click)="updateStatus(roomBookingRequestDetail.roomBookingId, 'Approved')">Chấp nhận</button>
-        <button type="button" class="btn btn-danger save shadow-card" (click)="updateStatus(roomBookingRequestDetail.roomBookingId, 'Rejected')">Từ chối</button>
+        <button type="button" class="btn btn-success save shadow-card" (click)="approveRoomBooking(roomBookingRequestDetail.roomBookingId)">Chấp nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card" (click)="rejectRequest(roomBookingRequestDetail.roomBookingId)">Từ chối</button>
     </div>
 </ng-template>
+<ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>

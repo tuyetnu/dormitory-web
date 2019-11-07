@@ -62,9 +62,9 @@
                                     <tr *ngFor="let student of students; let i = index">
                                         <td>{{student.name}}</td>
                                         <td>{{student.studentCardNumber}}</td>
-                                        <td style="color: green;">{{student.isPaid}}</td>
+                                        <!-- <td style="color: green;">{{student.isPaid}}</td>
                                         <td>{{student.contract.endDate}}</td>
-                                        <td>{{student.contract.status}}</td>
+                                        <td>{{student.contract.status}}</td> -->
                                         <td><button type="button" class="btn btn-secondary" (click)="open(detail, i)">Chi
                                                 tiết</button>
                                             &nbsp;<button type="button" class="btn btn-danger">

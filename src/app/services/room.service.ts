@@ -6,8 +6,9 @@ import { HttpClient } from '@angular/common/http';
 export class RoomService {
 
   constructor(private httpClient: HttpClient) { }
-  BASE_URL = 'https://localhost:44364/api/Rooms/MissingEquipmentRoom';
+  BASE_URL = 'https://dormywebservice.azurewebsites.net/';
   getRoomMissEquipment() {
-    return this.httpClient.get<any>(`${this.BASE_URL}`);
+    const api = 'api/Rooms/MissingEquipmentRoom';
+    return this.httpClient.get<any>(`${this.BASE_URL}${api}`);
   }
 }

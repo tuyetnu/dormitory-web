@@ -27,34 +27,12 @@
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Khu A</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
-                                                Sửa</button>
-                                            &nbsp;
-                                        </td>
+                                    <tr *ngFor="let building of buildings">
+                                        <td>{{building.name}}</td>
+                                        <td>{{building.numberOfFloor}}</td>
+                                        <td>{{building.roomOnEachFloor}}</td>
+                                        <td><button type="button" class="btn btn-success">Chi tiết</button></td>
                                     </tr>
-                                    <tr>
-                                        <td>Khu B</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
-                                                Sửa</button>
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Khu C</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td><button type="button" class="btn btn-success" (click)="openCreate(update)">
-                                                Sửa</button>
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

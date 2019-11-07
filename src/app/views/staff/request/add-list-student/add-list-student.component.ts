@@ -16,12 +16,6 @@ export class AddListStudentComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(content) {
-    this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-
-    });
-  }
-
   download() {
     const link = document.createElement('a');
     link.setAttribute('type', 'hidden');
@@ -55,8 +49,6 @@ export class AddListStudentComponent implements OnInit {
       dataString = dataString.replace(/Họ và tên/g, 'name');
       dataString = dataString.replace(/MSSV/g, 'studentCardNumber');
       dataString = dataString.replace(/Giới tính/g, 'gender');
-      dataString = dataString.replace(/Nam/g, 'TRUE');
-      dataString = dataString.replace(/Nữ/g, 'FALSE');
       dataString = dataString.replace(/Số điện thoại/g, 'phoneNumber');
       dataString = dataString.replace(/Địa chỉ/g, 'address');
       dataString = dataString.replace(/Ngày sinh/g, 'birthDay');
@@ -65,6 +57,9 @@ export class AddListStudentComponent implements OnInit {
       dataString = dataString.replace(/Khoá/g, 'term');
       dataString = dataString.replace(/Email/g, 'email');
       this.students = JSON.parse(dataString);
+      this.students.forEach(student => {
+        student.gender = (student.gender === 'Nam') ? true : false;
+      });
       if (!this.preview) {
         this.studentService.importListStudent(this.students)
           .subscribe((res) => {

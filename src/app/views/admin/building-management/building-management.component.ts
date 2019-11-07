@@ -16,7 +16,9 @@ export class BuildingManagementComponent implements OnInit {
   index;
   building;
   showList = [];
+  buildings = [];
   ngOnInit() {
+    this.getBuilding();
   }
 
   open(content) {
@@ -98,9 +100,17 @@ export class BuildingManagementComponent implements OnInit {
       data.createRoomRequests = data.createRoomRequests.concat(floor.createRoomRequests);
     });
     this.buildingService.newBuilding(data)
-    .subscribe((res) => {
-      console.log(res);
-    });
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+  getBuilding() {
+    this.buildingService.getBuilding()
+      .subscribe((res) => {
+        this.buildings = res;
+      }, (err) => {
+
+      });
   }
 }
 

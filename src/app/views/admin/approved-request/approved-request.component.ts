@@ -31,7 +31,7 @@ export class ApprovedRequestComponent implements OnInit {
   roomType = null;
   month = null;
   studentCardNumber = null;
-  createdDate = 'createdDate';
+  createdDate = '-createdDate';
   isLoaded = false;
   page = 1;
   pageSize = 5;
@@ -111,21 +111,41 @@ export class ApprovedRequestComponent implements OnInit {
         this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => { });
       });
   }
-  updateStatus(bookingId, status) {
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+  rejectRequest(bookingId, reason) {
     const data = {
-      roomBookingRequestFormId: bookingId,
+      roomBookingId: bookingId,
       status: status,
       staffId: sessionStorage.getItem('accountID'),
       reason: this.rejectReason
     };
     console.log(JSON.stringify(data));
-    this.roomBookingService.updateStatus(data)
+    this.roomBookingService.rejectRequest(data)
       .subscribe((res) => {
         alert('Chỉnh sửa yêu cầu thành công');
         console.log(res);
         this.rejectReason = '';
+        this.closeModal();
+        this.getRoomRequest();
       }, (error) => {
+        console.log(error);
         alert('Chỉnh sửa yêu cầu thất bại');
+        this.closeModal();
       });
+  }
+  completeRequest(id) {
+    this.roomBookingService.completeRequest(id)
+    .subscribe((res) => {
+      alert('Chỉnh sửa yêu cầu thành công');
+      console.log(res);
+      this.closeModal();
+      this.getRoomRequest();
+    }, (error) => {
+      console.log(error);
+      alert('Chỉnh sửa yêu cầu thất bại');
+      this.closeModal();
+    });
   }
 }
