@@ -43,6 +43,7 @@ export class RoomManagementComponent implements OnInit {
     showCheckbox: true,
   };
   numbers;
+  roomDetail;
   ngOnInit() {
     this.loading = true;
     const buildingId = 1;
@@ -56,6 +57,22 @@ export class RoomManagementComponent implements OnInit {
             const room = this.building.rooms.find(r => {
               return r.name === name;
             });
+            let isHold = 0;
+            let isLiving = 0;
+            if (room.students != null) {
+              room.students.forEach(student => {
+                if (student.isHold) {
+                  isHold++;
+                } else { isLiving++; }
+              });
+            }
+            const isHoldArr = new Array(isHold).fill(2);
+            const isLivingArr = new Array(isLiving).fill(1);
+            const isisEmptyArr = new Array(room.capacity - room.currentNumberOfStudent).fill(0);
+            room.liveStatus = [];
+            room.liveStatus.push(...isHoldArr)
+            room.liveStatus.push(...isLivingArr)
+            room.liveStatus.push(...isisEmptyArr);
             rooms.push(room);
           }
           const floor = {
@@ -70,7 +87,9 @@ export class RoomManagementComponent implements OnInit {
 
       });
   }
-  open(content) {
+  open(content, room) {
+    console.log(room);
+    this.roomDetail = room;
     this.showList = [true, false, false];
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     });

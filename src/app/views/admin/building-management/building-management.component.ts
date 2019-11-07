@@ -41,19 +41,27 @@ export class BuildingManagementComponent implements OnInit {
     if (this.index === 1) {
       for (let i = 1; i <= this.building.numberOfFloor; i++) {
         const createRoomRequests = [];
+        let gender = false;
+        if (i > this.building.numberOfFloor / 2) {
+          gender = true;
+        }
         for (let j = 1; j <= this.building.roomOnEachFloor; j++) {
           const name = this.building.name + i + (j < 10 ? '0' + j : j);
+          let roomType = 12;
+          if (j > this.building.roomOnEachFloor / 3) {
+            roomType = 11;
+          }
           const room = {
             name,
-            roomType: 11,
+            roomType: roomType,
             roomStatus: 'Active',
-            gender: false
+            gender: gender
           };
           createRoomRequests.push(room);
         }
         const floor = {
           name: 'Tầng ' + i,
-          gender: false,
+          gender: gender,
           createRoomRequests
         };
         this.building.floors.push(floor);

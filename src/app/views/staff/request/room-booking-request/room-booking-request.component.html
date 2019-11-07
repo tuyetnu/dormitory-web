@@ -93,7 +93,7 @@
                                         <td>{{roomBookingRequest.month}}</td>
                                         <td>{{roomBookingRequest.createdDate}}</td>
                                         <td
-                                            [ngClass]="{pending : roomBookingRequest.status == 'Pending', reject: roomBookingRequest.status == 'Reject'}">
+                                            [ngClass]="{pending : roomBookingRequest.status == 'Pending', reject: roomBookingRequest.status == 'Rejected'}">
                                             {{roomBookingRequest.status == 'Pending' ? 'Chưa duyệt' : 'Đã từ chối'}}</td>
                                         <td><button type="button" class="btn btn-info"
                                                 (click)="open(detail,roomBookingRequest.roomBookingRequestFormId)"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>

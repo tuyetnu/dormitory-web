@@ -30,7 +30,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 200px;">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
                                     <th>MSSV</th>
@@ -70,7 +70,7 @@
                                 </thead>
                                 <tbody *ngIf="isLoaded">
                                     <tr *ngIf="roomBookingRequests.length == 0"
-                                        style="text-align: center; min-height: 400px;">
+                                        style="text-align: center;">
                                         <td colspan="7">Không có yêu cầu nào</td>
                                     </tr>
                                     <tr *ngFor="let roomBookingRequest of roomBookingRequests">

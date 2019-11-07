@@ -46,7 +46,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 200px;">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
                                     <th>Mã số sinh viên</th>
@@ -59,19 +59,42 @@
                                                     </div>
                                                 </div>
                                     </th>
+                                    <th>Trạng thái
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                                <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                                <div ngbDropdownMenu>
+                                                    <button class="dropdown-item">Chưa duyệt</button>
+                                                    <button class="dropdown-item">Đã duyệt</button>
+                                                    <button class="dropdown-item">Từ chối</button>
+                                                    <button class="dropdown-item">Hoàn tất</button>
+                                                </div>
+                                            </div>
+                                </th>
                                     <th>Ngày tạo
-                                            <i class="fa fa-fw fas fa-sort"></i>
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item">Cũ nhất</button>
+                                                <button class="dropdown-item">Mới nhất</button>
+                                            </div>
+                                        </div>
                                     </th>
                                     <th>Thao tác</th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let roomTransferRequest of roomTransferRequests">
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="roomTransferRequests.length == 0"
+                                        style="text-align: center;">
+                                        <td colspan="7">Không có yêu cầu nào</td>
+                                    </tr>
+                                    <tr *ngFor="let roomTransferRequest of roomTransferRequests, let i = index">
                                         <td>{{roomTransferRequest.studentName}}</td>
                                         <td>{{roomTransferRequest.studentCardNumber}}</td>
-                                        <td>{{roomTransferRequest.targetRoomTypeName}}</td>
+                                        <td>{{roomTransferRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}</td>
+                                        <td
+                                            [ngClass]="{approved : roomTransferRequest.status == 'Approved', complete: roomTransferRequest.status == 'Complete'}">
+                                            {{ roomTransferRequest.parseStatus}}</td>
                                         <td>{{roomTransferRequest.createdDate}}</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
-                                                tiết</button></td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail, i)"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
                                     </tr>
 
                                 </tbody>
@@ -104,17 +127,17 @@
                             <tr>
                                 <td>Tên:</td>
                                 <td style="width: 20%"></td>
-                                <td>Nguyễn Hoàng Nam</td>
+                                <td>{{transferRequestDetail.name}}</td>
                             </tr>
                             <tr>
                                 <td>MSSV:</td>
                                 <td style="width: 20%"></td>
-                                <td>SE62525</td>
+                                <td>{{transferRequestDetail.studentCode}}</td>
                             </tr>
                             <tr>
                                 <td>Lí do</td>
                                 <td style="width: 20%"></td>
-                                <td>Cần chuyển loại phòng</td>
+                                <td>{{transferRequestDetail.reason}}</td>
                             </tr>
                         </table>
                         <hr>
