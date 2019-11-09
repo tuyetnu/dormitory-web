@@ -14,4 +14,7 @@ export class EquipmentService {
   addEquipment(data) {
     return this.httpClient.post(`${this.BASE_URL}api/Equipments`, data);
   }
+  getEquipmentAvailable() {
+    return this.httpClient.get<any>(`${this.BASE_URL}api/Equipments/GetEquipmentAvailable`);
+  }
 }

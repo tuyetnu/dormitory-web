@@ -20,6 +20,7 @@ export class EquipmentComponent implements OnInit {
   pageSize = 5;
   isLoaded = false;
   createEquipment;
+  equipmentAvailables = [];
   constructor(private modalService: NgbModal, private equipmentService: EquipmentService,
     private paramService: ParamService) { }
   ngOnInit() {
@@ -119,11 +120,11 @@ export class EquipmentComponent implements OnInit {
     this.equipmentService.addEquipment(this.createEquipment)
       .subscribe((res) => {
         alert('Thêm thiết bị thành công');
+        this.closeModal();
+        this.getEquipment();
       },
         (error) => {
           alert('Thêm thiết bị không thành công');
         });
-        this.closeModal();
-        this.getEquipment();
   }
 }

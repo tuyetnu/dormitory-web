@@ -1,3 +1,4 @@
+import { EquipmentService } from './../../../services/equipment.service';
 import { RoomService } from './../../../services/room.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class RoomMissEquipmentComponent implements OnInit {
   missEquipments = [];
-  equipments = [];
-  constructor(private router: Router, private roomService: RoomService) { }
+  equipmentAvailables = [];
+  constructor(private router: Router, private roomService: RoomService, private equipmentService: EquipmentService) { }
 
   ngOnInit() {
    this.roomService.getRoomMissEquipment()
@@ -19,6 +20,17 @@ export class RoomMissEquipmentComponent implements OnInit {
    (err) => {
 
    });
+   this.getEquipmentAvailable();
+  }
+  getEquipmentAvailable() {
+    this.equipmentService.getEquipmentAvailable()
+    .subscribe((res) => {
+      this.equipmentAvailables = res;
+      console.log(res);
+    },
+    (err) => {
+
+    });
   }
   addEquipment() {
     this.router.navigate(['/equipment-management']);

@@ -42,6 +42,9 @@ export class RoomTransferRequestComponent implements OnInit {
       .subscribe((res) => {
         this.loading = false;
         this.roomTransferRequests = res.resultList;
+        if (this.roomTransferRequests == null) {
+          this.roomTransferRequests = [];
+        }
         this.roomTransferRequests.forEach(roomTransferRequest => {
           switch (roomTransferRequest.status) {
             case 'Pending':
