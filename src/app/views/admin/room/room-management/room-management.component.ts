@@ -16,6 +16,8 @@ export class RoomManagementComponent implements OnInit {
   marked = true;
   loading = false;
   building;
+  buildingId;
+  buildings = [];
   floors = [];
   constructor(private modalService: NgbModal,
     private buildingService: BuildingService) { }
@@ -44,12 +46,34 @@ export class RoomManagementComponent implements OnInit {
   };
   numbers;
   roomDetail;
+  isLoaded = false;
   ngOnInit() {
     this.loading = true;
-    const buildingId = 1;
-    this.buildingService.getBuildingById(buildingId)
+    this.buildingService.getBuilding()
+      .subscribe((res) => {
+        this.loading = false;
+        this.buildings = res;
+        if (sessionStorage.getItem('buildingId') === null) {
+          this.buildingId = this.buildings[0].buildingId;
+        } else {
+          this.buildingId = sessionStorage.getItem('buildingId');
+          sessionStorage.removeItem('buildingId');
+        }
+        console.log(this.buildings[0].buildingId);
+        this.getBuilding();
+      }, (err) => {
+
+      });
+  }
+
+  getBuilding() {
+    this.isLoaded = false;
+    this.loading = true;
+    console.log(this.buildingId);
+    this.buildingService.getBuildingById(this.buildingId)
       .subscribe((res) => {
         this.building = res;
+        this.floors = [];
         for (let i = 1; i <= this.building.numberOfFloor; i++) {
           const rooms = [];
           for (let j = 1; j <= this.building.roomOnEachFloor; j++) {
@@ -70,8 +94,8 @@ export class RoomManagementComponent implements OnInit {
             const isLivingArr = new Array(isLiving).fill(1);
             const isisEmptyArr = new Array(room.capacity - room.currentNumberOfStudent).fill(0);
             room.liveStatus = [];
-            room.liveStatus.push(...isHoldArr)
-            room.liveStatus.push(...isLivingArr)
+            room.liveStatus.push(...isHoldArr);
+            room.liveStatus.push(...isLivingArr);
             room.liveStatus.push(...isisEmptyArr);
             rooms.push(room);
           }
@@ -83,6 +107,7 @@ export class RoomManagementComponent implements OnInit {
         }
         console.log(this.floors);
         this.loading = false;
+        this.isLoaded = true;
       }, (err) => {
 
       });

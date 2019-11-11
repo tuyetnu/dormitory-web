@@ -17,8 +17,7 @@ export class BuildingService {
   }
 
   getBuildingById(buildingId) {
-    const api = 'api/Rooms/BuildingById';
-    const params = new HttpParams().set('buildingId', buildingId);
-    return this.httpClient.get<any>(`${this.BASE_URL}${api}`, { params: params });
+    const api = 'api/Rooms/BuildingById/?buildingId=';
+    return this.httpClient.get<any>(`${this.BASE_URL}${api}${buildingId}`);
   }
 }

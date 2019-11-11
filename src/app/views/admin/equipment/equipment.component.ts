@@ -24,10 +24,6 @@ export class EquipmentComponent implements OnInit {
   constructor(private modalService: NgbModal, private equipmentService: EquipmentService,
     private paramService: ParamService) { }
   ngOnInit() {
-    if (sessionStorage.getItem('addEquipment') != null) {
-      $('#btnAdd').click();
-      sessionStorage.removeItem('addEquipment');
-    }
     const paramTypeId = sessionStorage.getItem('EquipmentType');
     if (paramTypeId == null) {
       this.paramService.getParamTypes()
@@ -49,6 +45,10 @@ export class EquipmentComponent implements OnInit {
       .subscribe((res) => {
         this.equipmentType = res;
         this.getEquipment();
+        if (sessionStorage.getItem('addEquipment') != null) {
+          $('#btnAdd').click();
+          sessionStorage.removeItem('addEquipment');
+        }
       });
   }
   getEquipment() {

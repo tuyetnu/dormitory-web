@@ -5,35 +5,24 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Danh sách phòng còn thiếu thiết bị</b>
-                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
-                                style="float: right;">
-                                <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
-                                <div ngbDropdownMenu>
-                                    <button class="dropdown-item">5</button>
-                                    <button class="dropdown-item">25</button>
-                                    <button class="dropdown-item">50</button>
-                                </div>
-                            </div>
                             <div class="col-md-2" style="float: right;">
                                 <button mat-raised-button type="button" class="btn btn-info pull-right"
                                     (click)="addEquipment()">Thêm TB</button>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="col-md-4" style="float: right;">
-                                <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Tên phòng"
-                                        id="searchValue">
-                                    <button mat-raised-button type="submit"
-                                        class="btn btn-white btn-round btn-just-icon">
-                                        <i class="material-icons">search</i>
-                                    </button>
-                                </div>
+                            <div class="form-group col-md-3" style="float: right;">
+                                <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="buildingId"
+                                    (change)="getRoomMissEq()">
+                                    <option *ngFor="let building of buildings" [value]="building.buildingId">Khu nhà
+                                        {{building.name}}</option>
+                                </select>
                             </div>
                         </h5>
                     </div>
                     <div class="card-body">
                         <div>
                             <h5>Thiết bị chưa sử dụng: </h5>
+                            <p *ngIf="equipmentAvailables.length == 0">Không có</p>
                             <div *ngFor="let equipmentAvailable of equipmentAvailables" class="col-md-3" style="float: left; margin-bottom: 10px; margin-top: 5px" >
                                 <span style="color: rgb(11, 197, 11);">{{equipmentAvailable.equipmentName}}</span> :  {{equipmentAvailable.quantity}}</div>
                         </div>
@@ -55,10 +44,10 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let missEquipment of missEquipments | paginate: { itemsPerPage: 5, currentPage: p }">
+                                        *ngFor="let missEquipment of missEquipments">
                                         <td>{{missEquipment.roomName}}</td>
-                                        <td>{{missEquipment.equipmentType}}</td>
-                                        <td>{{missEquipment.quality}}</td>
+                                        <td>{{missEquipment.equipmentTypeName}}</td>
+                                        <td>{{missEquipment.missingQuantity}}</td>
                                         <td><button type="button" class="btn btn-secondary">Xếp TB</button>
                                     </tr>
 

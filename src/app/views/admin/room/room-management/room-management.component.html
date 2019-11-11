@@ -11,10 +11,10 @@
                                 <div class="clearfix"></div>
                             </div> -->
                             <div class="form-group col-md-4" style="float: right;">
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Khu A</option>
-                                    <option>Khu B</option>
-                                    <option>Khu C</option>
+                                <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="buildingId"
+                                    (change)="getBuilding()">
+                                    <option *ngFor="let building of buildings" [value]="building.buildingId">Khu nhà
+                                        {{building.name}}</option>
                                 </select>
                             </div>
                         </h5>
@@ -27,7 +27,7 @@
                         <span style="float: right; margin-right: 10px;">Phòng chưa đầy</span>
                         <div class="ps bg-normal col-md-1" style="float: right;"></div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="isLoaded">
                         <div class="text-center">
                             <h3>Khu Nhà {{building.name}}</h3>
                             <div *ngFor="let floor of floors">
@@ -39,15 +39,23 @@
                                     <ng-template ngFor let-item="$implicit" [ngForOf]="room.liveStatus" let-i="index">
                                         <br *ngIf="room.capacity == 4 && i == 2" />
                                         <br *ngIf="room.capacity == 8 && i == 4" />
-                                        <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: green;"
-                                        data-toggle="tooltip" title="Đang ở" *ngIf="item == 1"></i>
-                                        <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: yellow;"
-                                        data-toggle="tooltip" title="Đang giữ" *ngIf="item == 2"></i>
-                                        <i class="fa fa-2x" [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}" aria-hidden="true" style="color: white;"
-                                        data-toggle="tooltip" title="Trống" *ngIf="item == 0"></i>
+                                        <i class="fa fa-2x"
+                                            [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}"
+                                            aria-hidden="true" style="color: green;" data-toggle="tooltip"
+                                            title="Đang ở" *ngIf="item == 1"></i>
+                                        <i class="fa fa-2x"
+                                            [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}"
+                                            aria-hidden="true" style="color: yellow;" data-toggle="tooltip"
+                                            title="Đang giữ" *ngIf="item == 2"></i>
+                                        <i class="fa fa-2x"
+                                            [ngClass]="{'fa-male': room.gender == true, 'fa-female': room.gender == false}"
+                                            aria-hidden="true" style="color: white;" data-toggle="tooltip" title="Trống"
+                                            *ngIf="item == 0"></i>
                                     </ng-template>
                                 </div>
+                                
                             </div>
+                            
                         </div>
                     </div>
                 </div>

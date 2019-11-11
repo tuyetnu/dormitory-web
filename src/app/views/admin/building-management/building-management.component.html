@@ -31,7 +31,7 @@
                                         <td>{{building.name}}</td>
                                         <td>{{building.numberOfFloor}}</td>
                                         <td>{{building.roomOnEachFloor}}</td>
-                                        <td><button type="button" class="btn btn-success">Chi tiết</button></td>
+                                        <td><button type="button" class="btn btn-success" (click)="getDetail(building.buildingId)">Chi tiết</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -137,3 +137,9 @@
         <button class="btn btn-success save" [hidden]="index != 3" (click)="newBuilding()">Tạo</button>
     </div>
 </ng-template>
+<ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>

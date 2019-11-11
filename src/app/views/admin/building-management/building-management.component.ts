@@ -17,6 +17,7 @@ export class BuildingManagementComponent implements OnInit {
   building;
   showList = [];
   buildings = [];
+  loading = false;
   ngOnInit() {
     this.getBuilding();
   }
@@ -36,7 +37,9 @@ export class BuildingManagementComponent implements OnInit {
       animation: true
     });
   }
-
+  closeModal() {
+    this.modalService.dismissAll();
+  }
   next() {
     if (this.index === 1) {
       for (let i = 1; i <= this.building.numberOfFloor; i++) {
@@ -107,18 +110,28 @@ export class BuildingManagementComponent implements OnInit {
       });
       data.createRoomRequests = data.createRoomRequests.concat(floor.createRoomRequests);
     });
+    this.loading = true;
     this.buildingService.newBuilding(data)
       .subscribe((res) => {
         console.log(res);
+        this.loading = false;
+        this.closeModal();
+        this.getBuilding();
       });
   }
   getBuilding() {
+    this.loading = true;
     this.buildingService.getBuilding()
       .subscribe((res) => {
+        this.loading = false;
         this.buildings = res;
       }, (err) => {
 
       });
+  }
+  getDetail(id) {
+    sessionStorage.setItem('buildingId', id);
+    this.router.navigate(['/room-management']);
   }
 }
 
