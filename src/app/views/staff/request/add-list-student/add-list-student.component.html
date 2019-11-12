@@ -18,8 +18,9 @@
                                 id="inputExcel"
                                 accept=".xlsm"
                                 name="myFile">&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-success" (click)="importFileExcel()" *ngIf="!preview">Thêm</button>
+                            <button type="button" class="btn btn-success" (click)="importFileExcel()" *ngIf="!preview">Thêm</button>&nbsp;&nbsp;
                             <button type="button" class="btn btn-secondary" (click)="importFileExcel()" *ngIf="preview">Xem trước</button>
+                            <button type="button" class="btn btn-secondary" (click)="clear()" *ngIf="!preview">Huỷ</button>
                         </div>
                         <div class="card-body" *ngIf="!preview">
                             <div>
@@ -38,7 +39,7 @@
                                             <td>{{student.name}}</td>
                                             <td>{{student.studentCardNumber}}</td>
                                             <td>{{student.email}}</td>
-                                            <td>{{student.gender}}</td>
+                                            <td>{{student.gender ? 'Nam' : 'Nữ' }}</td>
                                             <td>{{student.birthDay}}</td>
                                             <td>{{student.startedSchoolYear}}</td>
                                             <td>{{student.term}}</td>

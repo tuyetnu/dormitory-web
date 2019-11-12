@@ -64,9 +64,15 @@ export class AddListStudentComponent implements OnInit {
         this.studentService.importListStudent(this.students)
           .subscribe((res) => {
             alert('Import thành công');
+            this.clear();
           },
-            (error) => {
-              alert(error.error);
+            (err) => {
+              console.log(err);
+              if (err.status === 400) {
+                alert(err.error);
+              } else {
+                alert('Không thể import');
+              }
             });
       } else {
         this.preview = false;
@@ -74,5 +80,9 @@ export class AddListStudentComponent implements OnInit {
     };
     reader.readAsBinaryString(file);
   }
-
+  clear() {
+    this.students = [];
+    this.preview = true;
+    $('#inputExcel').val('');
+  }
 }

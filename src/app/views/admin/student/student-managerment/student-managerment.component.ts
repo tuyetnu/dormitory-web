@@ -29,7 +29,6 @@ export class StudentManagermentComponent implements OnInit {
       .subscribe((res) => {
         this.loading = false;
         this.students = res;
-      console.log(this.students);
         this.isLoaded = true;
       },
         (error) => {

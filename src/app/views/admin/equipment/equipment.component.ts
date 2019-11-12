@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { EquipmentService } from './../../../services/equipment.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +23,7 @@ export class EquipmentComponent implements OnInit {
   createEquipment;
   equipmentAvailables = [];
   constructor(private modalService: NgbModal, private equipmentService: EquipmentService,
-    private paramService: ParamService) { }
+    private paramService: ParamService, private router: Router,) { }
   ngOnInit() {
     const paramTypeId = sessionStorage.getItem('EquipmentType');
     if (paramTypeId == null) {
@@ -126,5 +127,8 @@ export class EquipmentComponent implements OnInit {
         (error) => {
           alert('Thêm thiết bị không thành công');
         });
+  }
+  listRoomMiss() {
+    this.router.navigate(['/room-miss-equipment']);
   }
 }
