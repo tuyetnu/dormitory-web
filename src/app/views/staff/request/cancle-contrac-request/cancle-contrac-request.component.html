@@ -14,54 +14,71 @@
                                     <button class="dropdown-item">50</button>
                                 </div>
                             </div>
-                            <form class="navbar-form col-md-4" style="float: right;">
+                            <div class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Tên hoặc MSSV..."
-                                        id="searchValue">
+                                    <input type="text" value="" class="form-control" placeholder="MSSV..."
+                                        id="searchValue" [(ngModel)]="studentCode">
                                     <button mat-raised-button type="submit"
-                                        class="btn btn-white btn-round btn-just-icon">
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getCancelContract()">
                                         <i class="material-icons">search</i>
                                         <div class="ripple-container"></div>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                         </h5>
 
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 200px;">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
-                                    <th>Mã số sinh viên</th>
+                                    <th>MSSV</th>
                                     <th>Phòng đang ở</th>
+                                    <th>Ngày ra dự kiến</th>
                                     <th>Ngày tạo
-                                            <i class="fa fa-fw fas fa-sort"></i>
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Cũ nhất</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Mới nhất</button>
+                                            </div>
+                                        </div>
                                     </th>
                                     <th>Trạng thái
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Chưa duyệt</button>
-                                                <button class="dropdown-item">Đã huỷ</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Pending')">Chưa
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Approved')">Đã
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Rejected')">Từ
+                                                    chối</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Completed')">Hoàn
+                                                    tất</button>
                                             </div>
                                         </div>
                                     </th>
                                     <th>Thao tác</th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let cancelContract of cancelContracts | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>{{cancelContract.student.name}}</td>
-                                        <td>{{cancelContract.student.studentCardNumber}}</td>
-                                        <td>{{cancelContract.room.name}}</td>
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="cancelContracts.length == 0" style="text-align: center;">
+                                        <td colspan="7">Không có yêu cầu nào</td>
+                                    </tr>
+                                    <tr *ngFor="let cancelContract of cancelContracts, let i = index">
+                                        <td>{{cancelContract.studentName}}</td>
+                                        <td>{{cancelContract.studentCode}}</td>
+                                        <td>{{cancelContract.roomName}}</td>
+                                        <td>{{cancelContract.dateOut}}</td>
                                         <td>{{cancelContract.createdDate}}</td>
-                                        <td>{{cancelContract.status}}</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi tiết</button></td>
+                                        <td [ngClass]="{approved : cancelContract.status == 'Approved', complete: cancelContract.status == 'Complete', reject: cancelContract.status == 'Rejected', pending: cancelContract.status == 'Pending'}">
+                                            {{cancelContract.parseStatus}}</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail, i)">Chi tiết</button></td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -84,42 +101,53 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table style="font-size: 18px;">
+                        <table style="font-size: 18px; min-height: 200px;">
                             <tr>
                                 <td>Tên:</td>
                                 <td class="width-20"></td>
-                                <td>Nguyễn Hoàng Nam</td>
+                                <td>{{cancelcontractDetail.name}}</td>
                             </tr>
                             <tr>
                                 <td>MSSV:</td>
                                 <td class="width-20"></td>
-                                <td>SE62525</td>
+                                <td>{{cancelcontractDetail.studentCode}}</td>
                             </tr>
                             <tr>
                                 <td>Phòng đang ở:</td>
                                 <td class="width-20"></td>
-                                <td>201A</td>
+                                <td>{{cancelcontractDetail.roomName}}</td>
                             </tr>
                             <tr>
                                 <td>Loại phòng đang ở:</td>
                                 <td class="width-20"></td>
-                                <td>Phòng thường</td>
+                                <td>{{cancelcontractDetail.roomType === 11 ? 'Loại thường' : 'Dịch vụ'}}</td>
                             </tr>
                             <tr>
-                                <td>Thời gian muốn huỷ hợp đồng:</td>
+                                <td>Lí do huỷ hợp đồng:</td>
                                 <td class="width-20"></td>
-                                <td style="color: red">12/12/2019</td>
+                                <td>{{cancelcontractDetail.description}}</td>
+                            </tr>
+                            <tr>
+                                <td>Thời gian ra dự kiến:</td>
+                                <td class="width-20"></td>
+                                <td style="color: red">{{cancelcontractDetail.dateOut}}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
             <label style="float: left">Lý do từ chối: </label>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea class="form-control" rows="3" [(ngModel)]="reason" id="inputReason"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
-        <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
+        <button type="button" class="btn btn-success save shadow-card" (click)="approved(cancelcontractDetail.id)">Chấp nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card" (click)="reject(cancelcontractDetail.id)">Huỷ bỏ</button>
     </div>
 </ng-template>
+<ng-template #customLoadingTemplate>
+    <div class="custom-class"></div>
+  </ng-template>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+  </ngx-loading>

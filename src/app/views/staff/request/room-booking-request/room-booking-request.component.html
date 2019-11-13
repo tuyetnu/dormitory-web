@@ -5,16 +5,16 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Yêu cầu đặt phòng: 200</b>
-                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
-                                style="float: right;">
-                                <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
-                                <div ngbDropdownMenu>
-                                    <button class="dropdown-item" (click)="changePageSize(5)">5</button>
-                                    <button class="dropdown-item" (click)="changePageSize(10)">10</button>
-                                    <button class="dropdown-item" (click)="changePageSize(20)">20</button>
-                                </div>
+                            <div class="form-group" style="float: right;">
+                                <select class="form-control" id="exampleFormControlSelect1"
+                                    (change)="changePageSize(pageSize)" [(ngModel)]="pageSize">
+                                    <option value='null'>Dòng</option>
+                                    <option value=5>5</option>
+                                    <option value=10>10</option>
+                                    <option value=15>15</option>
+                                </select>
                             </div>
-                            <div class="navbar-form col-md-4" style="float: right;">
+                            <div class="navbar-form col-md-3" style="float: right;">
                                 <div class="input-group no-border">
                                     <input type="text" value="" class="form-control" placeholder="MSSV" id="searchValue"
                                         [(ngModel)]="studentCardNumber">
@@ -25,6 +25,15 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="form-group col-md-5" style="float: right;">
+                                <!-- <label class="col-md-5" style="float: left; font-size: 18px;">Loại phòng: </label> -->
+                                <select class="form-control col-md-6" id="exampleFormControlSelect1"
+                                    (change)="filteByRoomType(roomType)" [(ngModel)]="roomType">
+                                    <option value='null'>Tất cả loại phòng</option>
+                                    <option value='Standard Room'>Loại thường</option>
+                                    <option value='Service Room'>Loại dịch vụ</option>
+                                </select>
+                            </div>
                         </h5>
 
                     </div>
@@ -34,30 +43,9 @@
                                 <thead class="thead-dark">
                                     <th>Tên</th>
                                     <th>MSSV</th>
-                                    <th>Loại phòng
-                                        <div ngbDropdown class="d-inline-block dropdown">
-                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                            <div ngbDropdownMenu>
-                                                <button class="dropdown-item" (click)="filteByRoomType(null)">Tất
-                                                    cả</button>
-                                                <button class="dropdown-item"
-                                                    (click)="filteByRoomType('Standard Room')">Thường</button>
-                                                <button class="dropdown-item"
-                                                    (click)="filteByRoomType('Service Room')">Dịch vụ</button>
-                                            </div>
-                                        </div>
+                                    <th>Ngày vào dự kiến
                                     </th>
-                                    <th>Tháng muốn ở
-                                        <div ngbDropdown class="d-inline-block dropdown">
-                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                            <div ngbDropdownMenu>
-                                                <button class="dropdown-item" (click)="filteByMonth(null)">Tất
-                                                    cả</button>
-                                                <button class="dropdown-item" (click)="filteByMonth('4')">4</button>
-                                                <button class="dropdown-item" (click)="filteByMonth('8')">8</button>
-                                                <button class="dropdown-item" (click)="filteByMonth('12')">12</button>
-                                            </div>
-                                        </div>
+                                    <th>Ngày ra dự kiến
                                     </th>
                                     <th>Ngày tạo
                                         <div ngbDropdown class="d-inline-block dropdown">
@@ -88,9 +76,8 @@
                                     <tr *ngFor="let roomBookingRequest of roomBookingRequests">
                                         <td>{{roomBookingRequest.name}}</td>
                                         <td>{{roomBookingRequest.studentCardNumber}}</td>
-                                        <td>{{roomBookingRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}
-                                        </td>
-                                        <td>{{roomBookingRequest.month}}</td>
+                                        <td>{{roomBookingRequest.dateIn}}</td>
+                                        <td>{{roomBookingRequest.dateOut}}</td>
                                         <td>{{roomBookingRequest.createdDate}}</td>
                                         <td
                                             [ngClass]="{pending : roomBookingRequest.status == 'Pending', reject: roomBookingRequest.status == 'Rejected'}">
@@ -149,6 +136,16 @@
                                 <td class="width-20"></td>
                                 <td>{{roomBookingRequestDetail.month}}</td>
                             </tr>
+                            <tr>
+                                <td>Ngày vào dự kiến:</td>
+                                <td class="width-20"></td>
+                                <td>{{roomBookingRequestDetail.dateIn}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày ra dự kiến:</td>
+                                <td class="width-20"></td>
+                                <td>{{roomBookingRequestDetail.dateOut}}</td>
+                            </tr>
                         </table>
                     </div>
 
@@ -168,48 +165,43 @@
                         <div class="col-md-12">
                             <table style="font-size: 18px;">
                                 <tr>
-                                    <td>Tên:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">Tên:</td>
                                     <td>{{roomBookingRequestDetail.name}}</td>
                                 </tr>
                                 <tr>
-                                    <td>MSSV:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">MSSV:</td>
                                     <td>{{roomBookingRequestDetail.studentCardNumber}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Giới tính:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">Giới tính:</td>
                                     <td>{{roomBookingRequestDetail.gender == 'True' ? 'Nam' : 'Nữ'}}</td>
                                 </tr>
-                                <!-- <tr>
-                                    <td>SĐT:</td>
-                                    <td class="width-20"></td>
-                                    <td>{{roomBookingRequestDetail.studentCardNumber}}</td>
-                                </tr> -->
                                 <tr>
-                                    <td>Ngày sinh:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">SĐT:</td>
+                                    <td>{{roomBookingRequestDetail.phoneNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">Ngày sinh:</td>
                                     <td>{{roomBookingRequestDetail.birthDay}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Địa chỉ:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">Địa chỉ:</td>
                                     <td>{{roomBookingRequestDetail.address}}</td>
                                 </tr>
                                 <tr>
-                                    <td>CMND:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">CMND:</td>
                                     <td>{{roomBookingRequestDetail.identityCardNumber}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Khoá:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">Khoá:</td>
                                     <td>{{roomBookingRequestDetail.term}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Đối tượng ưu tiên:</td>
-                                    <td class="width-20"></td>
+                                    <td style="width: 40%;">Ngành:</td>
+                                    <td>{{roomBookingRequestDetail.industry}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">Đối tượng ưu tiên:</td>
                                     <td>{{roomBookingRequestDetail.priorityType}}
                                     </td>
                                 </tr>

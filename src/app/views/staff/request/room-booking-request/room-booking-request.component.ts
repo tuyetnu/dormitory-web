@@ -3,7 +3,7 @@ import { StudentService } from './../../../../services/student.service';
 import { RoomBookingService } from './../../../../services/room-booking.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IImage } from '../../../../module/IImage';
+import * as moment from 'moment';
 @Component({
   selector: 'app-room-booking-request',
   templateUrl: './room-booking-request.component.html',
@@ -29,7 +29,7 @@ export class RoomBookingRequestComponent implements OnInit {
   ];
   // room-booking
   status = 'Pending';
-  roomType = null;
+  roomType = 'null';
   month = null;
   studentCardNumber = null;
   createdDate = 'createdDate';
@@ -46,7 +46,7 @@ export class RoomBookingRequestComponent implements OnInit {
 
   getRoomRequest() {
     let filters = 'Status@=' + this.status;
-    if (this.roomType !== null) {
+    if (this.roomType !== 'null') {
       filters += ',targetRoomTypeName@=' + this.roomType;
     } if (this.month !== null) {
       filters += ',month==' + this.month;
@@ -58,13 +58,21 @@ export class RoomBookingRequestComponent implements OnInit {
       .subscribe((res) => {
         this.loading = false;
         this.roomBookingRequests = res.resultList;
+        this.calDateInDateOut();
         this.isLoaded = true;
       },
         (error) => {
 
         });
   }
-
+  calDateInDateOut() {
+    this.roomBookingRequests.forEach(roomBookingRequest => {
+      const dateIn = moment(roomBookingRequest.lastUpdatedDate).add(1, 'M').startOf('month');
+      const dateOut = moment(roomBookingRequest.lastUpdatedDate).add(roomBookingRequest.month, 'M').endOf('month');
+      roomBookingRequest.dateIn = dateIn.format('DD/MM/YYYY') + '-' + dateIn.add(4, 'day').format('DD/MM/YYYY');
+      roomBookingRequest.dateOut = dateOut.format('DD/MM/YYYY');
+    });
+  }
   filterByStatus(status) {
     this.status = status;
     this.getRoomRequest();
@@ -90,15 +98,23 @@ export class RoomBookingRequestComponent implements OnInit {
     this.getRoomRequest();
   }
   open(content, id) {
+    this.loading = true;
     this.showList = [false, true];
     this.roomBookingService.getRoomBookingDetail(id)
       .subscribe(res => {
         this.roomBookingRequestDetail = res;
+        const dateIn = moment(this.roomBookingRequestDetail.lastUpdatedDate).add(1, 'M').startOf('month');
+        const dateOut = moment(this.roomBookingRequestDetail.lastUpdatedDate).add(this.roomBookingRequestDetail.month, 'M').endOf('month');
+        this.roomBookingRequestDetail.dateIn = dateIn.format('DD/MM/YYYY') + '-' + dateIn.add(4, 'day').format('DD/MM/YYYY');
+        this.roomBookingRequestDetail.dateOut = dateOut.format('DD/MM/YYYY');
         this.imageUrls[0].url = this.roomBookingRequestDetail.identityCardImageUrl;
         this.imageUrls[1].url = this.roomBookingRequestDetail.studentCardImageUrl;
         this.imageUrls[2].url = this.roomBookingRequestDetail.priorityImageUrl;
+        console.log(this.roomBookingRequestDetail);
         this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result
-          .then((result) => { });
+          .then((result) => { })
+          .catch((err) => { });
+        this.loading = false;
       });
   }
   closeModal() {
@@ -117,16 +133,16 @@ export class RoomBookingRequestComponent implements OnInit {
   }
   approveRoomBooking(bookingId) {
     this.roomBookingService.approveRoomBooking(bookingId)
-    .subscribe((res) => {
-      alert('Chỉnh sửa yêu cầu thành công');
-      console.log(res);
-      this.closeModal();
-      this.getRoomRequest();
-    }, (error) => {
-      console.log(error);
-      alert('Chỉnh sửa yêu cầu thất bại');
-      this.closeModal();
-    });
+      .subscribe((res) => {
+        alert('Chỉnh sửa yêu cầu thành công');
+        console.log(res);
+        this.closeModal();
+        this.getRoomRequest();
+      }, (error) => {
+        console.log(error);
+        alert('Chỉnh sửa yêu cầu thất bại');
+        this.closeModal();
+      });
   }
   rejectRequest(id) {
     if (this.rejectReason === '') {
@@ -139,15 +155,15 @@ export class RoomBookingRequestComponent implements OnInit {
       'reason': this.rejectReason
     };
     this.roomBookingService.rejectRequest(data)
-    .subscribe((res) => {
-      alert('Chỉnh sửa yêu cầu thành công');
-      console.log(res);
-      this.closeModal();
-      this.getRoomRequest();
-    }, (error) => {
-      console.log(error);
-      alert('Chỉnh sửa yêu cầu thất bại');
-      this.closeModal();
-    });
+      .subscribe((res) => {
+        alert('Chỉnh sửa yêu cầu thành công');
+        console.log(res);
+        this.closeModal();
+        this.getRoomRequest();
+      }, (error) => {
+        console.log(error);
+        alert('Chỉnh sửa yêu cầu thất bại');
+        this.closeModal();
+      });
   }
 }

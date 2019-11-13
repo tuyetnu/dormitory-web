@@ -5,41 +5,33 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h5><b>Yêu cầu chuyển phòng: 200</b>
-                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
-                                style="float: right;">
-                                <button class="btn icon-btn border" ngbDropdownToggle>Dòng</button>
-                                <div ngbDropdownMenu>
-                                    <button class="dropdown-item">5</button>
-                                    <button class="dropdown-item">25</button>
-                                    <button class="dropdown-item">50</button>
-                                </div>
+                            <div class="form-group" style="float: right;">
+                                <select class="form-control" id="exampleFormControlSelect1"
+                                    (change)="changePageSize(pageSize)" [(ngModel)]="pageSize">
+                                    <option value='null'>Dòng</option>
+                                    <option value=5>5</option>
+                                    <option value=10>10</option>
+                                    <option value=15>15</option>
+                                </select>
                             </div>
-                            <form class="navbar-form col-md-4" style="float: right;">
+                            <div class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
-                                    <input type="text" value="" class="form-control" placeholder="Tên hoặc MSSV..."
-                                        id="searchValue">
+                                    <input type="text" value="" class="form-control" placeholder="MSSV..."
+                                        id="searchValue" [(ngModel)]="studentCardNumber">
                                     <button mat-raised-button type="submit"
-                                        class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getRoomTransferRequest()">
                                         <i class="material-icons">search</i>
                                         <div class="ripple-container"></div>
                                     </button>
                                 </div>
-                            </form>
-                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
-                                style="float: right;">
-                                <button class="btn icon-btn border" ngbDropdownToggle>Phòng đang ở</button>
-                                <div ngbDropdownMenu>
-                                    <button class="dropdown-item">Loại thường</button>
-                                    <button class="dropdown-item">Dịch vụ</button>
-                                </div>
                             </div>
-                            <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
-                                style="float: right; margin-right: 10px;">
-                                <button class="btn icon-btn border" ngbDropdownToggle>Loại chuyển</button>
-                                <div ngbDropdownMenu>
-                                    <button class="dropdown-item">Cùng loại</button>
-                                    <button class="dropdown-item">Khác loại</button>
-                                </div>
+                            <div class="form-group" style="float: right;">
+                                <select class="form-control" id="exampleFormControlSelect1"
+                                    (change)="filteBycurrentRoomTypeName()" [(ngModel)]="currentRoomTypeName">
+                                    <option value="All">Tất cả loại phòng đang ở</option>
+                                    <option value="Standard Room">Loại thường</option>
+                                    <option value="Service Room">Loại dịch vụ</option>
+                                </select>
                             </div>
                         </h5>
 
@@ -49,58 +41,68 @@
                             <table class="table table-hover" style="text-align: center; min-height: 200px;">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
-                                    <th>Mã số sinh viên</th>
-                                    <th>Loại phòng muốn chuyển sang
-                                            <div ngbDropdown class="d-inline-block dropdown">
-                                                    <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                                    <div ngbDropdownMenu>
-                                                        <button class="dropdown-item">Thường</button>
-                                                        <button class="dropdown-item">Dịch vụ</button>
-                                                    </div>
-                                                </div>
+                                    <th>MSSV</th>
+                                    <th>Loại muốn chuyển
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item"
+                                                    (click)="filteByRoomType('Standard Room')">Thường</button>
+                                                <button class="dropdown-item"
+                                                    (click)="filteByRoomType('Service Room')">Dịch vụ</button>
+                                            </div>
+                                        </div>
                                     </th>
+                                    <th>Ngày dự kiến chuyển</th>
                                     <th>Trạng thái
                                         <div ngbDropdown class="d-inline-block dropdown">
-                                                <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                                <div ngbDropdownMenu>
-                                                    <button class="dropdown-item">Chưa duyệt</button>
-                                                    <button class="dropdown-item">Đã duyệt</button>
-                                                    <button class="dropdown-item">Từ chối</button>
-                                                    <button class="dropdown-item">Hoàn tất</button>
-                                                </div>
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="filterByStatus('Pending')">Chưa
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Approved')">Đã
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Rejected')">Từ
+                                                    chối</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Completed')">Hoàn
+                                                    tất</button>
                                             </div>
-                                </th>
+                                        </div>
+                                    </th>
                                     <th>Ngày tạo
                                         <div ngbDropdown class="d-inline-block dropdown">
                                             <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
                                             <div ngbDropdownMenu>
-                                                <button class="dropdown-item">Cũ nhất</button>
-                                                <button class="dropdown-item">Mới nhất</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Cũ nhất</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Mới nhất</button>
                                             </div>
                                         </div>
                                     </th>
                                     <th>Thao tác</th>
                                 </thead>
                                 <tbody *ngIf="isLoaded">
-                                    <tr *ngIf="roomTransferRequests.length == 0"
-                                        style="text-align: center;">
+                                    <tr *ngIf="roomTransferRequests.length == 0" style="text-align: center;">
                                         <td colspan="7">Không có yêu cầu nào</td>
                                     </tr>
                                     <tr *ngFor="let roomTransferRequest of roomTransferRequests, let i = index">
                                         <td>{{roomTransferRequest.studentName}}</td>
                                         <td>{{roomTransferRequest.studentCardNumber}}</td>
-                                        <td>{{roomTransferRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}</td>
+                                        <td>{{roomTransferRequest.targetRoomTypeName == 'Service Room' ? 'Phòng dịch vụ' : 'Phòng thường' }}
+                                        </td>
+                                        <td>{{roomTransferRequest.dateTransfer}}</td>
                                         <td
-                                            [ngClass]="{approved : roomTransferRequest.status == 'Approved', complete: roomTransferRequest.status == 'Complete'}">
+                                            [ngClass]="{approved : roomTransferRequest.status == 'Approved', complete: roomTransferRequest.status == 'Complete', reject: roomTransferRequest.status == 'Rejected', pending: roomTransferRequest.status == 'Pending'}">
                                             {{ roomTransferRequest.parseStatus}}</td>
+
                                         <td>{{roomTransferRequest.createdDate}}</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail, i)"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail, i)"><i
+                                                    class="fa fa-info-circle" aria-hidden="true"></i></button></td>
                                     </tr>
 
                                 </tbody>
                             </table>
                             <div class="paging">
-                              
+
                             </div>
                         </div>
                     </div>
@@ -135,7 +137,7 @@
                                 <td>{{transferRequestDetail.studentCode}}</td>
                             </tr>
                             <tr>
-                                <td>Lí do</td>
+                                <td>Lí do:</td>
                                 <td style="width: 20%"></td>
                                 <td>{{transferRequestDetail.reason}}</td>
                             </tr>
@@ -148,14 +150,17 @@
                                 <th>Phòng chuyển sang</th>
                             </tr>
                             <tr>
-                                <td>Số phòng: 201A</td>
+                                <td>Số phòng: {{transferRequestDetail.roomName}}</td>
                                 <td style="width: 20%"></td>
-                                <td>Số phòng: 209A</td>
+                                <td>Loại phòng:
+                                    {{transferRequestDetail.targetRoomTypeName === 'Standard Room' ?  'Loại thường' : 'Dịch vụ'}}
+                                </td>
                             </tr>
                             <tr>
-                                <td>Loại phòng: Thường</td>
+                                <td>Loại phòng:
+                                    {{transferRequestDetail.currentRoomTypeName === 'Standard Room' ?  'Loại thường' : 'Dịch vụ'}}
+                                </td>
                                 <td style="width: 20%"></td>
-                                <td>Loại phòng: Dịch vụ</td>
                             </tr>
                         </table>
 
@@ -163,18 +168,19 @@
                 </div>
             </div>
             <label style="float: left">Lý do từ chối: </label>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea class="form-control" rows="3" id="inputReason" [(ngModel)]="reason"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-       
-        <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
-        <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
+        <button type="button" class="btn btn-success save shadow-card"
+            (click)="approvedTransfer(transferRequestDetail.id)">Chấp nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card"
+            (click)="rejectTransfer(transferRequestDetail.id)">Huỷ bỏ</button>
     </div>
 </ng-template>
 <ng-template #customLoadingTemplate>
     <div class="custom-class"></div>
-  </ng-template>
+</ng-template>
 
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
-  </ngx-loading>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+</ngx-loading>

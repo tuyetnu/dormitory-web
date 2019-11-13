@@ -14,17 +14,17 @@
                                     <button class="dropdown-item">50</button>
                                 </div>
                             </div>
-                            <form class="navbar-form col-md-4" style="float: right;">
+                            <div class="navbar-form col-md-4" style="float: right;">
                                 <div class="input-group no-border">
                                     <input type="text" value="" class="form-control" placeholder="Tên hoặc MSSV"
-                                        id="searchValue">
+                                        id="searchValue" [(ngModel)]="studentCode">
                                     <button mat-raised-button type="submit"
-                                        class="btn btn-white btn-round btn-just-icon" (click)="onSearch()">
+                                        class="btn btn-white btn-round btn-just-icon" (click)="getRenewContract()">
                                         <i class="material-icons">search</i>
                                         <div class="ripple-container"></div>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                             <div ngbDropdown class="d-flex justify-content-end d-inline-block dropdown"
                                 style="float: right;">
                                 <button class="btn icon-btn border" ngbDropdownToggle>Tháng</button>
@@ -39,40 +39,61 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" style="text-align: center">
+                            <table class="table table-hover" style="text-align: center; min-height: 200px;">
                                 <thead class="thead-dark">
                                     <th>Tên</th>
-                                    <th>Mã số sinh viên</th>
-                                    <th>Phòng đang ở</th>
+                                    <th>MSSV</th>
+                                    <th>Phòng</th>
+                                    <th>Hạn hợp đồng mới</th>
                                     <th>Ngày tạo
-                                            <i class="fa fa-fw fas fa-sort"></i>
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(false)">Cũ
+                                                    nhất</button>
+                                                <button class="dropdown-item" (click)="sortByCreateDate(true)">Mới
+                                                    nhất</button>
+                                            </div>
+                                        </div>
                                     </th>
                                     <th>Trạng thái
-                                            <div ngbDropdown class="d-inline-block dropdown">
-                                                <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
-                                                <div ngbDropdownMenu>
-                                                    <button class="dropdown-item">Chưa duyệt</button>
-                                                    <button class="dropdown-item">Đã huỷ</button>
-                                                </div>
+                                        <div ngbDropdown class="d-inline-block dropdown">
+                                            <button class=" icon-btn" ngbDropdownToggle style="color: white"></button>
+                                            <div ngbDropdownMenu>
+                                                <button class="dropdown-item" (click)="filterByStatus('Pending')">Chưa
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Approved')">Đã
+                                                    duyệt</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Rejected')">Từ
+                                                    chối</button>
+                                                <button class="dropdown-item" (click)="filterByStatus('Completed')">Hoàn
+                                                    tất</button>
                                             </div>
-                                        </th>
+                                        </div>
+                                    </th>
                                     <th>Thao tác</th>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let renewContract of renewContracts | paginate: { itemsPerPage: 5, currentPage: p }">
-                                        <td>{{renewContract.student.name}}</td>
-                                        <td>{{renewContract.student.studentCardNumber}}</td>
-                                        <td>{{renewContract.room.name}}</td>
+                                <tbody *ngIf="isLoaded">
+                                    <tr *ngIf="renewContracts.length == 0" style="text-align: center;">
+                                        <td colspan="7">Không có yêu cầu nào</td>
+                                    </tr>
+                                    <tr *ngFor="let renewContract of renewContracts, let i = index">
+                                        <td>{{renewContract.studentName}}</td>
+                                        <td>{{renewContract.studentCode}}</td>
+                                        <td>{{renewContract.roomName}}</td>
+                                        <td>{{renewContract.dateOut}}</td>
                                         <td>{{renewContract.createdDate}}</td>
-                                        <td style="color: red;">{{renewContract.status}}</td>
-                                        <td><button type="button" class="btn btn-info" (click)="open(detail)">Chi
+                                        <td
+                                            [ngClass]="{approved : renewContract.status == 'Approved', complete: renewContract.status == 'Complete', reject: renewContract.status == 'Rejected', pending: renewContract.status == 'Pending'}">
+                                            {{renewContract.parseStatus}}</td>
+                                        <td><button type="button" class="btn btn-info" (click)="open(detail, i)">Chi
                                                 tiết</button></td>
                                     </tr>
 
                                 </tbody>
                             </table>
                             <div class="paging">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
                             </div>
                         </div>
                     </div>
@@ -99,46 +120,58 @@
                             <tr>
                                 <td>Tên:</td>
                                 <td class="width-20"></td>
-                                <td>Nguyễn Hoàng Nam</td>
+                                <td>{{cancelcontractDetail.name}}</td>
                             </tr>
                             <tr>
                                 <td>MSSV:</td>
                                 <td class="width-20"></td>
-                                <td>SE62525</td>
+                                <td>{{cancelcontractDetail.studentCode}}</td>
                             </tr>
                             <tr>
                                 <td>Phòng đang ở:</td>
                                 <td class="width-20"></td>
-                                <td>201A</td>
+                                <td>{{cancelcontractDetail.roomName}}</td>
                             </tr>
                             <tr>
                                 <td>Loại phòng đang ở:</td>
                                 <td class="width-20"></td>
-                                <td>Phòng thường</td>
+                                <td>{{cancelcontractDetail.roomType === 11 ? 'Phòng thường' : 'Dịch vụ'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày hết HĐ:</td>
+                                <td class="width-20"></td>
+                                <td>{{cancelcontractDetail.dateEndContract}}</td>
                             </tr>
                             <tr>
                                 <td>Số tháng muốn gia hạn:</td>
                                 <td class="width-20"></td>
-                                <td>12 tháng</td>
+                                <td>{{cancelcontractDetail.month}} tháng</td>
+                            </tr>
+                            <tr>
+                                <td>Hạn HĐ mới:</td>
+                                <td class="width-20"></td>
+                                <td style="color: red;">{{cancelcontractDetail.dateOut}}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                
+
             </div>
             <label style="float: left">Lý do từ chối: </label>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea class="form-control" rows="3" [(ngModel)]="reason" id="inputReason"></textarea>
         </div>
     </div>
     <div class="modal-footer">
-       
-        <button type="button" class="btn btn-success save shadow-card">Chấp nhận</button>
-        <button type="button" class="btn btn-danger save shadow-card">Huỷ bỏ</button>
+
+        <button type="button" class="btn btn-success save shadow-card" (click)="approved(cancelcontractDetail.id)">Chấp
+            nhận</button>
+        <button type="button" class="btn btn-danger save shadow-card" (click)="reject(cancelcontractDetail.id)">Huỷ
+            bỏ</button>
     </div>
 </ng-template>
 <ng-template #customLoadingTemplate>
     <div class="custom-class"></div>
-  </ng-template>
+</ng-template>
 
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
-  </ngx-loading>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate">
+</ngx-loading>

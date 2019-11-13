@@ -1,6 +1,7 @@
 import { RoomTransferService } from './../../../../services/room-transfer.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 @Component({
   selector: 'app-room-transfer-request',
   templateUrl: './room-transfer-request.component.html',
@@ -9,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class RoomTransferRequestComponent implements OnInit {
   constructor(private modalService: NgbModal, private roomTransferService: RoomTransferService) { }
   status = 'Pending';
-  roomType = null;
+  targetRoomTypeName = null;
   month = null;
   studentCardNumber = null;
   createdDate = 'createdDate';
@@ -17,25 +18,33 @@ export class RoomTransferRequestComponent implements OnInit {
   page = 1;
   pageSize = 5;
   studentBook;
+  currentRoomTypeName = 'All';
   rejectReason = '';
   loading = false;
   roomTransferRequests;
+  reason = '';
   transferRequestDetail = {
+    id: '',
     name: '',
     studentCode: '',
-    reason: ''
+    reason: '',
+    roomName: '',
+    currentRoomTypeName: '',
+    targetRoomTypeName: '',
   };
   ngOnInit() {
-    this.getRoomRequest();
+    this.getRoomTransferRequest();
   }
-  getRoomRequest() {
-    let filters = 'Status@=' + this.status;
-    if (this.roomType !== null) {
-      filters += ',targetRoomTypeName@=' + this.roomType;
+  getRoomTransferRequest() {
+    let filters = 'status@=' + this.status;
+    if (this.targetRoomTypeName !== null) {
+      filters += ',targetRoomTypeName@=' + this.targetRoomTypeName;
     } if (this.month !== null) {
       filters += ',month==' + this.month;
     } if (this.studentCardNumber !== null) {
       filters += ',studentCardNumber@=' + this.studentCardNumber;
+    }if (this.currentRoomTypeName !== 'All') {
+      filters += ',currentRoomTypeName@=' + this.currentRoomTypeName;
     }
     this.loading = true;
     this.roomTransferService.getRoomTransfer(this.createdDate, filters, this.page, this.pageSize)
@@ -50,7 +59,7 @@ export class RoomTransferRequestComponent implements OnInit {
             case 'Pending':
               roomTransferRequest.parseStatus = 'Chưa duyệt';
               break;
-            case 'Reject':
+            case 'Rejected':
               roomTransferRequest.parseStatus = 'Từ chối';
               break;
             case 'Approved':
@@ -60,6 +69,8 @@ export class RoomTransferRequestComponent implements OnInit {
               roomTransferRequest.parseStatus = 'Hoàn tất';
               break;
           }
+          const dateTransfer = moment(roomTransferRequest.lastUpdatedDate).add(1, 'M').startOf('month');
+          roomTransferRequest.dateTransfer = dateTransfer.format('DD/MM/YYYY') + '-' + dateTransfer.add(4, 'day').format('DD/MM/YYYY');
           console.log(this.roomTransferRequests);
         });
         this.isLoaded = true;
@@ -68,14 +79,80 @@ export class RoomTransferRequestComponent implements OnInit {
 
         });
   }
+  filteByRoomType(roomtype) {
+    this.targetRoomTypeName = roomtype;
+    this.getRoomTransferRequest();
+  }
+  filteBycurrentRoomTypeName() {
+    this.getRoomTransferRequest();
+  }
+  changePageSize(pageSize) {
+    this.pageSize = pageSize;
+    this.getRoomTransferRequest();
+  }
+  sortByCreateDate(des) {
+    if (!des) {
+      this.createdDate = this.createdDate.replace('-', '');
+    } else if (des && this.createdDate[0] !== '-') {
+      this.createdDate = '-' + this.createdDate;
+    }
+    this.getRoomTransferRequest();
+  }
+  rejectTransfer(id) {
+    if (this.reason === '') {
+      alert('Nhập lí do từ chối');
+      $('#inputReason').focus();
+      return;
+    }
+    const data = {
+      roomTransferId: id,
+      reason: this.reason
+    };
+    console.log(data);
+    this.roomTransferService.rejectRequest(data)
+    .subscribe ((res) => {
+      alert('Chỉnh sửa yêu cầu thành công');
+      console.log(res);
+      this.closeModal();
+      this.getRoomTransferRequest();
+    }, (err) => {
+      console.log(err);
+      alert('Chỉnh sửa yêu cầu thất bại');
+      this.closeModal();
+    });
+  }
+  approvedTransfer(id) {
+    this.roomTransferService.approveRoomTransfer(id)
+      .subscribe((res) => {
+        alert('Chỉnh sửa yêu cầu thành công');
+        console.log(res);
+        this.closeModal();
+        this.getRoomTransferRequest();
+      }, (error) => {
+        console.log(error);
+        alert('Chỉnh sửa yêu cầu thất bại');
+        this.closeModal();
+      });
+  }
+  filterByStatus(status) {
+    this.status = status;
+    this.getRoomTransferRequest();
+  }
+  closeModal() {
+    this.modalService.dismissAll();
+  }
   open(content, i) {
     this.transferRequestDetail = {
+      id: this.roomTransferRequests[i].roomTransferRequestFormId,
       name: this.roomTransferRequests[i].studentName,
       studentCode: this.roomTransferRequests[i].studentCardNumber,
-      reason: this.roomTransferRequests[i].reason
+      reason: this.roomTransferRequests[i].reason,
+      currentRoomTypeName: this.roomTransferRequests[i].currentRoomTypeName,
+      targetRoomTypeName: this.roomTransferRequests[i].targetRoomTypeName,
+      roomName: this.roomTransferRequests[i].roomName,
     };
     this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    });
+    }).catch((err) => { });
   }
 
 

@@ -11,3 +11,18 @@
         cursor: pointer;
     }
   }
+  .width-20 {
+      width: 20%;
+  }
+  .pending {
+    color: gray;
+  }
+  .reject {
+    color: red;
+  }
+  .approved {
+    color: #00e1ff;
+  }
+  .complete {
+    color: green;
+  }
