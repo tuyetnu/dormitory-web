@@ -23,6 +23,7 @@ export class RoomTransferRequestComponent implements OnInit {
   loading = false;
   roomTransferRequests;
   reason = '';
+  totalPage;
   transferRequestDetail = {
     id: '',
     name: '',
@@ -33,6 +34,13 @@ export class RoomTransferRequestComponent implements OnInit {
     targetRoomTypeName: '',
   };
   ngOnInit() {
+    this.getRoomTransferRequest();
+  }
+  changePage(n) {
+    if (this.page + n > this.totalPage || this.page + n < 1) {
+      return;
+    }
+    this.page += n;
     this.getRoomTransferRequest();
   }
   getRoomTransferRequest() {
@@ -50,6 +58,8 @@ export class RoomTransferRequestComponent implements OnInit {
     this.roomTransferService.getRoomTransfer(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
         this.loading = false;
+        this.page = res.currentPage;
+        this.totalPage = res.totalPage;
         this.roomTransferRequests = res.resultList;
         if (this.roomTransferRequests == null) {
           this.roomTransferRequests = [];

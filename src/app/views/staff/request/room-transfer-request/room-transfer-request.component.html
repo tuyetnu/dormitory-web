@@ -101,8 +101,8 @@
 
                                 </tbody>
                             </table>
-                            <div class="paging">
-
+                            <div class="paging" [hidden] ="roomTransferRequests.length == 0" *ngIf="isLoaded">
+                                    <a class="prenext round" (click)="changePage(-1)" [hidden]="page == 1">&#8249;</a>Trang số {{page}} trong {{totalPage}} trang<a class="prenext round" (click)="changePage(1)" [hidden]="page == totalPage">&#8250;</a>
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
 export class AddListStudentComponent implements OnInit {
   accept = ['xls', 'xlsx', 'xlsm'];
   constructor(private modalService: NgbModal, private studentService: StudentService) { }
-  preview = true;
+  preview = null;
   students = [];
   ngOnInit() {
   }
@@ -24,7 +24,9 @@ export class AddListStudentComponent implements OnInit {
     link.click();
     link.remove();
   }
-
+  changeFile() {
+    this.preview = true;
+  }
   importFileExcel(): void {
     let workBook = null;
     let jsonData = null;
@@ -56,33 +58,35 @@ export class AddListStudentComponent implements OnInit {
       dataString = dataString.replace(/Năm nhập học/g, 'startedSchoolYear');
       dataString = dataString.replace(/Khoá/g, 'term');
       dataString = dataString.replace(/Email/g, 'email');
+      dataString = dataString.replace(/Ngành/g, 'industry');
       this.students = JSON.parse(dataString);
       this.students.forEach(student => {
         student.gender = (student.gender === 'Nam') ? true : false;
       });
-      if (!this.preview) {
-        this.studentService.importListStudent(this.students)
-          .subscribe((res) => {
-            alert('Import thành công');
-            this.clear();
-          },
-            (err) => {
-              console.log(err);
-              if (err.status === 400) {
-                alert(err.error);
-              } else {
-                alert('Không thể import');
-              }
-            });
-      } else {
-        this.preview = false;
-      }
+      this.preview = false;
     };
     reader.readAsBinaryString(file);
   }
+
+  submit() {
+    this.studentService.importListStudent(this.students)
+      .subscribe((res) => {
+        alert('Import thành công');
+        this.clear();
+      },
+        (err) => {
+          console.log(err);
+          if (err.status === 400) {
+            alert(err.error);
+          } else {
+            alert('Không thể import');
+          }
+        });
+  }
+
   clear() {
     this.students = [];
-    this.preview = true;
+    this.preview = null;
     $('#inputExcel').val('');
   }
 }

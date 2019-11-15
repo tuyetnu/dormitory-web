@@ -12,7 +12,7 @@ export class AddListRegisterComponent implements OnInit {
   accept = ['xls', 'xlsx', 'xlsm'];
   constructor(private modalService: NgbModal, private roomBookingService: RoomBookingService) { }
   students = [];
-  preview = true;
+  preview = null;
   ngOnInit() {
   }
 
@@ -24,7 +24,9 @@ export class AddListRegisterComponent implements OnInit {
     link.click();
     link.remove();
   }
-
+  changeFile() {
+    this.preview = true;
+  }
   importFileExcel(): void {
     let workBook = null;
     let jsonData = null;
@@ -50,39 +52,49 @@ export class AddListRegisterComponent implements OnInit {
       dataString = dataString.replace(/MSSV/g, 'studentCardNumber');
       dataString = dataString.replace(/Khoá/g, 'term');
       dataString = dataString.replace(/Email/g, 'email');
+      dataString = dataString.replace(/Ngành/g, 'industry');
       dataString = dataString.replace(/Số tháng muốn ở/g, 'month');
       dataString = dataString.replace(/Độ ưu tiên/g, 'priorityType');
       dataString = dataString.replace(/Loại phòng/g, 'targetRoomType');
-      dataString = dataString.replace(/Loại thường/g, '11');
-      dataString = dataString.replace(/Loại dịch vụ/g, '12');
       dataString = dataString.replace(/Không có ưu tiên/g, '3');
       dataString = dataString.replace(/Ưu tiên loại 1 và 2/g, '2');
       dataString = dataString.replace(/Ưu tiên loại 2/g, '1');
       dataString = dataString.replace(/Ưu tiên loại 1/g, '0');
       this.students = JSON.parse(dataString);
-      this.students.forEach(student => {
-        delete student.name;
-        delete student.studentCardNumber;
-        delete student.term;
-        student.priorityType = Number(student.priorityType);
-        student.targetRoomType = Number(student.targetRoomType);
-      });
-      const a = JSON.stringify(this.students);
-      console.log(a);
-      if (!this.preview) {
-        this.roomBookingService.importListRoomBooing(this.students)
-          .subscribe((res) => {
-            alert('Import thành công');
-            console.log(res);
-          },
-            (error) => {
-              alert(error.error);
-            });
-      } else {
-        this.preview = false;
-      }
+      this.preview = false;
     };
     reader.readAsBinaryString(file);
+  }
+
+  submit() {
+    const data = [];
+    this.students.forEach(student => {
+      let targetRoomType = 12;
+      if (student.targetRoomType === 'Loại thường' ) {
+        targetRoomType = 11;
+      }
+      const tmp = {
+        email: student.email,
+        month: student.month,
+        targetRoomType,
+        priorityType: student.priorityType
+      };
+      data.push(tmp);
+    });
+    console.log(JSON.stringify(data));
+    this.roomBookingService.importListRoomBooing(data)
+      .subscribe((res) => {
+        alert('Import thành công');
+      },
+        (err) => {
+          alert(err.error);
+        });
+  }
+
+  clear() {
+    this.students = [];
+    this.preview = null;
+    $('#inputExcel').val('');
   }
 
 }

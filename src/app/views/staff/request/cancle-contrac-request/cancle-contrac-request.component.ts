@@ -17,6 +17,7 @@ export class CancleContracRequestComponent implements OnInit {
   loading = false;
   page = 1;
   pageSize = 5;
+  totalPage;
   isLoaded = false;
   reason = '';
   cancelcontractDetail = {
@@ -31,15 +32,25 @@ export class CancleContracRequestComponent implements OnInit {
   ngOnInit() {
     this.getCancelContract();
   }
+  changePage(n) {
+    if (this.page + n > this.totalPage || this.page + n < 1) {
+      return;
+    }
+    this.page += n;
+    this.getCancelContract();
+  }
   getCancelContract() {
     let filters = 'Status@=' + this.status;
     if (this.studentCode !== null && this.studentCode !== undefined) {
       filters += ',studentCode@=' + this.studentCode;
     }
+    console.log(filters);
     this.loading = true;
     this.contractCancelService.getCancelContract(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
         this.loading = false;
+        this.page = res.currentPage;
+        this.totalPage = res.totalPage;
         this.cancelContracts = res.resultList;
         if (this.cancelContracts == null) {
           this.cancelContracts = [];

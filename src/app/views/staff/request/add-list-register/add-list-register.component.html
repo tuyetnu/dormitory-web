@@ -4,45 +4,55 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h5><b>Thêm danh sách đăng kí KTX từ trường</b>
+                        <h5><b>Thêm danh sách đăng kí KTX</b>
                             <button mat-raised-button type="button"
                                 class="btn btn-outline-secondary btn-sm pull-right button-download text-color"
                                 (click)="download()"><i class="fa fa-download fa-2x" aria-hidden="true"></i> Excel
                                 Mẫu</button>
                         </h5>
                     </div>
-                    <div class="card-body"> 
+                    <div class="card-body">
                         <div class="modal-body modal-basic-title col-md-12 row">
-                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên đăng kí ở KTX: &nbsp;&nbsp;&nbsp; 
-                            <input type="file"
-                                id="inputExcel"
-                                accept=".xlsm"
-                                name="myFile">&nbsp;&nbsp;&nbsp;
-                                <button type="button" class="btn btn-success" (click)="importFileExcel()" *ngIf="!preview">Thêm</button>
-                                <button type="button" class="btn btn-secondary" (click)="importFileExcel()" *ngIf="preview">Xem trước</button>
+                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên đăng kí ở KTX: &nbsp;&nbsp;&nbsp;
+                            <input type="file" id="inputExcel" accept=".xlsm" name="myFile"
+                                (change)="changeFile()">&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-success" (click)="submit()"
+                                *ngIf="preview == false">Thêm</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-success" (click)="importFileExcel()"
+                                *ngIf="preview == true">Xem trước</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="clear()"
+                                *ngIf="preview != null">Huỷ</button>
 
                         </div>
-                        <div class="card-body" *ngIf="!preview">
+                        <div class="card-body" *ngIf="preview == false">
                             <div>
                                 <table class="table table-hover" style="text-align: center; min-height: 300px;">
                                     <thead class="thead-dark ">
-                                        <th>Email</th>
+                                        <th>Tên</th>
+                                        <th>MSSV</th>
+                                        <th>Giới tính</th>
+                                        <th>Ngành</th>
+                                        <th>Khoá</th>
                                         <th>Tháng muốn ở</th>
                                         <th>Độ ưu tiên</th>
                                         <th>Loại phòng</th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let student of students; let i = index">
-                                            <td>{{student.email}}</td>
+                                            <td>{{student.name}}</td>
+                                            <td>{{student.studentCardNumber}}</td>
+                                            <td>{{student.gender ? 'Nam' : 'Nữ' }}</td>
+                                            <td>{{student.industry}}</td>
+                                            <td>{{student.term}}</td>
                                             <td>{{student.month}}</td>
                                             <td>{{student.priorityType}}</td>
                                             <td>{{student.targetRoomType}}</td>
                                         </tr>
-    
+
                                     </tbody>
                                 </table>
                                 <div class="paging">
-                                    
+
                                 </div>
                             </div>
                         </div>

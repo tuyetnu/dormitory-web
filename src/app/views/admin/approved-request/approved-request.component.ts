@@ -12,6 +12,7 @@ export class ApprovedRequestComponent implements OnInit {
   roomBookingRequests;
   roomBookingRequestDetail;
   showList = [false, true];
+  totalPage;
   imageUrls = [
     {
       url: '',
@@ -54,10 +55,12 @@ export class ApprovedRequestComponent implements OnInit {
     this.loading = true;
     this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
+        this.loading = false;
+        this.page = res.currentPage;
+        this.totalPage = res.totalPage;
         this.roomBookingRequests = res.resultList;
         this.isLoaded = true;
-        console.log(res.resultList);
-        this.loading = false;
+        console.log(this.roomBookingRequests);
       },
         (error) => {
 
@@ -86,6 +89,13 @@ export class ApprovedRequestComponent implements OnInit {
   }
   changePageSize(pageSize) {
     this.pageSize = pageSize;
+    this.getRoomRequest();
+  }
+  changePage(n) {
+    if (this.page + n > this.totalPage || this.page + n < 1) {
+      return;
+    }
+    this.page += n;
     this.getRoomRequest();
   }
   show(index) {
@@ -136,16 +146,31 @@ export class ApprovedRequestComponent implements OnInit {
       });
   }
   completeRequest(id) {
-    this.roomBookingService.completeRequest(id)
-    .subscribe((res) => {
-      alert('Chỉnh sửa yêu cầu thành công');
-      console.log(res);
-      this.closeModal();
-      this.getRoomRequest();
-    }, (error) => {
-      console.log(error);
-      alert('Chỉnh sửa yêu cầu thất bại');
-      this.closeModal();
+    const roomBoking = this.roomBookingRequests.find(obj => {
+      return obj.roomBookingRequestFormId === id;
     });
+    if (roomBoking.identityCardImageUrl === null) {
+      alert('Chưa có hình cmnd');
+      return;
+    }
+    if (roomBoking.studentCardImageUrl === null) {
+      alert('Chưa có hình thẻ sinh viên');
+      return;
+    }
+    if (roomBoking.priorityType !== 3 && this.roomBookingRequests.priorityImageUrl === null) {
+      alert('Chưa có hình đối tượng ưu tiên');
+      return;
+    }
+    this.roomBookingService.completeRequest(id)
+      .subscribe((res) => {
+        alert('Chỉnh sửa yêu cầu thành công');
+        console.log(res);
+        this.closeModal();
+        this.getRoomRequest();
+      }, (error) => {
+        console.log(error);
+        alert('Chỉnh sửa yêu cầu thất bại');
+        this.closeModal();
+      });
   }
 }

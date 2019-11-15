@@ -36,6 +36,7 @@ export class RoomBookingRequestComponent implements OnInit {
   isLoaded = false;
   page = 1;
   pageSize = 5;
+  totalPage;
   studentBook;
   rejectReason = '';
   loading = false;
@@ -43,7 +44,13 @@ export class RoomBookingRequestComponent implements OnInit {
   ngOnInit() {
     this.getRoomRequest();
   }
-
+  changePage(n) {
+    if (this.page + n > this.totalPage || this.page + n < 1) {
+      return;
+    }
+    this.page += n;
+    this.getRoomRequest();
+  }
   getRoomRequest() {
     let filters = 'Status@=' + this.status;
     if (this.roomType !== 'null') {
@@ -57,6 +64,8 @@ export class RoomBookingRequestComponent implements OnInit {
     this.roomBookingService.getRoomBooking(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
         this.loading = false;
+        this.page = res.currentPage;
+        this.totalPage = res.totalPage;
         this.roomBookingRequests = res.resultList;
         this.calDateInDateOut();
         this.isLoaded = true;

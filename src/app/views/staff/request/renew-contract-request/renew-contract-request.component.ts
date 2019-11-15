@@ -14,6 +14,7 @@ export class RenewContractRequestComponent implements OnInit {
   studentCode;
   createdDate = '-createdDate';
   loading = false;
+  totalPage;
   page = 1;
   pageSize = 5;
   isLoaded = false;
@@ -33,7 +34,13 @@ export class RenewContractRequestComponent implements OnInit {
   ngOnInit() {
    this.getRenewContract();
   }
-
+  changePage(n) {
+    if (this.page + n > this.totalPage || this.page + n < 1) {
+      return;
+    }
+    this.page += n;
+    this.getRenewContract();
+  }
   getRenewContract() {
     let filters = 'Status@=' + this.status;
     if (this.studentCode !== null && this.studentCode !== undefined) {
@@ -43,6 +50,8 @@ export class RenewContractRequestComponent implements OnInit {
     this.renewContractService.getRenewContract(this.createdDate, filters, this.page, this.pageSize)
       .subscribe((res) => {
         this.loading = false;
+        this.page = res.currentPage;
+        this.totalPage = res.totalPage;
         this.renewContracts = res.resultList;
         if (this.renewContracts == null) {
           this.renewContracts = [];

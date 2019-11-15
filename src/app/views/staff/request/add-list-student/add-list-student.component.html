@@ -14,34 +14,35 @@
                     <div class="card-body">
                         <div class="modal-body modal-basic-title col-md-12 row">
 
-                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; <input type="file"
+                            &nbsp;&nbsp;&nbsp;Chọn danh sách sinh viên: &nbsp;&nbsp;&nbsp; 
+                            <input type="file"
                                 id="inputExcel"
                                 accept=".xlsm"
-                                name="myFile">&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-success" (click)="importFileExcel()" *ngIf="!preview">Thêm</button>&nbsp;&nbsp;
-                            <button type="button" class="btn btn-secondary" (click)="importFileExcel()" *ngIf="preview">Xem trước</button>
-                            <button type="button" class="btn btn-secondary" (click)="clear()" *ngIf="!preview">Huỷ</button>
+                                name="myFile" (change)="changeFile()">&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-success" (click)="submit()" *ngIf="preview == false">Thêm</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-success" (click)="importFileExcel()" *ngIf="preview == true">Xem trước</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="clear()" *ngIf="preview != null">Huỷ</button>
                         </div>
-                        <div class="card-body" *ngIf="!preview">
+                        <div class="card-body" *ngIf="preview == false">
                             <div>
                                 <table class="table table-hover" style="text-align: center; min-height: 300px;">
                                     <thead class="thead-dark ">
-                                        <th>Họ và tên</th>
+                                        <th>Tên</th>
                                         <th>MSSV</th>
-                                        <th>Email</th>
                                         <th>Giới tính</th>
                                         <th>Ngày sinh</th>
                                         <th>Nhập học</th>
+                                        <th>Ngành</th>
                                         <th>Khoá</th>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let student of students; let i = index">
                                             <td>{{student.name}}</td>
                                             <td>{{student.studentCardNumber}}</td>
-                                            <td>{{student.email}}</td>
                                             <td>{{student.gender ? 'Nam' : 'Nữ' }}</td>
                                             <td>{{student.birthDay}}</td>
                                             <td>{{student.startedSchoolYear}}</td>
+                                            <td>{{student.industry}}</td>
                                             <td>{{student.term}}</td>
                                         </tr>
     
