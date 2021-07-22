@@ -73,7 +73,7 @@
     "tslib": "^1.10.0",
     "v-modal-backdrop": "^1.0.3",
     "web-animations-js": "^2.3.1",
-    "xlsx": "^0.15.1",
+    "xlsx": "^0.17.0",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
